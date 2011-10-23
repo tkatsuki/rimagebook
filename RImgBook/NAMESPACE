@@ -1,0 +1,4 @@
+useDynLib(RImageBook)
+useDynLib(FaceDetection)
+useDynLib(RVolumeRendering)
+exportPattern("^[^\\.]")

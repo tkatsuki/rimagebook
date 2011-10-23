@@ -1,0 +1,1 @@
+E2b <- function(x) EBI2biOps(x)
