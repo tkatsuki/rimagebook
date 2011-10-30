@@ -7,4 +7,4 @@ pseudoColor <- function(x) {
   lutb <- c(rep(255, 64), seq(252, 0, by=-4), rep(0, 128))
   xb <- matrix(lutb[x], nrow(x), ncol(x))
   xrgb <- rgbImage(xr/255, xg/255, xb/255)
-  }
+}
