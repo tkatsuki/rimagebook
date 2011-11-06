@@ -1,5 +1,5 @@
-AUX_PKGLIBS=../inst/libs/$(R_ARCH)/FaceDetection.lib
-AUXOBJECTS = FaceDetection/CallFaceDetection.o OpticalFlow/CallOpticalFlow.o
+#AUX_PKGLIBS=../inst/libs/$(R_ARCH)/FaceDetection.lib
+#AUXOBJECTS = FaceDetection/CallFaceDetection.o OpticalFlow/CallOpticalFlow.o
 
 PKG_CXXFLAGS=-I./thirdparty/$(R_ARCH)/OpenCV/include
 

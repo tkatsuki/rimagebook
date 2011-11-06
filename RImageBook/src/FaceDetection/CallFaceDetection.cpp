@@ -1,7 +1,7 @@
 #include "FaceDetection.h"
 #include <vector>
 #include <R.h>
-#include <RInternals.h>
+#include <Rinternals.h>
 
 // R‚©‚çŒÄ‚Ô‚½‚ß‚ÌCŒ¾ŒêŠÖ”ƒ‰ƒbƒp[
 extern "C" {

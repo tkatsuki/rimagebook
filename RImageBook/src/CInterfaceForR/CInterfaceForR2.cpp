@@ -1,6 +1,6 @@
 #include "../ImageFilter/ImageFilter.h"
 #include "R.h"
-#include "RInternals.h"
+#include "Rinternals.h"
 
 extern "C" {
  SEXP RWrapperMedianFilter(SEXP src, SEXP radius)

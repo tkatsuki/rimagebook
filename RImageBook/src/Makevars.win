@@ -1,0 +1,8 @@
+AUX_PKGLIBS=../inst/libs/$(R_ARCH)/FaceDetection.lib
+AUXOBJECTS = FaceDetection/CallFaceDetection.o OpticalFlow/CallOpticalFlow.o
+
+PKG_CXXFLAGS=-I./thirdparty/$(R_ARCH)/OpenCV/include
+
+PKG_LIBS=$(AUX_PKGLIBS) -lstdc++
+OBJECTS = CImgWrapper/AnisotropicFilter.o CInterfaceForR/CInterfaceForR.o \
+ CInterfaceForR/CInterfaceForR2.o ImageFilter/MedianFilter.o $(AUXOBJECTS)
