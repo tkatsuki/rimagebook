@@ -1,13 +1,12 @@
 w <- matrix(1, 256, 256)
-# 16‰æ‘f‚²‚Æ‚É2‰æ‘f‚Ì”’‰æ‘f‚ð‚à‚Â256‰æ‘f‚Ìü‚ðì¬
 v <- c(rep(c(rep(0, 14), 1, 1), 16)) 
-a <- w * v                                # s—ñ‚ÌÏ‚ÅcŽÈ‚ðì‚é
-b <- t(a)                                 # “]’u‚µ‚Ä‰¡ŽÈ‚ðì‚é
-c <- a & b                                # AND‰‰ŽZ
-d <- a | b                                # OR‰‰ŽZ
+a <- w * v
+b <- t(a)
+c <- a & b
+d <- a | b
 e <- matrix(0, 256, 256)
-e <- drawCircle(e, 128, 128, 50, 1, TRUE) # ‰~‚ð•`‚­
-f <- xor(d, e)                            # XOR‰‰ŽZ
+e <- drawCircle(e, 128, 128, 50, 1, TRUE)
+f <- xor(d, e)
 display(a)
 display(b)
 display(c)
