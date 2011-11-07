@@ -2,9 +2,10 @@ tulip <- readImage(system.file("images/tulip.jpg", package="RImageBook"))
 histogram(tulip) # ヒストグラムの表示
 
 tulip <- tulip@.Data # 輝度値を行列として取り出しておく
-tulipce <- ifelse(tulip < 0.01, 0, ifelse(tulip 0.8, 1, 
-                                           (tulip - 0.01)/(0.8 - 0.01)))
+tulipce <- ifelse(tulip > 0.8, 1, tulip/0.8)
 display(tulipce)
+tulipcee <- ifelse(tulip > 0.8, 1, (tulip + 0.2)/(0.8 + 0.2))
+display(tulipcee)
 
 tulipcee <- ifelse(tulip 0.8, 1, (tulip + 0.2)/(0.8 + 0.2))
 display(tulipcee)
@@ -51,7 +52,7 @@ parrotp <- replace(parrotp, which(0.5<parrotp & parrotp<=0.75), 0.5)
 parrotp <- replace(parrotp, which(0.75<parrotp & parrotp<=1), 0.75)
 display(parrotp)
 
-parrotb <- EBI2biOps(parrot)
+parrotb <- E2b(parrot)
 parrotk <- imgKMeans(parrotb, 4)
-parrotk <- biOps2EBI(parrotk)
+parrotk <- b2E(parrotk)
 display(parrotk)

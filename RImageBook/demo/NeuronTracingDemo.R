@@ -1,9 +1,9 @@
-# LSMファイル形式の画像データを読み込む
-img <- readLsm("../image/color/R3EmRFP.lsm")
+img <- readLsm(system.file("images/R3EmRFP.lsm",
+                           package="RImageBook"))
 display(img)                            # 画像データを表示
-ch3b <- EBI2biOps(img[,,3])             # 3チャネル目をbiOps形式に変換
+ch3b <- E2b(img[,,3])                   # 3チャネル目をbiOps形式に変換
 ch3bm <- imgBlockMedianFilter(ch3b, 5)  # 中央値フィルタでノイズを除去
-ch3m <- biOps2EBI(ch3bm)                # EBImage形式に変換
+ch3m <- b2E(ch3bm)                      # EBImage形式に変換
 ch3th <- thresh(ch3m, 50, 50, 0.06)     # 2値化
 display(ch3th)
 ch3bw <- bwlabel(ch3th)                 # ラベル化
@@ -55,9 +55,9 @@ num <- pathcoord[,1] + (pathcoord[,2]-1)*nrow(x)
 x[num] <- 3                      # 細線中の該当する画素の値を変更
 display(normalize(x))            # 結果の細線を表示
 display(img[,,1])            # 元データの1チャネル目を表示
-ch1b <- EBI2biOps(img[,,1])  # biOps形式に変換 
+ch1b <- E2b(img[,,1])  # biOps形式に変換 
 ch1bm <- imgBlockMedianFilter(ch1b, 5) # 中央値フィルタでノイズ除去
-ch1m <- biOps2EBI(ch1bm)     # EBImage形式に変換
+ch1m <- b2E(ch1bm)     # EBImage形式に変換
 display(ch1m)
                              # チャネル3に対する相対値としてプロット
 plot(ch1m[num]/ch3m[num], ylab="Relative Intensity", type="l")

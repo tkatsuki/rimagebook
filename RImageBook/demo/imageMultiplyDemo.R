@@ -1,5 +1,5 @@
-girl <- readImage(system.file("images/mono/girl.bmp",package="RImageBook"))
-woman <- readImage(system.file("images/mono/WOMAN.bmp",package="RImageBook"))
+girl <- readImage(system.file("images/girl.bmp",package="RImageBook"))
+woman <- readImage(system.file("images/WOMAN.bmp",package="RImageBook"))
 x <- matrix(0, nrow=256, ncol=256)
 y <- matrix(1, nrow=256, ncol=256)
 mask <- drawCircle(x, 130, 110, 60, col=1, fill=TRUE)

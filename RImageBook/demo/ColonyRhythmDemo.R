@@ -1,8 +1,7 @@
-# ディレクトリ中のすべてのtiff画像の名前を読み込む
-dir <- "../image/mono/p2/"
+dir <- system.file("images/p2", package="RImageBook")
 filelist <- list.files(dir, pattern=".tiff")
 # ファイルリスト中のすべてのファイルにreadImageを適用し，リスト形式で保持
-images <- lapply(filelist, function(x) readImage(paste(dir, x, sep="")))
+images <- lapply(filelist, function(x) readImage(paste(dir, "/", x, sep="")))
 w <- nrow(images[[1]])
 h <- ncol(images[[1]])
                             # 画像のリストをスタック画像に変換する

@@ -1,10 +1,10 @@
 library(e1071)
 library(rpart)
-con <- file("../image/mono/ETL1C_01", open="rb") # ファイルを開く
+con <- file("ETL1C_01", open="rb") # ファイルを開く
 # ファイルからraw形式でバイナリデータを読み込む
 # 読み込むデータのサイズはファイル全体とする
 rawdata <- readBin(con, "raw", 
-                   file.info("../image/mono/ETL1C_01")$size)
+                   file.info("ETL1C_01")$size)
 close(con) # ファイルを閉じる
 fn <- length(rawdata)/2052
 w <- 64
@@ -47,9 +47,9 @@ gtestset <- gdat[testindex, ]
 gtrainset <- gdat[-testindex, ]
 svm.model.z <- svm(char ~ ., data = ztrainset)
 svm.model.g <- svm(char ~ ., data = gtrainset)
-tuning <- tune.svm(char ~ ., data = zdat, gamma = c(1/100, 1/50, 1/25), 
-                    cost = c(2, 4, 8), 
-                    tunecontrol = tune.control(sampling = "boot"))
+#tuning <- tune.svm(char ~ ., data = zdat, gamma = c(1/100, 1/50, 1/25), 
+#                    cost = c(2, 4, 8), 
+#                    tunecontrol = tune.control(sampling = "boot"))
 svm.pred.z <- predict(svm.model.z, ztestset[, -1])
 svm.pred.g <- predict(svm.model.g, gtestset[, -1])
 tbsvmz <- table(pred = svm.pred.z, true = ztestset[, 1])

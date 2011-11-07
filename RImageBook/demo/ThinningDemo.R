@@ -1,3 +1,5 @@
+shapes <- readImage(system.file("images/shapes.png", package="EBImage"))
+logo <- shapes[110:512,1:130]                # ƒƒS•”•ª‚ÌØ‚èo‚µ
 ske <- skeletonize(logo)
 display(ske)
 logot <- thinning(logo)

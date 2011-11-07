@@ -11,7 +11,7 @@ for (i in 1:10){
   data <- cbind(toto[[1]]$x, toto[[1]]$y) 
   msdres1 <- cbind(msdres1, msd(data))
 }
-dev.copy2eps(file="../doc/figures/brownian05.eps")
+
 msdres2 <- c()
 par(new=F)
 for (i in 1:10){
@@ -21,10 +21,9 @@ for (i in 1:10){
   data <- cbind(toto[[1]]$x, toto[[1]]$y) 
   msdres2 <- cbind(msdres2, msd(data))
 }
-dev.copy2eps(file="../doc/figures/brownian1.eps")
+
 par(new=F)
 par(pty = "s")
-ts <- matrix(seq(0.01, 0.01*nrow(msdres), 0.01), 250, 10)
+ts <- matrix(seq(0.01, 0.01*nrow(msdres1), 0.01), 250, 10)
 matplot(ts, msdres1, type="l", lty=1, col=1, log="xy", xlab="Time (s)", ylab=expression(MSD (nm^2)))
 matlines(ts, msdres2, type="l", lty=2, col=1, log="xy", xlab="Time (s)", ylab=expression(MSD (nm^2)))
-dev.copy2eps(file="../doc/figures/msd.eps")

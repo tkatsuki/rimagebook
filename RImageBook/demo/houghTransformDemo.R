@@ -1,4 +1,5 @@
 library(PET)
+shapes <- readImage(system.file("images/shapes.png", package="EBImage"))
 shapesr <- flip(shapes[151:500,1:350]) # 正方形を切り抜く
 ThetaSamples <- 721 # thetaのサンプリング数 
 rhosamples <- 2*round(sqrt(sum((dim(shapesr))^2))/2)+1 # rhoのサンプリング数
