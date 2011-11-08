@@ -1,7 +1,7 @@
  VolumeRendering <- function(Data,Points,ARGB,GradientOpacityThreshold=0,
- 　　　　　　　　　　　　　　Spacing=c(1,1,1),RendererType=0,SamplingDistance=1.0,
- 　　　　　　　　　　　　　　ImageSamplingDistance=1.0,Ambient=0.4,Diffuse=0.6,
- 　　　　　　　　　　　　　　　Specular=0.2,ParallelProjection=0) {
+               Spacing=c(1,1,1),RendererType=0,SamplingDistance=1.0,
+               ImageSamplingDistance=1.0,Ambient=0.4,Diffuse=0.6,
+                Specular=0.2,ParallelProjection=0) {
 .C("VolumeRendering",
  arg1=as.integer(Data),
  arg2=dim(Data),
