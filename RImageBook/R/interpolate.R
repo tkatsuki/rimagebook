@@ -7,7 +7,7 @@ interpolate <- function(img, x, y, r) {
   ry <- min(cy+r+1,nrow(img))
   wx <- sinc(lx:rx - x)
   wy <- sinc(ly:ry - y)
-  wx <- wx / sum(wx) # ‘Å‚¿Ø‚è‚Ì•â³
-  wy <- wy / sum(wy) # ‘Å‚¿Ø‚è‚Ì•â³
+  wx <- wx / sum(wx)
+  wy <- wy / sum(wy)
   crossprod(wx, t(crossprod(wy, img[ly:ry,lx:rx])))
 }
