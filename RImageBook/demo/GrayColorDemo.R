@@ -17,8 +17,8 @@ display(iriseg)
 display(biOps2EBI(irisbg))
 
 nuc <- readImage(system.file("images/nuclei.tif", package="EBImage"))
-nuc <- nuc[,,1]                       # スタック画像から1枚目の画像を抜き出す
-nucps <- pseudoColor(nuc)             # 疑似カラー化
+nuc <- nuc[,,1]
+nucps <- pseudoColor(nuc)
 display(nucps)
-nucps2 <- pseudoColor2(nuc, 100, 255) # グレースケールの一部を疑似カラー化
+nucps2 <- pseudoColor2(nuc, 100, 255)
 display(nucps2)

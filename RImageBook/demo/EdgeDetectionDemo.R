@@ -1,6 +1,6 @@
 text <- readImage(system.file("images/text.bmp", package="RImageBook"))
-textb <- EBI2biOps(text)             # biOps形式に変換
-textbedge <- imgPrewitt(textb)       # 水平垂直両方向のPrewittフィルタを適用
+textb <- E2b(text)
+textbedge <- imgPrewitt(textb)
 plot(textbedge)
  
 textedges <- imgSobel(textb)

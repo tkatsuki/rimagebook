@@ -1,9 +1,8 @@
 library(rgl)
 library(misc3d)
 library("AnalyzeFMRI")
-brain <- f.read.analyze.volume(system.file("example.img",  
-                                           package="AnalyzeFMRI"))
-brain <- brain[,,,1] # 4次元データの1フレーム目を取り出す
+brain <- f.read.analyze.volume(system.file("example.img", package="AnalyzeFMRI"))
+brain <- brain[,,,1]
 open3d()
 contour3d(brain, 1:64, 1:64, 1.5*(1:21), lev=c(3000, 8000, 10000), 
           alpha = c(0.2, 0.5, 1), 

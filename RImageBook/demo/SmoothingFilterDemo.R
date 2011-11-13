@@ -1,7 +1,7 @@
 cup <- readImage(system.file("images/cupgirl.png", package="RImageBook"))
-cupb <- E2b(cup)                   # biOps形式に変換
-cupbgn <- imgGaussianNoise(cupb, 0, 120) # ガウシアンノイズを混入させる
-cupbsp <- imgSaltPepperNoise(cupb, 5)    # ゴマ塩ノイズを混入させる
+cupb <- E2b(cup)
+cupbgn <- imgGaussianNoise(cupb, 0, 120)
+cupbsp <- imgSaltPepperNoise(cupb, 5)
 cupgn <- b2E(cupbgn)
 cupsp <- b2E(cupbsp)
 display(cup)
@@ -13,11 +13,11 @@ display(cupgauss)
 
 gauss9 <- GaussianKernel(9, 9, 5)
 cupgauss9 <- filter2(cup, gauss9)
-display(cupgauss9) #　図は省略
+display(cupgauss9)
 
-meanFilter <- matrix(1/9, 3, 3)     # 3x3のカーネルを作成
+meanFilter <- matrix(1/9, 3, 3)
 cupmean <- filter2(cup, meanFilter)
-cupspmean <- filter2(cupsp, meanFilter) # 平均値フィルタをかける
+cupspmean <- filter2(cupsp, meanFilter)
 cupgnmean <- filter2(cupgn, meanFilter)
 display(cupmean)
 display(cupspmean)

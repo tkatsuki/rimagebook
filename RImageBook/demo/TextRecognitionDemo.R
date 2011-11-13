@@ -1,11 +1,8 @@
 library(e1071)
 library(rpart)
-con <- file("ETL1C_01", open="rb") # ファイルを開く
-# ファイルからraw形式でバイナリデータを読み込む
-# 読み込むデータのサイズはファイル全体とする
-rawdata <- readBin(con, "raw", 
-                   file.info("ETL1C_01")$size)
-close(con) # ファイルを閉じる
+con <- file("ETL1C_01", open="rb")
+rawdata <- readBin(con, "raw", file.info("ETL1C_01")$size)
+close(con)
 fn <- length(rawdata)/2052
 w <- 64
 h <- 63
@@ -22,7 +19,7 @@ for(i in 1:fn){
   a <- matrix(a, w, h)
   imgs[,,i] <- a
 }
-rm(rawdata) # メモリの節約のため不要なオブジェクトは削除
+rm(rawdata)
 gdat <- matrix(resize(imgs, 16, 16), fn, 16*16)
 mask <- thresh(imgs, 10, 10, 2)
 mask <- bwlabel(mask)

@@ -1,20 +1,20 @@
 shapes <- readImage(system.file("images/shapes.png", package="EBImage"))
-logo <- shapes[110:512,1:130]                # ロゴ部分の切り出し
+logo <- shapes[110:512,1:130]
 ske <- skeletonize(logo)
 display(ske)
 logot <- thinning(logo)
 display(logot)
-logoends <- ending(logot)                             # 端点の検出
-display(dilate(logoends, makeBrush(3)))               # 点を強調して表示
-logotends <- dilate(logoends, makeBrush(3))*2 + logot # 細線と重ね合わせ
+logoends <- ending(logot)
+display(dilate(logoends, makeBrush(3)))
+logotends <- dilate(logoends, makeBrush(3))*2 + logot
 display(normalize(logotends))
-length(which(logoends == 1))                          # 端点の個数を数える
+length(which(logoends == 1))
 
-logobr <- branch(logot)                      # 分岐点の検出
-display(dilate(logobr, makeBrush(3)))        # 点を強調して表示
-                                             # 細線と重ね合わせ
+logobr <- branch(logot)
+display(dilate(logobr, makeBrush(3)))
+
 logotbr <- dilate(logobr, makeBrush(3))*2 + logot
 display(normalize(logotbr))
-length(which(logobr == 1))                   # 分岐点の個数を数える
-logotp <- pruning(logot, 4) # ひげの剪定
+length(which(logobr == 1))
+logotp <- pruning(logot, 4)
 display(logotp)
