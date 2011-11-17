@@ -7,7 +7,7 @@ interpolate <- function(img, x, y, r) {
   ry <- min(cy+r+1,nrow(img))
   wx <- sinc(lx:rx - x)
   wy <- sinc(ly:ry - y)
-  wx <- wx / sum(wx) # �ł��؂�̕␳
-  wy <- wy / sum(wy) # �ł��؂�̕␳
+  wx <- wx / sum(wx) # 打ち切りの補正
+  wy <- wy / sum(wy) # 打ち切りの補正
   crossprod(wx, t(crossprod(wy, img[ly:ry,lx:rx])))
 }

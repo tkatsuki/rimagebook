@@ -1,9 +1,9 @@
 f <- system.file("images/lena.tif", package="RImageBook")
 lenab <- readTiff(f)
 plot(lenab)
-dev.new()                               # V‚µ‚¢ƒEƒBƒ“ƒhƒE‚ðŠJ‚­ 
-plot(imgCrop(lenab, 70, 150, 300, 300)) # ‰æ‘œ‚ÌØ‚èo‚µ
+dev.new()                               # æ–°ã—ã„ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ã 
+plot(imgCrop(lenab, 70, 150, 300, 300)) # ç”»åƒã®åˆ‡ã‚Šå‡ºã—
 dev.new()
-plot(imgEKMeans(lenab,4))               # K-meansƒNƒ‰ƒXƒ^ƒŠƒ“ƒO‚É‚æ‚éŠK’²íŒ¸
+plot(imgEKMeans(lenab,4))               # K-meansã‚¯ãƒ©ã‚¹ã‚¿ãƒªãƒ³ã‚°ã«ã‚ˆã‚‹éšŽèª¿å‰Šæ¸›
 dev.new()
-plot(imgDifferenceEdgeDetection(imgRGB2Grey(lenab))) # ƒGƒbƒWŒŸo
+plot(imgDifferenceEdgeDetection(imgRGB2Grey(lenab))) # ã‚¨ãƒƒã‚¸æ¤œå‡º

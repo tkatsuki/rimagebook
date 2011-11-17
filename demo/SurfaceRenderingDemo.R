@@ -3,12 +3,12 @@ library("misc3d")
 library("AnalyzeFMRI")
 brain <- f.read.analyze.volume(system.file("example.img",  
                                            package="AnalyzeFMRI"))
-brain <- brain[,,,1] # 4ŽŸŒ³ƒf[ƒ^‚Ì1ƒtƒŒ[ƒ€–Ú‚ðŽæ‚èo‚·
+brain <- brain[,,,1] # 4æ¬¡å…ƒãƒ‡ãƒ¼ã‚¿ã®1ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ã‚’å–ã‚Šå‡ºã™
 contour3d(brain, 1:64, 1:64, 1.5*(1:21), level=c(3000, 8000, 10000),
           alpha = c(0.2, 0.5, 1), color = c("white", "red", "green"))
 
 m <- array(TRUE, dim(brain))
-m[1:30,1:64,1:21] <- FALSE # ƒ}ƒXƒN‚Ìì¬
+m[1:30,1:64,1:21] <- FALSE # ãƒžã‚¹ã‚¯ã®ä½œæˆ
 contour3d(brain, 1:64, 1:64, 1.5*(1:21), level=c(3000, 8000, 10000),
           mask = m, alpha = c(1, 0.5, 1),
           color = c("white", "red", "green"))

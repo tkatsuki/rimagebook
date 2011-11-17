@@ -1,15 +1,15 @@
 
-# AVIƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+# AVIãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 para <- readAVI(system.file("images/paramecium.avi", package="RImageBook"))/255
-paramed <- medianPrj(para) # ’†‰›’l‚ÅŠÔ²•ûŒü‚É“Š‰e‚·‚éi”wŒi‰æ‘œ‚Æ‚È‚éj
-w <- nrow(para[,,1])               # “®‰æ‚Ì•‚ğ‘ª‚é
-h <- ncol(para[,,1])               # “®‰æ‚Ì‚‚³‚ğ‘ª‚é
-nf <- getNumberOfFrames(para)      # “®‰æ‚ÌƒtƒŒ[ƒ€”‚ğ‘ª‚é
-# ”wŒi‰æ‘œ‚ğ“®‰æ‘œ‚Æ“¯‚¶ƒTƒCƒY‚Ì”z—ñ‚É‚·‚é
+paramed <- medianPrj(para) # ä¸­å¤®å€¤ã§æ™‚é–“è»¸æ–¹å‘ã«æŠ•å½±ã™ã‚‹ï¼ˆèƒŒæ™¯ç”»åƒã¨ãªã‚‹ï¼‰
+w <- nrow(para[,,1])               # å‹•ç”»ã®å¹…ã‚’æ¸¬ã‚‹
+h <- ncol(para[,,1])               # å‹•ç”»ã®é«˜ã•ã‚’æ¸¬ã‚‹
+nf <- getNumberOfFrames(para)      # å‹•ç”»ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’æ¸¬ã‚‹
+# èƒŒæ™¯ç”»åƒã‚’å‹•ç”»åƒã¨åŒã˜ã‚µã‚¤ã‚ºã®é…åˆ—ã«ã™ã‚‹
 paramed <- array(rep(paramed, nf), dim=c(w, h, nf))
-paranobg <- para - paramed         # “®‰æ‘œ‚©‚ç”wŒi‰æ‘œ‚ğˆø‚­
-rm(paramed)                        # •s—v‚É‚È‚Á‚½ƒIƒuƒWƒFƒNƒg‚ğíœ
+paranobg <- para - paramed         # å‹•ç”»åƒã‹ã‚‰èƒŒæ™¯ç”»åƒã‚’å¼•ã
+rm(paramed)                        # ä¸è¦ã«ãªã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‰Šé™¤
 display(paranobg)
-mask <- paranobg[,,] > 0.2         # è‡’lˆ—‚É‚æ‚é2’l‰»
+mask <- paranobg[,,] > 0.2         # é–¾å€¤å‡¦ç†ã«ã‚ˆã‚‹2å€¤åŒ–
 display(mask)
 rm(paranobg)

@@ -1,6 +1,6 @@
 EBI2biOps <- function(img){
-  img <- img*255  # ŠeF—v‘f‚ð255”{
-  img <- imagedata(img)  # s—ñ‚ðbiOps‚Ì‰æ‘œƒf[ƒ^Œ`Ž®‚Æ‚µ‚Ä“Ç‚Ýž‚Ý
-  img <- imgRotate90Clockwise(imgVerticalMirroring(img))  # “]’u
+  img <- img*255  # å„è‰²è¦ç´ ã‚’255å€
+  img <- imagedata(img)  # è¡Œåˆ—ã‚’biOpsã®ç”»åƒãƒ‡ãƒ¼ã‚¿å½¢å¼ã¨ã—ã¦èª­ã¿è¾¼ã¿
+  img <- imgRotate90Clockwise(imgVerticalMirroring(img))  # è»¢ç½®
   return(img)
 }

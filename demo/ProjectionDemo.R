@@ -1,8 +1,8 @@
-                             # 3�����摜�f�[�^�̓ǂݍ���
+                             # 3次元画像データの読み込み
 img <- readImage(system.file("images/muscle.tif", package="RImageBook"))
-img <- img@.Data              # �s�N�Z���f�[�^�𔲂��o��
-                              # 16�X���C�X����26�X���C�X�܂ł�3��̃^�C���\��
+img <- img@.Data              # ピクセルデータを抜き出す
+                              # 16スライスから26スライスまでを3列のタイル表示
 imgt <- tile(img[,,c(16:27)], 3)
 display(imgt)
-display(imgRowMaxs(img))      # �ő�l�œ���
-display(rowSums(img, dim=2))  # �a�œ���
+display(imgRowMaxs(img))      # 最大値で投射
+display(rowSums(img, dim=2))  # 和で投射

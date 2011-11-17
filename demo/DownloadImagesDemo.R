@@ -1,24 +1,24 @@
-                               # R‚ÌƒƒS‚ðƒ_ƒEƒ“ƒ[ƒh
+                               # Rã®ãƒ­ã‚´ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰
 rlogo <- readImage("http://www.r-project.org/Rlogo.jpg") 
-display(rlogo)                 # ƒ_ƒEƒ“ƒ[ƒh‚µ‚½ƒƒS‚ð•\Ž¦
-writeImage(rlogo, "Rlogo.jpg") # ƒƒS‚ð•Û‘¶
+display(rlogo)                 # ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ãŸãƒ­ã‚´ã‚’è¡¨ç¤º
+writeImage(rlogo, "Rlogo.jpg") # ãƒ­ã‚´ã‚’ä¿å­˜
 
 library(RCurl)
 library(Rcompression)
-                                  # ƒoƒCƒiƒŠƒf[ƒ^‚ðƒ_ƒEƒ“ƒ[ƒh
+                                  # ãƒã‚¤ãƒŠãƒªãƒ‡ãƒ¼ã‚¿ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰
 sipi <- getBinaryURL("http://sipi.usc.edu/database/misc.zip")
-con <- file("misc.zip","wb")      # •Û‘¶æƒtƒ@ƒCƒ‹‚Ì€”õ
-writeBin(sipi, con)               # ƒ_ƒEƒ“ƒ[ƒhÏ‚Ý‚Ìƒf[ƒ^‚ðƒtƒ@ƒCƒ‹‚É‘‚«o‚·
-close(con)                        # ƒtƒ@ƒCƒ‹‚ð•Â‚¶‚Ä•Û‘¶‘€ì‚ðŠ®—¹‚·‚é
-unzip("misc.zip")                 # zipƒtƒ@ƒCƒ‹‚ð‰ð“€
-fz <- zipArchive("misc.zip")      # zipƒtƒ@ƒCƒ‹‚Ìî•ñ‚ðŽæ“¾
-names(fz)                         # zipƒtƒ@ƒCƒ‹‚ÉŠÜ‚Ü‚ê‚éƒtƒ@ƒCƒ‹–¼‚Ì•\Ž¦
-img5 <- readImage(names(fz)[[5]]) # ƒtƒ@ƒCƒ‹–¼ƒŠƒXƒg‚Ì5”Ô–Ú‚Ìƒtƒ@ƒCƒ‹‚ðŽæ“¾
+con <- file("misc.zip","wb")      # ä¿å­˜å…ˆãƒ•ã‚¡ã‚¤ãƒ«ã®æº–å‚™
+writeBin(sipi, con)               # ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰æ¸ˆã¿ã®ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãå‡ºã™
+close(con)                        # ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã¦ä¿å­˜æ“ä½œã‚’å®Œäº†ã™ã‚‹
+unzip("misc.zip")                 # zipãƒ•ã‚¡ã‚¤ãƒ«ã‚’è§£å‡
+fz <- zipArchive("misc.zip")      # zipãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±ã‚’å–å¾—
+names(fz)                         # zipãƒ•ã‚¡ã‚¤ãƒ«ã«å«ã¾ã‚Œã‚‹ãƒ•ã‚¡ã‚¤ãƒ«åã®è¡¨ç¤º
+img5 <- readImage(names(fz)[[5]]) # ãƒ•ã‚¡ã‚¤ãƒ«åãƒªã‚¹ãƒˆã®5ç•ªç›®ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å–å¾—
 display(img5)
 
 library(RgoogleMaps)
-                              # –kˆÜ37“x“ŒŒo138“x‚Ì’n}‚ÌURL‚ðŽæ“¾
+                              # åŒ—ç·¯37åº¦æ±çµŒ138åº¦ã®åœ°å›³ã®URLã‚’å–å¾—
 mapurl <- GetMap(c(37,138), 5, maptype="satellite", RETURNIMAGE=FALSE)
-map <- readImage(mapurl)      # ’n}‚ðƒ_ƒEƒ“ƒ[ƒh
-mapgr <- channel(map, "gray") # ’n}‚ðƒOƒŒ[ƒXƒP[ƒ‹‚É•ÏŠ·
-display(mapgr)                # ’n}‚ð•\Ž¦ 
+map <- readImage(mapurl)      # åœ°å›³ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰
+mapgr <- channel(map, "gray") # åœ°å›³ã‚’ã‚°ãƒ¬ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«ã«å¤‰æ›
+display(mapgr)                # åœ°å›³ã‚’è¡¨ç¤º 

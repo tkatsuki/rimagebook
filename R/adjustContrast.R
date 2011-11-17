@@ -1,7 +1,7 @@
 adjustContrast <- function(img, r=5){
-# ƒOƒŒ[ƒXƒP[ƒ‹‚©‚Ç‚¤‚©‚Ìƒ`ƒFƒbƒN‚ð“ü‚ê‚é
-plot(img) # ‰æ‘œ‚Ì•\Ž¦
-loc<-locator(2, type="p", pch=3) # êŠ‚ð2“_‘I‚Ô
+# ã‚°ãƒ¬ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«ã‹ã©ã†ã‹ã®ãƒã‚§ãƒƒã‚¯ã‚’å…¥ã‚Œã‚‹
+plot(img) # ç”»åƒã®è¡¨ç¤º
+loc<-locator(2, type="p", pch=3) # å ´æ‰€ã‚’2ç‚¹é¸ã¶
 bg <- imgCrop(img, (loc$x[1]-r), (nrow(img)-loc$y[1]-r), 2*r, 2*r)
 bg_ave <- sum(as.vector(bg))/length(as.vector(bg))
 fg <-  imgCrop(img, (loc$x[2]-r), (nrow(img)-loc$y[2]-r), 2*r, 2*r)

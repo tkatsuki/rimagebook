@@ -25,7 +25,7 @@ namespace ImageFilter {
     }
   }
 
-  // ŽÀ‘Ì‰»
+  // å®Ÿä½“åŒ–
   template void MedianFilter(double*,double*,int,int,int);
   template void MedianFilter(int*,int*,int,int,int);
 };

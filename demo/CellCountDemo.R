@@ -1,57 +1,57 @@
 img <- readImage(system.file("images/DAPI.tif", package="RImageBook"))
-img <- img@.Data                    # ƒsƒNƒZƒ‹ƒf[ƒ^‚Ì‚İ‚ğæ‚èo‚·
-display(imgRowMaxs(img))            # MIP‰æ‘œ‚Ì•\¦
-nmask <- thresh(img, 20, 20, 0.01) # ˆÚ“®•½‹Ï–@‚É‚æ‚é2’l‰»
-display(nmask)                     # ƒ}ƒXƒN‚Ì•\¦
-kern <- makeBrush(3, shape="disc") # ƒ‚ƒ‹ƒtƒHƒƒW[‰‰Z‚Ì‚½‚ß‚Ì\‘¢—v‘f‚ğì¬
-nmask <- opening(nmask, kern)      # ƒI[ƒvƒjƒ“ƒOˆ—‚ÅƒmƒCƒY‚ğœ‹
-nmask <- rowSums(nmask, dims=2)    # ‚·‚×‚Ä‚ÌƒXƒ‰ƒCƒX‚Ìƒ}ƒXƒN‚ğ“ŠË
-nmask <- distmap(nmask)            # ‹——£’n}‚ğì¬
-display(normalize(nmask))          # ‹——£’n}‚ğ•\¦
-nmask <- watershed(nmask, tolerance=0.1) #watershed‚Å•ªŠ„
-display(normalize(nmask))          # •ªŠ„Œã‚Ì‰æ‘œ‚ğ•\¦
-mm <- cmoments(nmask, nmask)    # ƒIƒuƒWƒFƒNƒg‚Ìƒ‚[ƒƒ“ƒg‚ğŒvZ
-id <- which(mm[, 'm.pxs'] < 40) # ƒTƒCƒY‚ª40ƒsƒNƒZƒ‹ˆÈ‰º‚ÌƒIƒuƒWƒFƒNƒg
-nmask <- rmObjects(nmask, id)   # ã‹LƒIƒuƒWƒFƒNƒg‚ÍƒmƒCƒY‚Æ‚µ‚Äíœ
-display(normalize(nmask))       # ƒmƒCƒYœ‹Œã‚Ìƒ}ƒXƒN‚ğ•\¦
-nmask <- reenumerate(nmask)     # ƒ‰ƒxƒ‹‚ğU‚è’¼‚·
+img <- img@.Data                    # ãƒ”ã‚¯ã‚»ãƒ«ãƒ‡ãƒ¼ã‚¿ã®ã¿ã‚’å–ã‚Šå‡ºã™
+display(imgRowMaxs(img))            # MIPç”»åƒã®è¡¨ç¤º
+nmask <- thresh(img, 20, 20, 0.01) # ç§»å‹•å¹³å‡æ³•ã«ã‚ˆã‚‹2å€¤åŒ–
+display(nmask)                     # ãƒã‚¹ã‚¯ã®è¡¨ç¤º
+kern <- makeBrush(3, shape="disc") # ãƒ¢ãƒ«ãƒ•ã‚©ãƒ­ã‚¸ãƒ¼æ¼”ç®—ã®ãŸã‚ã®æ§‹é€ è¦ç´ ã‚’ä½œæˆ
+nmask <- opening(nmask, kern)      # ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°å‡¦ç†ã§ãƒã‚¤ã‚ºã‚’é™¤å»
+nmask <- rowSums(nmask, dims=2)    # ã™ã¹ã¦ã®ã‚¹ãƒ©ã‚¤ã‚¹ã®ãƒã‚¹ã‚¯ã‚’æŠ•å°„
+nmask <- distmap(nmask)            # è·é›¢åœ°å›³ã‚’ä½œæˆ
+display(normalize(nmask))          # è·é›¢åœ°å›³ã‚’è¡¨ç¤º
+nmask <- watershed(nmask, tolerance=0.1) #watershedã§åˆ†å‰²
+display(normalize(nmask))          # åˆ†å‰²å¾Œã®ç”»åƒã‚’è¡¨ç¤º
+mm <- cmoments(nmask, nmask)    # ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒ¢ãƒ¼ãƒ¡ãƒ³ãƒˆã‚’è¨ˆç®—
+id <- which(mm[, 'm.pxs'] < 40) # ã‚µã‚¤ã‚ºãŒ40ãƒ”ã‚¯ã‚»ãƒ«ä»¥ä¸‹ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+nmask <- rmObjects(nmask, id)   # ä¸Šè¨˜ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯ãƒã‚¤ã‚ºã¨ã—ã¦å‰Šé™¤
+display(normalize(nmask))       # ãƒã‚¤ã‚ºé™¤å»å¾Œã®ãƒã‚¹ã‚¯ã‚’è¡¨ç¤º
+nmask <- reenumerate(nmask)     # ãƒ©ãƒ™ãƒ«ã‚’æŒ¯ã‚Šç›´ã™
 max(nmask)
 
-                            # 2ŸŒ³‚Ìƒ}ƒXƒ^[ƒ}ƒXƒN‚ğ3ŸŒ³‚É‚·‚é
+                            # 2æ¬¡å…ƒã®ãƒã‚¹ã‚¿ãƒ¼ãƒã‚¹ã‚¯ã‚’3æ¬¡å…ƒã«ã™ã‚‹
 nmask <- array(nmask, dim=c(dim(img)[1], dim(img)[2], dim(img)[3]))
-mma <- cmoments(nmask, img) # ƒ}ƒXƒ^[ƒ}ƒXƒN‚ğg‚Á‚ÄŒ³‚Ì‰æ‘œ‚©‚çƒ‚[ƒƒ“ƒg‚ğŒvZ
-mma2 <- unlist(mma)         # ƒŠƒXƒg‚ğƒxƒNƒgƒ‹‚É’¼‚·
-                            # ƒxƒNƒgƒ‹‚ğ”z—ñ‚É’¼‚·
+mma <- cmoments(nmask, img) # ãƒã‚¹ã‚¿ãƒ¼ãƒã‚¹ã‚¯ã‚’ä½¿ã£ã¦å…ƒã®ç”»åƒã‹ã‚‰ãƒ¢ãƒ¼ãƒ¡ãƒ³ãƒˆã‚’è¨ˆç®—
+mma2 <- unlist(mma)         # ãƒªã‚¹ãƒˆã‚’ãƒ™ã‚¯ãƒˆãƒ«ã«ç›´ã™
+                            # ãƒ™ã‚¯ãƒˆãƒ«ã‚’é…åˆ—ã«ç›´ã™
 result <- array(mma2, dim=c(dim(mma[[1]])[1], dim(mma[[1]])[2], length(mma)))
-str(result)                 # Œ‹‰Ê‚Í3ŸŒ³‚Ì”z—ñ‚Æ‚È‚é
+str(result)                 # çµæœã¯3æ¬¡å…ƒã®é…åˆ—ã¨ãªã‚‹
 
-matplot(t(result[,2,]), type="l")         # ‘SƒIƒuƒWƒFƒNƒg‚Ì‹P“x’l‚ğƒvƒƒbƒg
-averes <- colMeans(result[,2,], dim=1)    # ‘SƒIƒuƒWƒFƒNƒg‚Ì•½‹Ï‚ğZo
-plot(averes, type="l", ylab="Intensity")  # ‘SƒIƒuƒWƒFƒNƒg‚Ì•½‹Ï‚ğƒOƒ‰ƒt•\¦
-plot(result[9,2,], type="l", ylab="Intensity") # 9”Ô–Ú‚ÌƒIƒuƒWƒFƒNƒg‚ğƒvƒƒbƒg
-                   # ƒf[ƒ^‚ğ³‹K‰»
+matplot(t(result[,2,]), type="l")         # å…¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¼åº¦å€¤ã‚’ãƒ—ãƒ­ãƒƒãƒˆ
+averes <- colMeans(result[,2,], dim=1)    # å…¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å¹³å‡ã‚’ç®—å‡º
+plot(averes, type="l", ylab="Intensity")  # å…¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å¹³å‡ã‚’ã‚°ãƒ©ãƒ•è¡¨ç¤º
+plot(result[9,2,], type="l", ylab="Intensity") # 9ç•ªç›®ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ—ãƒ­ãƒƒãƒˆ
+                   # ãƒ‡ãƒ¼ã‚¿ã‚’æ­£è¦åŒ–
 nresult <- apply(result[,2,], 1, function(x) x/max(x))
-library(msProcess) # ƒs[ƒNŒŸo‚Ì‚½‚ß‚ÌƒpƒbƒP[ƒW‚ğ“Ç‚İ‚Ş
-                   # ƒf[ƒ^‚Ì•½ŠŠ‰»‚ğs‚¤
+library(msProcess) # ãƒ”ãƒ¼ã‚¯æ¤œå‡ºã®ãŸã‚ã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã‚’èª­ã¿è¾¼ã‚€
+                   # ãƒ‡ãƒ¼ã‚¿ã®å¹³æ»‘åŒ–ã‚’è¡Œã†
 nsresult <- apply(nresult, 2, function(x) msSmoothMean(x, 3))
-                   # ƒs[ƒN‚ğŒŸo
+                   # ãƒ”ãƒ¼ã‚¯ã‚’æ¤œå‡º
 cellnum <- apply(nsresult, 2, function(x) 
                  length(which(x[which(peaks(x, 3)==1)]> 0.2)))
-sum(cellnum)       # ƒs[ƒN‚Ì‡Œv
+sum(cellnum)       # ãƒ”ãƒ¼ã‚¯ã®åˆè¨ˆ
 
-# ƒs[ƒN‚ª0ŒÂ‚Ìƒf[ƒ^‚Ì‚¤‚¿1‚©‚ç10”Ô–Ú‚Ìƒf[ƒ^
+# ãƒ”ãƒ¼ã‚¯ãŒ0å€‹ã®ãƒ‡ãƒ¼ã‚¿ã®ã†ã¡1ã‹ã‚‰10ç•ªç›®ã®ãƒ‡ãƒ¼ã‚¿
 matplot(nsresult[,which(cellnum==0)[1:10]], type="l", ylab="Relative Intensity")
-# ƒs[ƒN‚ª1ŒÂ‚Ìƒf[ƒ^‚Ì‚¤‚¿1‚©‚ç10”Ô–Ú‚Ìƒf[ƒ^DƒOƒ‰ƒt‚ÍÈ—ªD
+# ãƒ”ãƒ¼ã‚¯ãŒ1å€‹ã®ãƒ‡ãƒ¼ã‚¿ã®ã†ã¡1ã‹ã‚‰10ç•ªç›®ã®ãƒ‡ãƒ¼ã‚¿ï¼ã‚°ãƒ©ãƒ•ã¯çœç•¥ï¼
 matplot(nsresult[,which(cellnum==1)[1:10]], type="l", ylab="Relative Intensity")
-# ƒs[ƒN‚ª4ŒÂ‚Ìƒf[ƒ^‚Ì‚¤‚¿1‚©‚ç10”Ô–Ú‚Ìƒf[ƒ^
+# ãƒ”ãƒ¼ã‚¯ãŒ4å€‹ã®ãƒ‡ãƒ¼ã‚¿ã®ã†ã¡1ã‹ã‚‰10ç•ªç›®ã®ãƒ‡ãƒ¼ã‚¿
 matplot(nsresult[,which(cellnum==4)[1:10]], type="l", ylab="Relative Intensity")
-labels  <- as.character(which(cellnum==4)) # ƒIƒuƒWƒFƒNƒg”Ô†‚ğ•¶š‚É•ÏŠ·
-xy <- result[which(cellnum==4),c(3,4),]    # “¯ƒIƒuƒWƒFƒNƒg‚ÌxyÀ•W
-                                           # •‚¢”wŒi‰æ‘œ‚ğ—pˆÓ
+labels  <- as.character(which(cellnum==4)) # ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç•ªå·ã‚’æ–‡å­—ã«å¤‰æ›
+xy <- result[which(cellnum==4),c(3,4),]    # åŒã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®xyåº§æ¨™
+                                           # é»’ã„èƒŒæ™¯ç”»åƒã‚’ç”¨æ„
 bgimg <- matrix(0, nrow(img[,,1]), ncol(img[,,1]))
-                                           # ƒIƒuƒWƒFƒNƒg”Ô†‚ğ•\¦
+                                           # ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç•ªå·ã‚’è¡¨ç¤º
 numimg <- drawtext(bgimg, xy, labels=labels, col="white")
-                                           # Œ³‰æ‘œ‚ÉƒIƒuƒWƒFƒNƒg”Ô†‚ğd‚Ë‚é
+                                           # å…ƒç”»åƒã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç•ªå·ã‚’é‡ã­ã‚‹
 conimg <- img+array(rep(numimg, dim(img)[3]), c(dim(img)[1], dim(img)[2], 
                     dim(img)[3]))
-display(conimg)                            # Œ‹‰Ê‚Ì•\¦
+display(conimg)                            # çµæœã®è¡¨ç¤º

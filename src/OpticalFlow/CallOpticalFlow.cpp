@@ -3,9 +3,9 @@
 #include <R.h>
 #include <Rinternals.h>
 
-// R‚©‚çŒÄ‚Ô‚½‚ß‚ÌCŒ¾ŒêŠÖ”ƒ‰ƒbƒp
+// Rã‹ã‚‰å‘¼ã¶ãŸã‚ã®Cè¨€èªé–¢æ•°ãƒ©ãƒƒãƒ‘
 extern "C" {
-  // ƒIƒvƒeƒBƒJƒ‹ƒtƒ[
+  // ã‚ªãƒ—ãƒ†ã‚£ã‚«ãƒ«ãƒ•ãƒ­ãƒ¼
   SEXP OpticalFlow(SEXP img0, SEXP img1, SEXP pos, SEXP winSize){
     int n = length(pos)/2;
     SEXP newpos;
@@ -25,7 +25,7 @@ extern "C" {
     return newpos;
   }
 
-  // “Á’¥“_æ“¾
+  // ç‰¹å¾´ç‚¹å–å¾—
   SEXP GoodFeaturesToTrack(SEXP img, SEXP maxpos, SEXP quality, SEXP mindist, SEXP useHarris, SEXP subPix){
     SEXP dim = getAttrib(img, R_DimSymbol);
     int n;

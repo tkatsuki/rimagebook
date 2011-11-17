@@ -1,6 +1,6 @@
 subtractBg <- function(img, r=20){
-plot(img) # ‰æ‘œ‚Ì•\Ž¦
-loc<-locator(1, type="p", pch=3) # êŠ‚ð1“_‘I‚Ô
+plot(img) # ç”»åƒã®è¡¨ç¤º
+loc<-locator(1, type="p", pch=3) # å ´æ‰€ã‚’1ç‚¹é¸ã¶
 bg_area  <-  imgCrop(img, (loc$x[1]-r), (nrow(img)-loc$y[1]-r),  2*r,  2*r)
 bg_ave  <-  sum(as.vector(bg_area))/length(as.vector(bg_area))
 img <- img - bg_ave

@@ -1,28 +1,28 @@
 x <- readImage(system.file("images/wildwg.png", package="RImageBook"))
-x <- 1-x                       # ‰æ‘œ‚Ì”½“]
-mask <- thresh(x, 5, 5, 0.03) # è‡’lˆ—‚Å2’l‰»
-mask <- bwlabel(mask)          # ƒ‰ƒxƒ‹‰»
-mm <- cmoments(mask, x)        # ƒIƒuƒWƒFƒNƒg‚Ìƒ‚[ƒƒ“ƒg‚ğ‹‚ß‚é
-ll <- which(mm[,'m.pxs']<=500) # –ÊÏ‚ª500ƒsƒNƒZƒ‹ˆÈ‰º‚Ìƒ‰ƒxƒ‹‚ğ‘I‘ğ
-mask <- rmObjects(mask, ll)    # ã‹L‚ÌƒIƒuƒWƒFƒNƒg‚ğÁ‹
-mask <- mask > 0               # Ä“x2’l‰»
-mask <- closing(mask, makeBrush(5, shape="diamond")) # ŒŠ‚ğ‚Ó‚³‚®
+x <- 1-x                       # ç”»åƒã®åè»¢
+mask <- thresh(x, 5, 5, 0.03) # é–¾å€¤å‡¦ç†ã§2å€¤åŒ–
+mask <- bwlabel(mask)          # ãƒ©ãƒ™ãƒ«åŒ–
+mm <- cmoments(mask, x)        # ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒ¢ãƒ¼ãƒ¡ãƒ³ãƒˆã‚’æ±‚ã‚ã‚‹
+ll <- which(mm[,'m.pxs']<=500) # é¢ç©ãŒ500ãƒ”ã‚¯ã‚»ãƒ«ä»¥ä¸‹ã®ãƒ©ãƒ™ãƒ«ã‚’é¸æŠ
+mask <- rmObjects(mask, ll)    # ä¸Šè¨˜ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
+mask <- mask > 0               # å†åº¦2å€¤åŒ–
+mask <- closing(mask, makeBrush(5, shape="diamond")) # ç©´ã‚’ãµã•ã
 display(mask)
-ske <- thinning(mask)       # ×ü‰»
+ske <- thinning(mask)       # ç´°ç·šåŒ–
 display(ske)
-display(normalize(x + ske)) # Œ³‰æ‘œ‚Æ×ü‰»Œã‚Ì‰æ‘œ‚ğd‚Ë‡‚í‚¹‚Äƒ`ƒFƒbƒN
-prunedske <- pruning(ske)   # ×ü‚©‚ç‚Ğ‚°‚Ìœ‹‚ğs‚¤
+display(normalize(x + ske)) # å…ƒç”»åƒã¨ç´°ç·šåŒ–å¾Œã®ç”»åƒã‚’é‡ã­åˆã‚ã›ã¦ãƒã‚§ãƒƒã‚¯
+prunedske <- pruning(ske)   # ç´°ç·šã‹ã‚‰ã²ã’ã®é™¤å»ã‚’è¡Œã†
 display(prunedske)
-branch <- branch(prunedske)                 # •ªŠò“_‚ÌŒŸo
+branch <- branch(prunedske)                 # åˆ†å²ç‚¹ã®æ¤œå‡º
 display(normalize(branch + prunedske))
-branchpos <- which(branch==1, arr.ind=TRUE) # •ªŠò“_‚ÌÀ•W‚ğ’Šo
-                                            # Œ‹‰Ê‚ğrow‚Å~‡‚Éƒ\[ƒg‚µãˆÊ8ŒÂ‚ğ“¾‚é
+branchpos <- which(branch==1, arr.ind=TRUE) # åˆ†å²ç‚¹ã®åº§æ¨™ã‚’æŠ½å‡º
+                                            # çµæœã‚’rowã§é™é †ã«ã‚½ãƒ¼ãƒˆã—ä¸Šä½8å€‹ã‚’å¾—ã‚‹
 rescoord <- branchpos[order(branchpos[,'row'], decreasing = TRUE),][1:8,]
-bg <- ske*0                                 # ”wŒi‰æ‘œ‚ğì‚é
-bg[rescoord] <- 1                           # ’Šo‚µ‚½•ªŠò“_‚ÌÀ•W‚ğ1‚É‚·‚é
-                                            # Œ©‚â‚·‚­‚·‚é‚½‚ß‚É“_‚ğ–c’£‚³‚¹‚é
+bg <- ske*0                                 # èƒŒæ™¯ç”»åƒã‚’ä½œã‚‹
+bg[rescoord] <- 1                           # æŠ½å‡ºã—ãŸåˆ†å²ç‚¹ã®åº§æ¨™ã‚’1ã«ã™ã‚‹
+                                            # è¦‹ã‚„ã™ãã™ã‚‹ãŸã‚ã«ç‚¹ã‚’è†¨å¼µã•ã›ã‚‹
 bg <- dilate(bg, makeBrush(5, shape="diamond"))
-display(normalize(bg + x))                  # •ªŠò“_‚ÆŒ³‰æ‘œ‚ğd‚Ë‚Ä•\¦
-# ×ü‚ğ”½“]‚µ‚Äƒ‰ƒxƒ‹‰»‚·‚é‚±‚Æ‚É‚æ‚èãÀ‚Ì—Ìˆæ‰»‚ğs‚¤
+display(normalize(bg + x))                  # åˆ†å²ç‚¹ã¨å…ƒç”»åƒã‚’é‡ã­ã¦è¡¨ç¤º
+# ç´°ç·šã‚’åè»¢ã—ã¦ãƒ©ãƒ™ãƒ«åŒ–ã™ã‚‹ã“ã¨ã«ã‚ˆã‚Šç¿…ã®é ˜åŸŸåŒ–ã‚’è¡Œã†
 wingarea <- normalize(bwlabel(1-ske)) 
 display(wingarea)

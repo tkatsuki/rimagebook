@@ -2,12 +2,12 @@ NCC <- function(a,b){
  w <- ncol(a) + 2 * ncol(b) - 1
  h <- nrow(a) + 2 * nrow(b) - 1
  ma <- matrix(0,h,w)
- # Žü•Ó‚ð0-ƒpƒfƒBƒ“ƒO
+ # å‘¨è¾ºã‚’0-ãƒ‘ãƒ‡ã‚£ãƒ³ã‚°
  ma[nrow(b):(nrow(b)+nrow(a)-1),ncol(b):(ncol(b)+ncol(a)-1)] <- a 
- mb <- .norm(b) # ƒeƒ“ƒvƒŒ[ƒg‰æ‘œ‚Ì³‹K‰»
+ mb <- .norm(b) # ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆç”»åƒã®æ­£è¦åŒ–
  cor <- matrix(0,h,w)
  for (i in 1:(w-ncol(b))) for (j in 1:(h-nrow(b))){
-  sub <- ma[j:(j+nrow(b)-1),i:(i+ncol(b)-1)] # •”•ª‰æ‘œ
+  sub <- ma[j:(j+nrow(b)-1),i:(i+ncol(b)-1)] # éƒ¨åˆ†ç”»åƒ
   cor[j, i] <- as.vector(.norm(sub)) %*% as.vector(mb)
  }
  cor

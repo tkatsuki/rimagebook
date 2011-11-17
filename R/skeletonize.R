@@ -1,12 +1,12 @@
 skeletonize <- function(x){
-  s <- matrix(1, nrow(x), ncol(x)) # ”’Ž†‚ð—pˆÓ
-  skel <- matrix(0, nrow(x), ncol(x)) # •‚¢”wŒi‚ð—pˆÓ
-  kern <- makeBrush(3, shape="diamond") # \‘¢—v‘f‚Ìì¬
+  s <- matrix(1, nrow(x), ncol(x)) # ç™½ç´™ã‚’ç”¨æ„
+  skel <- matrix(0, nrow(x), ncol(x)) # é»’ã„èƒŒæ™¯ã‚’ç”¨æ„
+  kern <- makeBrush(3, shape="diamond") # æ§‹é€ è¦ç´ ã®ä½œæˆ
   while(max(s)==1){
-    k <- opening(x, kern) # ƒI[ƒvƒjƒ“ƒOˆ—
-    s <- x-k # Œ³‰æ‘œ‚Æ‚Ì·•ª‚ð‚Æ‚é
-    skel <- skel | s # ·•ª‚ÌŒ‹‰Ê‚ðœŠi‚Ìˆê•”‚Æ‚·‚é
-    x <- erode(x, kern) # Žûkˆ—
+    k <- opening(x, kern) # ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°å‡¦ç†
+    s <- x-k # å…ƒç”»åƒã¨ã®å·®åˆ†ã‚’ã¨ã‚‹
+    skel <- skel | s # å·®åˆ†ã®çµæžœã‚’éª¨æ ¼ã®ä¸€éƒ¨ã¨ã™ã‚‹
+    x <- erode(x, kern) # åŽç¸®å‡¦ç†
   }
   return(skel)
 }

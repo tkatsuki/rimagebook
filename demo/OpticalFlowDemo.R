@@ -3,7 +3,7 @@ img0 <- pen[,,1]
 img1 <- pen[,,4]
 ftr <- GoodFeaturesToTrack(img0, 200)
 res <- OpticalFlow(img0, img1, ftr, 40)
-ftr <- ftr[1:2, res[3,]>0]             # 検出成功した点以外をフィルタリング
+ftr <- ftr[1:2, res[3,]>0]             # 讀懷�ｺ謌仙粥縺励◆轤ｹ莉･螟悶ｒ繝輔ぅ繝ｫ繧ｿ繝ｪ繝ｳ繧ｰ
 res <- res[1:2, res[3,]>0]
 w <- nrow(img0)
 h <- ncol(img0)

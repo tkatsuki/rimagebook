@@ -1,35 +1,35 @@
 
 board <- readImage(system.file("images/board.jpg", package="RImageBook"))
 display(board)
-bat <- board[155:215, 250:315]                # ƒeƒ“ƒvƒŒ[ƒg‚ğ—pˆÓ
+bat <- board[155:215, 250:315]                # ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’ç”¨æ„
 display(bat)
-sad <- SAD(board, bat)                        # SAD‚ğŒvZ
+sad <- SAD(board, bat)                        # SADã‚’è¨ˆç®—
 display(normalize(sad))
-minpeak <- which(sad==min(sad), arr.ind=TRUE) # SAD‚ÌÅ¬’l‚ÌêŠ‚ğ‹‚ß‚é
+minpeak <- which(sad==min(sad), arr.ind=TRUE) # SADã®æœ€å°å€¤ã®å ´æ‰€ã‚’æ±‚ã‚ã‚‹
 minpeak
 
 
-sadres <- board                               # Œ³‰æ‘œ‚ğƒRƒs[‚µ‚Ä‚¨‚­ 
+sadres <- board                               # å…ƒç”»åƒã‚’ã‚³ãƒ”ãƒ¼ã—ã¦ãŠã 
 sadres[(minpeak[1]-2):(minpeak[1]+nrow(bat)+1),
-       (minpeak[2]-2):(minpeak[2]+ncol(bat)+1)] <- 1 # ”’˜g‚ğì¬
+       (minpeak[2]-2):(minpeak[2]+ncol(bat)+1)] <- 1 # ç™½æ ã‚’ä½œæˆ
 sadres[(minpeak[1]):(minpeak[1]+nrow(bat)-1),
-       (minpeak[2]):(minpeak[2]+ncol(bat)-1)] <- bat # ˜g‚É‰æ‘œ‚ğ‚ ‚Ä‚Í‚ß‚é
-display(sadres)                               # ŒŸo‚³‚ê‚½ˆÊ’u‚ğ”’˜g‚Å•\¦
-ncc <- NCC(board, bat)                       # ³‹K‰»‘ŠŒİ‘ŠŠÖ‚ğŒvZ
-display(ncc)                                 # ‘ŠŠÖ‚ÌŒ‹‰Ê‚ğ•\¦
-maxpeak <- which(ncc==max(ncc),arr.ind=TRUE) # Å‘å’l‚ğ’T‚·
+       (minpeak[2]):(minpeak[2]+ncol(bat)-1)] <- bat # æ ã«ç”»åƒã‚’ã‚ã¦ã¯ã‚ã‚‹
+display(sadres)                               # æ¤œå‡ºã•ã‚ŒãŸä½ç½®ã‚’ç™½æ ã§è¡¨ç¤º
+ncc <- NCC(board, bat)                       # æ­£è¦åŒ–ç›¸äº’ç›¸é–¢ã‚’è¨ˆç®—
+display(ncc)                                 # ç›¸é–¢ã®çµæœã‚’è¡¨ç¤º
+maxpeak <- which(ncc==max(ncc),arr.ind=TRUE) # æœ€å¤§å€¤ã‚’æ¢ã™
 
 
 
 nccres <- board
-# ã‚ÌÀ•W‚ÍƒpƒfƒBƒ“ƒO‚³‚ê‚½Œ‹‰Ê‚È‚Ì‚ÅŒ³‰æ‘œã‚ÌˆÊ’u‚Íbat‚Ì‘å‚«‚³‚ğˆø‚¢‚½‚à‚Ì
+# ä¸Šã®åº§æ¨™ã¯ãƒ‘ãƒ‡ã‚£ãƒ³ã‚°ã•ã‚ŒãŸçµæœãªã®ã§å…ƒç”»åƒä¸Šã®ä½ç½®ã¯batã®å¤§ãã•ã‚’å¼•ã„ãŸã‚‚ã®
 nccres[(maxpeak[1]-nrow(bat)-2):(maxpeak[1]+1),
        (maxpeak[2]-ncol(bat)-2):(maxpeak[2]+1)] <- 1
 nccres[(maxpeak[1]-nrow(bat)):(maxpeak[1]-1),
        (maxpeak[2]-ncol(bat)):(maxpeak[2]-1)] <- bat
 display(nccres)
-fncc <- FNCC(board, bat) # Ø‚èo‚µ‚½‰æ‘œ‚Ìƒeƒ“ƒvƒŒ[ƒgƒ}ƒbƒ`ƒ“ƒO
-display(normalize(fncc)) # ‘ŠŠÖ‚ÌŒ‹‰Ê‚ğ•\¦
+fncc <- FNCC(board, bat) # åˆ‡ã‚Šå‡ºã—ãŸç”»åƒã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒãƒƒãƒãƒ³ã‚°
+display(normalize(fncc)) # ç›¸é–¢ã®çµæœã‚’è¡¨ç¤º
 maxpeak <- which(fncc==max(fncc),arr.ind=TRUE)
 maxpeak
 fnccres <- board

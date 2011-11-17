@@ -1,9 +1,6 @@
 #!/bin/sh
-for file in R/*.R
+for file in R/*.R demo/*.R src/*/*.cpp
 do
-  (mv ${file} ${file}.tmp && nkf $* ${file}.tmp > ${file}) || exit 1
-  if [ -e ${file}.tmp ]; then
-    rm ${file}.tmp
-  fi
+  nkf --in-place $* ${file} || exit 1
 done
 

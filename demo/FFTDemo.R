@@ -1,62 +1,62 @@
 w <- matrix(c(0, 0, 0, 0.8), 128, 128)
 h <- matrix(c(0, 0, 0, 0, 0, 0, 0, 0.8), 128, 128)
-h <- t(h)                       # s—ñ‚ð“]’u
-display(w)                      # ŽüŠú“I‚Ècü
-display(h)                      # w‚Ì2”{‚ÌŽü”g”‚Ì‰¡ü
-wbfft <- imgFFT(E2b(w))             # ƒt[ƒŠƒG•ÏŠ·
+h <- t(h)                       # è¡Œåˆ—ã‚’è»¢ç½®
+display(w)                      # å‘¨æœŸçš„ãªç¸¦ç·š
+display(h)                      # wã®2å€ã®å‘¨æ³¢æ•°ã®æ¨ªç·š
+wbfft <- imgFFT(E2b(w))             # ãƒ•ãƒ¼ãƒªã‚¨å¤‰æ›
 hbfft <- imgFFT(E2b(h))
-wbspec <- imgFFTSpectrum(wbfft) # Žü”g”ƒXƒyƒNƒgƒ‹‚Ì’Šo
+wbspec <- imgFFTSpectrum(wbfft) # å‘¨æ³¢æ•°ã‚¹ãƒšã‚¯ãƒˆãƒ«ã®æŠ½å‡º
 hbspec <- imgFFTSpectrum(hbfft)
-display(b2E(wbspec))                    # Žü”g”ƒXƒyƒNƒgƒ‹‚Ì•\Ž¦
+display(b2E(wbspec))                    # å‘¨æ³¢æ•°ã‚¹ãƒšã‚¯ãƒˆãƒ«ã®è¡¨ç¤º
 display(b2E(hbspec))
 
 
 houses <- readImage(system.file("images/houses.png", package="RImageBook"))
 housesb <- E2b(houses)
-housesbfft <- imgFFT(housesb)   # 2ŽŸŒ³—£ŽUƒt[ƒŠƒG•ÏŠ·
+housesbfft <- imgFFT(housesb)   # 2æ¬¡å…ƒé›¢æ•£ãƒ•ãƒ¼ãƒªã‚¨å¤‰æ›
 str(housesbfft)
-housesbffti <- imgFFTInv(housesbfft) # ƒt[ƒŠƒG‹t•ÏŠ·
-display(b2E(housesbffti))                    # ƒt[ƒŠƒG‹t•ÏŠ·‚µ‚½‰æ‘œ‚Ì•\Ž¦
+housesbffti <- imgFFTInv(housesbfft) # ãƒ•ãƒ¼ãƒªã‚¨é€†å¤‰æ›
+display(b2E(housesbffti))                    # ãƒ•ãƒ¼ãƒªã‚¨é€†å¤‰æ›ã—ãŸç”»åƒã®è¡¨ç¤º
 
-housesbspec <- imgFFTSpectrum(housesbfft)  # Žü”g”ƒXƒyƒNƒgƒ‹‚Ì’Šo
+housesbspec <- imgFFTSpectrum(housesbfft)  # å‘¨æ³¢æ•°ã‚¹ãƒšã‚¯ãƒˆãƒ«ã®æŠ½å‡º
 display(b2E(housesbspec))
 
-meanFilter <- matrix(1/25, 5, 5)           # 5x5‚Ì•½‹Ï’lƒtƒBƒ‹ƒ^‚Ìì¬
-housesm <- filter2(houses, meanFilter)     # •½‹Ï’lƒtƒBƒ‹ƒ^‚Ì“K—p
-gaussFilter <- GaussianKernel(11, 11, 1.8) # 11x11‚ÌƒKƒEƒVƒAƒ“ƒtƒBƒ‹ƒ^‚Ìì¬
-housesg <- filter2(houses, gaussFilter)    # ƒKƒEƒVƒAƒ“ƒtƒBƒ‹ƒ^‚Ì“K—p
-housesmbf <- imgFFT(E2b(housesm))         # ƒt[ƒŠƒG•ÏŠ·
+meanFilter <- matrix(1/25, 5, 5)           # 5x5ã®å¹³å‡å€¤ãƒ•ã‚£ãƒ«ã‚¿ã®ä½œæˆ
+housesm <- filter2(houses, meanFilter)     # å¹³å‡å€¤ãƒ•ã‚£ãƒ«ã‚¿ã®é©ç”¨
+gaussFilter <- GaussianKernel(11, 11, 1.8) # 11x11ã®ã‚¬ã‚¦ã‚·ã‚¢ãƒ³ãƒ•ã‚£ãƒ«ã‚¿ã®ä½œæˆ
+housesg <- filter2(houses, gaussFilter)    # ã‚¬ã‚¦ã‚·ã‚¢ãƒ³ãƒ•ã‚£ãƒ«ã‚¿ã®é©ç”¨
+housesmbf <- imgFFT(E2b(housesm))         # ãƒ•ãƒ¼ãƒªã‚¨å¤‰æ›
 housesgbf <- imgFFT(E2b(housesg))
-housesmbfspec <- imgFFTSpectrum(housesmbf) # Žü”g”ƒXƒyƒNƒgƒ‹‚Ì’Šo
+housesmbfspec <- imgFFTSpectrum(housesmbf) # å‘¨æ³¢æ•°ã‚¹ãƒšã‚¯ãƒˆãƒ«ã®æŠ½å‡º
 housesgbfspec <- imgFFTSpectrum(housesgbf)
-display(b2E(housesmbfspec))                       #@Žü”g”ƒXƒyƒNƒgƒ‹‚Ì•\Ž¦
+display(b2E(housesmbfspec))                       #ã€€å‘¨æ³¢æ•°ã‚¹ãƒšã‚¯ãƒˆãƒ«ã®è¡¨ç¤º
 display(b2E(housesgbfspec))
 
-houseslpf <- imgFFTLowPass(housesbfft, 50) # ”¼Œa50‚Ìƒ[ƒpƒXƒtƒBƒ‹ƒ^
-houseslps <- imgFFTSpectrum(houseslpf)     # Žü”g”ƒXƒyƒNƒgƒ‹‚Ì’Šo
-houseslp <- imgFFTInv(houseslpf)           # ƒt[ƒŠƒG‹t•ÏŠ·
-display(b2E(houseslps))                            # Žü”g”ƒXƒyƒNƒgƒ‹‚Ì•\Ž¦
+houseslpf <- imgFFTLowPass(housesbfft, 50) # åŠå¾„50ã®ãƒ­ãƒ¼ãƒ‘ã‚¹ãƒ•ã‚£ãƒ«ã‚¿
+houseslps <- imgFFTSpectrum(houseslpf)     # å‘¨æ³¢æ•°ã‚¹ãƒšã‚¯ãƒˆãƒ«ã®æŠ½å‡º
+houseslp <- imgFFTInv(houseslpf)           # ãƒ•ãƒ¼ãƒªã‚¨é€†å¤‰æ›
+display(b2E(houseslps))                            # å‘¨æ³¢æ•°ã‚¹ãƒšã‚¯ãƒˆãƒ«ã®è¡¨ç¤º
 display(b2E(houseslp))
 
-houseshpf <- imgFFTHighPass(housesbfft, 20) # ”¼Œa20‚ÌƒnƒCƒpƒXƒtƒBƒ‹ƒ^
-houseshps <- imgFFTSpectrum(houseshpf)      # Žü”g”ƒXƒyƒNƒgƒ‹‚Ì’Šo
+houseshpf <- imgFFTHighPass(housesbfft, 20) # åŠå¾„20ã®ãƒã‚¤ãƒ‘ã‚¹ãƒ•ã‚£ãƒ«ã‚¿
+houseshps <- imgFFTSpectrum(houseshpf)      # å‘¨æ³¢æ•°ã‚¹ãƒšã‚¯ãƒˆãƒ«ã®æŠ½å‡º
 houseshp <- imgFFTInv(houseshpf) 
 display(b2E(houseshp))
 
-housesbpf <- imgFFTBandPass(housesbfft, 20, 100) # ƒoƒ“ƒhƒpƒXƒtƒBƒ‹ƒ^
-housesbps <- imgFFTSpectrum(housesbpf)           # Žü”g”ƒXƒyƒNƒgƒ‹‚Ì’Šo
+housesbpf <- imgFFTBandPass(housesbfft, 20, 100) # ãƒãƒ³ãƒ‰ãƒ‘ã‚¹ãƒ•ã‚£ãƒ«ã‚¿
+housesbps <- imgFFTSpectrum(housesbpf)           # å‘¨æ³¢æ•°ã‚¹ãƒšã‚¯ãƒˆãƒ«ã®æŠ½å‡º
 housesbp <- imgFFTInv(housesbpf) 
 display(b2E(housesbp))
 
 w <- nrow(housesb)
 h <- ncol(housesb)
-gk <- GaussianKernel(w, h, 50)             # ƒKƒEƒX•ª•z‚ðì¬
-housesglf <- housesbfft * (gk/max(gk))     # ƒKƒEƒX•ª•zŒ^‚Ìƒ[ƒpƒXƒtƒBƒ‹ƒ^
-housesghf <- housesbfft * (1 - gk/max(gk)) # ƒKƒEƒX•ª•zŒ^‚ÌƒnƒCƒpƒXƒtƒBƒ‹ƒ^
-housesgls <- imgFFTSpectrum(housesglf)     # Žü”g”ƒXƒyƒNƒgƒ‹‚Ì’Šo
+gk <- GaussianKernel(w, h, 50)             # ã‚¬ã‚¦ã‚¹åˆ†å¸ƒã‚’ä½œæˆ
+housesglf <- housesbfft * (gk/max(gk))     # ã‚¬ã‚¦ã‚¹åˆ†å¸ƒåž‹ã®ãƒ­ãƒ¼ãƒ‘ã‚¹ãƒ•ã‚£ãƒ«ã‚¿
+housesghf <- housesbfft * (1 - gk/max(gk)) # ã‚¬ã‚¦ã‚¹åˆ†å¸ƒåž‹ã®ãƒã‚¤ãƒ‘ã‚¹ãƒ•ã‚£ãƒ«ã‚¿
+housesgls <- imgFFTSpectrum(housesglf)     # å‘¨æ³¢æ•°ã‚¹ãƒšã‚¯ãƒˆãƒ«ã®æŠ½å‡º
 housesghs <- imgFFTSpectrum(housesghf)
-housesgl <- imgFFTInv(housesglf)           # ƒt[ƒŠƒG‹t•ÏŠ·
+housesgl <- imgFFTInv(housesglf)           # ãƒ•ãƒ¼ãƒªã‚¨é€†å¤‰æ›
 housesgh <- imgFFTInv(housesghf)
 display(b2E(housesgl)); display(b2E(housesgh))
-display(normalize(t(gk)))                  # ƒtƒBƒ‹ƒ^‚Ì‰æ‘œ‰»
+display(normalize(t(gk)))                  # ãƒ•ã‚£ãƒ«ã‚¿ã®ç”»åƒåŒ–
 display(normalize(t(1-gk)))

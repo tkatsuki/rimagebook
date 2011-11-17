@@ -3,7 +3,7 @@ require("misc3d")
 require("AnalyzeFMRI")
 brain <- f.read.analyze.volume(system.file("example.img",  
                                            package="AnalyzeFMRI"))
-brain <- brain[,,,1] # 4ŽŸŒ³ƒf[ƒ^‚Ì1ƒtƒŒ[ƒ€–Ú‚ðŽæ‚èo‚·
+brain <- brain[,,,1] # 4æ¬¡å…ƒãƒ‡ãƒ¼ã‚¿ã®1ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ã‚’å–ã‚Šå‡ºã™
 VolumeRendering(brain, c(0, 3000, 8000, 10000), 
                 c(0,0,0,0, 0.2,1,1,1, 0.5,1,0,0, 1,0,1,0), 
                 Spacing=c(1.0,1.0,1.5), RendererType=1)

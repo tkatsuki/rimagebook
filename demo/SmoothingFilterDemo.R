@@ -1,7 +1,7 @@
 cup <- readImage(system.file("images/cupgirl.png", package="RImageBook"))
-cupb <- E2b(cup)                   # biOpsŒ`Ž®‚É•ÏŠ·
-cupbgn <- imgGaussianNoise(cupb, 0, 120) # ƒKƒEƒVƒAƒ“ƒmƒCƒY‚ð¬“ü‚³‚¹‚é
-cupbsp <- imgSaltPepperNoise(cupb, 5)    # ƒSƒ}‰–ƒmƒCƒY‚ð¬“ü‚³‚¹‚é
+cupb <- E2b(cup)                   # biOpså½¢å¼ã«å¤‰æ›
+cupbgn <- imgGaussianNoise(cupb, 0, 120) # ã‚¬ã‚¦ã‚·ã‚¢ãƒ³ãƒŽã‚¤ã‚ºã‚’æ··å…¥ã•ã›ã‚‹
+cupbsp <- imgSaltPepperNoise(cupb, 5)    # ã‚´ãƒžå¡©ãƒŽã‚¤ã‚ºã‚’æ··å…¥ã•ã›ã‚‹
 cupgn <- b2E(cupbgn)
 cupsp <- b2E(cupbsp)
 display(cup)
@@ -13,11 +13,11 @@ display(cupgauss)
 
 gauss9 <- GaussianKernel(9, 9, 5)
 cupgauss9 <- filter2(cup, gauss9)
-display(cupgauss9) #@}‚ÍÈ—ª
+display(cupgauss9) #ã€€å›³ã¯çœç•¥
 
-meanFilter <- matrix(1/9, 3, 3)     # 3x3‚ÌƒJ[ƒlƒ‹‚ðì¬
+meanFilter <- matrix(1/9, 3, 3)     # 3x3ã®ã‚«ãƒ¼ãƒãƒ«ã‚’ä½œæˆ
 cupmean <- filter2(cup, meanFilter)
-cupspmean <- filter2(cupsp, meanFilter) # •½‹Ï’lƒtƒBƒ‹ƒ^‚ð‚©‚¯‚é
+cupspmean <- filter2(cupsp, meanFilter) # å¹³å‡å€¤ãƒ•ã‚£ãƒ«ã‚¿ã‚’ã‹ã‘ã‚‹
 cupgnmean <- filter2(cupgn, meanFilter)
 display(cupmean)
 display(cupspmean)

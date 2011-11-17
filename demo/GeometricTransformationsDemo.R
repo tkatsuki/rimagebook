@@ -1,18 +1,18 @@
 monalisa <- readImage(system.file("images/MonaLisa.jpg", package="RImageBook"))
-display(resize(monalisa, 600))       # Šg‘å‚µ‚Ä•\Ž¦
-display(resize(monalisa, 200))       # k¬‚µ‚Ä•\Ž¦
-display(resize(monalisa, 512, 300))  # ƒXƒNƒC[ƒY‚µ‚Ä•\Ž¦
+display(resize(monalisa, 600))       # æ‹¡å¤§ã—ã¦è¡¨ç¤º
+display(resize(monalisa, 200))       # ç¸®å°ã—ã¦è¡¨ç¤º
+display(resize(monalisa, 512, 300))  # ã‚¹ã‚¯ã‚¤ãƒ¼ã‚ºã—ã¦è¡¨ç¤º
 
-display(rotate(monalisa, 45)) # ŽžŒv‰ñ‚è‚É45“x‰ñ“]‚µ‚Ä•\Ž¦
-display(rotate(monalisa, 90)) # ŽžŒv‰ñ‚è‚É90“x‰ñ“]‚µ‚Ä•\Ž¦
+display(rotate(monalisa, 45)) # æ™‚è¨ˆå›žã‚Šã«45åº¦å›žè»¢ã—ã¦è¡¨ç¤º
+display(rotate(monalisa, 90)) # æ™‚è¨ˆå›žã‚Šã«90åº¦å›žè»¢ã—ã¦è¡¨ç¤º
 
 motor <- readImage(system.file("images/motorcycle.jpg", package="RImageBook"))
-motorpad <- padding(motor, 20, 10) # ƒpƒfƒBƒ“ƒO‚ðs‚¤
+motorpad <- padding(motor, 20, 10) # ãƒ‘ãƒ‡ã‚£ãƒ³ã‚°ã‚’è¡Œã†
 display(motorpad)
 
-display(flip(monalisa))             # xŽ²‚ÉŠÖ‚·‚é‹¾‘œ•ÏŠ·
-display(flop(monalisa))             # yŽ²‚ÉŠÖ‚·‚é‹¾‘œ•ÏŠ·
-display(flip(rotate(monalisa, 90))) # ’¼üy = x‚ÉŠÖ‚·‚é‹¾‘œ•ÏŠ·
+display(flip(monalisa))             # xè»¸ã«é–¢ã™ã‚‹é¡åƒå¤‰æ›
+display(flop(monalisa))             # yè»¸ã«é–¢ã™ã‚‹é¡åƒå¤‰æ›
+display(flip(rotate(monalisa, 90))) # ç›´ç·šy = xã«é–¢ã™ã‚‹é¡åƒå¤‰æ›
 
 display(skew(monalisa, 0, 10))
 display(skew(monalisa, 0, -10))
@@ -26,16 +26,16 @@ plot(imgTranslate(monalisab, 100, 100, 200, 200, 100, 100))
 require(RNiftyReg)
 require(bitops)
 require(oro.nifti)
-x <- channel(monalisa, "gray")          # ƒ‚ƒiƒŠƒU‚Ì‰æ‘œƒf[ƒ^‚ðx‚ÉƒRƒs[
-ytheta <- 10                            # yŽ²‚Æ‚Ì‚È‚·Šp‚Í10“x
-xpad <- tan(ytheta*pi/180)*ncol(x)      # xŽ²•ûŒü‚ÌƒpƒfƒBƒ“ƒO‚ðŒvŽZ
+x <- channel(monalisa, "gray")          # ãƒ¢ãƒŠãƒªã‚¶ã®ç”»åƒãƒ‡ãƒ¼ã‚¿ã‚’xã«ã‚³ãƒ”ãƒ¼
+ytheta <- 10                            # yè»¸ã¨ã®ãªã™è§’ã¯10åº¦
+xpad <- tan(ytheta*pi/180)*ncol(x)      # xè»¸æ–¹å‘ã®ãƒ‘ãƒ‡ã‚£ãƒ³ã‚°ã‚’è¨ˆç®—
 x <- rbind(matrix(0, xpad, ncol(x)), x)
-xn <- as.nifti(x)                       # NIfTYŒ`Ž®‚É•ÏŠ·
+xn <- as.nifti(x)                       # NIfTYå½¢å¼ã«å¤‰æ›
 aff <- matrix(c(1,tan(ytheta*pi/180),0,0,0,1,0,0,0,0,1,0,0,0,0,1), 
-                 4, 4, byrow=TRUE)       # ƒAƒtƒBƒ“•ÏŠ·‚Ìs—ñ‚ðì¬
-aff                                      # s—ñ‚ðŠm”F
-xreg <- applyAffine(aff, xn, xn, "nifty")        # ‰æ‘œ‚ð•ÏŠ·
-display(xreg$image)                     # ‰æ‘œƒf[ƒ^‚ð•\Ž¦
-pr <- pyramid(monalisa, 3) # ‰æ‘œƒsƒ‰ƒ~ƒbƒh‚ðì¬
+                 4, 4, byrow=TRUE)       # ã‚¢ãƒ•ã‚£ãƒ³å¤‰æ›ã®è¡Œåˆ—ã‚’ä½œæˆ
+aff                                      # è¡Œåˆ—ã‚’ç¢ºèª
+xreg <- applyAffine(aff, xn, xn, "nifty")        # ç”»åƒã‚’å¤‰æ›
+display(xreg$image)                     # ç”»åƒãƒ‡ãƒ¼ã‚¿ã‚’è¡¨ç¤º
+pr <- pyramid(monalisa, 3) # ç”»åƒãƒ”ãƒ©ãƒŸãƒƒãƒ‰ã‚’ä½œæˆ
 str(pr)
-display(pr[[1]])           # 1’i–Ú‚Ìk¬‰æ‘œ‚ð•\Ž¦iˆÈ~È—ªj
+display(pr[[1]])           # 1æ®µç›®ã®ç¸®å°ç”»åƒã‚’è¡¨ç¤ºï¼ˆä»¥é™çœç•¥ï¼‰

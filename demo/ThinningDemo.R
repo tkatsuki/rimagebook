@@ -1,20 +1,20 @@
 shapes <- readImage(system.file("images/shapes.png", package="EBImage"))
-logo <- shapes[110:512,1:130]                # ƒƒS•”•ª‚ÌØ‚èo‚µ
+logo <- shapes[110:512,1:130]                # ãƒ­ã‚´éƒ¨åˆ†ã®åˆ‡ã‚Šå‡ºã—
 ske <- skeletonize(logo)
 display(ske)
 logot <- thinning(logo)
 display(logot)
-logoends <- ending(logot)                             # ’[“_‚ÌŒŸo
-display(dilate(logoends, makeBrush(3)))               # “_‚ğ‹­’²‚µ‚Ä•\¦
-logotends <- dilate(logoends, makeBrush(3))*2 + logot # ×ü‚Æd‚Ë‡‚í‚¹
+logoends <- ending(logot)                             # ç«¯ç‚¹ã®æ¤œå‡º
+display(dilate(logoends, makeBrush(3)))               # ç‚¹ã‚’å¼·èª¿ã—ã¦è¡¨ç¤º
+logotends <- dilate(logoends, makeBrush(3))*2 + logot # ç´°ç·šã¨é‡ã­åˆã‚ã›
 display(normalize(logotends))
-length(which(logoends == 1))                          # ’[“_‚ÌŒÂ”‚ğ”‚¦‚é
+length(which(logoends == 1))                          # ç«¯ç‚¹ã®å€‹æ•°ã‚’æ•°ãˆã‚‹
 
-logobr <- branch(logot)                      # •ªŠò“_‚ÌŒŸo
-display(dilate(logobr, makeBrush(3)))        # “_‚ğ‹­’²‚µ‚Ä•\¦
-                                             # ×ü‚Æd‚Ë‡‚í‚¹
+logobr <- branch(logot)                      # åˆ†å²ç‚¹ã®æ¤œå‡º
+display(dilate(logobr, makeBrush(3)))        # ç‚¹ã‚’å¼·èª¿ã—ã¦è¡¨ç¤º
+                                             # ç´°ç·šã¨é‡ã­åˆã‚ã›
 logotbr <- dilate(logobr, makeBrush(3))*2 + logot
 display(normalize(logotbr))
-length(which(logobr == 1))                   # •ªŠò“_‚ÌŒÂ”‚ğ”‚¦‚é
-logotp <- pruning(logot, 4) # ‚Ğ‚°‚Ì™’’è
+length(which(logobr == 1))                   # åˆ†å²ç‚¹ã®å€‹æ•°ã‚’æ•°ãˆã‚‹
+logotp <- pruning(logot, 4) # ã²ã’ã®å‰ªå®š
 display(logotp)

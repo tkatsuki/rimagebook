@@ -1,7 +1,7 @@
 tulip <- readImage(system.file("images/tulip.jpg", package="RImageBook"))
-histogram(tulip) # ƒqƒXƒgƒOƒ‰ƒ€‚Ì•\Ž¦
+histogram(tulip) # ãƒ’ã‚¹ãƒˆã‚°ãƒ©ãƒ ã®è¡¨ç¤º
 
-tulip <- tulip@.Data # ‹P“x’l‚ðs—ñ‚Æ‚µ‚ÄŽæ‚èo‚µ‚Ä‚¨‚­
+tulip <- tulip@.Data # è¼åº¦å€¤ã‚’è¡Œåˆ—ã¨ã—ã¦å–ã‚Šå‡ºã—ã¦ãŠã
 tulipce <- ifelse(tulip > 0.8, 1, tulip/0.8)
 display(tulipce)
 tulipcee <- ifelse(tulip > 0.8, 1, (tulip + 0.2)/(0.8 + 0.2))
@@ -13,7 +13,7 @@ display(tulipcee)
 tulipcd <- 0.5*tulip+0.2
 display(tulipcd)
 
-tulipnorm <- normalize(tulip) # ƒRƒ“ƒgƒ‰ƒXƒg‚ÌŽ©“®’²®
+tulipnorm <- normalize(tulip) # ã‚³ãƒ³ãƒˆãƒ©ã‚¹ãƒˆã®è‡ªå‹•èª¿æ•´
 display(tulipnorm)
 
 tulipgm05 <- tulip^(1/0.5)
@@ -34,14 +34,14 @@ catheq <- equalize(cath)
 display(catheq)
 
 hand <- readImage(system.file("images/hand.jpg", package="RImageBook"))
-handinv <- 1-hand  # ŠK’²‚Ì”½“]
+handinv <- 1-hand  # éšŽèª¿ã®åè»¢
 
 f <- system.file("images/lighthouse.jpg", package="RImageBook")
 lighthouse <- readImage(f)
-display(lighthouse)                      #@Œ³‰æ‘œ‚Ì•\Ž¦
-lighthousesol <- -4*(lighthouse-0.5)^2+1 # ƒ\ƒ‰ƒŠƒ[[ƒVƒ‡ƒ“ˆ—
+display(lighthouse)                      #ã€€å…ƒç”»åƒã®è¡¨ç¤º
+lighthousesol <- -4*(lighthouse-0.5)^2+1 # ã‚½ãƒ©ãƒªã‚¼ãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†
 display(lighthousesol)
-lighthousesol2 <- 0.5*sin(3*pi*lighthouse-pi/2)+0.5 # ƒ\ƒ‰ƒŠƒ[[ƒVƒ‡ƒ“ˆ—
+lighthousesol2 <- 0.5*sin(3*pi*lighthouse-pi/2)+0.5 # ã‚½ãƒ©ãƒªã‚¼ãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†
 display(lighthousesol2)
 
 parrot <- readImage(system.file("images/parrots.png", package="RImageBook"))

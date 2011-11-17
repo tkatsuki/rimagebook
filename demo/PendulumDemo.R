@@ -1,21 +1,21 @@
-# “®‰æƒf[ƒ^‚Ì“Ç‚İ‚İ
+# å‹•ç”»ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 pen <- readImage(system.file("images/pendulum.gif", package="RImageBook"))
-pen <- 1-pen                        # ”’•”½“]
-pen <- thresh(pen, 50, 50, 0.5)     # 2’l‰»
-kern1 <- makeBrush(3, shape="disc") # \‘¢—v‘f‚Ìì¬
-pen2 <- opening(pen, kern1)         # ƒI[ƒvƒjƒ“ƒOˆ—
-pend <- bwlabel(pen2)               # ƒ‰ƒxƒŠƒ“ƒOˆ—
-mm <- cmoments(pend, pen)           # ƒ‚[ƒƒ“ƒgƒpƒ‰ƒ[ƒ^‚Ìæ“¾
-# ƒTƒCƒY‚ª300ƒsƒNƒZƒ‹ˆÈ‰º‚ÅyÀ•W‚ª50ˆÈ‰º‚ÌƒIƒuƒWƒFƒNƒg‚ğ‘I‘ğ
+pen <- 1-pen                        # ç™½é»’åè»¢
+pen <- thresh(pen, 50, 50, 0.5)     # 2å€¤åŒ–
+kern1 <- makeBrush(3, shape="disc") # æ§‹é€ è¦ç´ ã®ä½œæˆ
+pen2 <- opening(pen, kern1)         # ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°å‡¦ç†
+pend <- bwlabel(pen2)               # ãƒ©ãƒ™ãƒªãƒ³ã‚°å‡¦ç†
+mm <- cmoments(pend, pen)           # ãƒ¢ãƒ¼ãƒ¡ãƒ³ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®å–å¾—
+# ã‚µã‚¤ã‚ºãŒ300ãƒ”ã‚¯ã‚»ãƒ«ä»¥ä¸‹ã§yåº§æ¨™ãŒ50ä»¥ä¸‹ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é¸æŠ
 ll <- sapply(mm, function(x) which(x[,'m.pxs']<=300 | x[,'m.y']<=50))
-pens <- rmObjects(pend, ll)         # ã‹LƒIƒuƒWƒFƒNƒg‚ğíœ
-pens <- pens > 0                    # ƒ‰ƒxƒ‹‚ğƒŠƒZƒbƒg
-pens <- bwlabel(pens)               # Äƒ‰ƒxƒ‹
+pens <- rmObjects(pend, ll)         # ä¸Šè¨˜ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‰Šé™¤
+pens <- pens > 0                    # ãƒ©ãƒ™ãƒ«ã‚’ãƒªã‚»ãƒƒãƒˆ
+pens <- bwlabel(pens)               # å†ãƒ©ãƒ™ãƒ«
 display(pens)
 
-a <- pen[,,6]       # 6ƒtƒŒ[ƒ€–Ú‚ğ’Šo
-b <- pen[,,8]       # 8ƒtƒŒ[ƒ€–Ú‚ğ’Šo
-c <- pen[,,10]      # 10ƒtƒŒ[ƒ€–Ú‚ğ’Šo
+a <- pen[,,6]       # 6ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ã‚’æŠ½å‡º
+b <- pen[,,8]       # 8ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ã‚’æŠ½å‡º
+c <- pen[,,10]      # 10ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ã‚’æŠ½å‡º
 display(abs(a-b))
 display(abs(b-c))
 display(abs(a-b) & abs(b-c))
@@ -40,17 +40,17 @@ display(abs(a-b))
 display(abs(b-c))
 display(abs(a-b) & abs(b-c))
 
-mm <- cmoments(pens, pen) # Ä“xƒ‚[ƒƒ“ƒgƒpƒ‰ƒ[ƒ^‚ğæ“¾
-mm <- matrix(unlist(mm), ncol=4, byrow=TRUE) # ƒŠƒXƒg‚ğs—ñ‚É®Œ`
+mm <- cmoments(pens, pen) # å†åº¦ãƒ¢ãƒ¼ãƒ¡ãƒ³ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’å–å¾—
+mm <- matrix(unlist(mm), ncol=4, byrow=TRUE) # ãƒªã‚¹ãƒˆã‚’è¡Œåˆ—ã«æ•´å½¢
 mm
-                                           # o—Íæ‚ğpng‰æ‘œ‚Éİ’è
+                                           # å‡ºåŠ›å…ˆã‚’pngç”»åƒã«è¨­å®š
 png(filename = "pendulumResult.png", width=400, height=400, bg="white")
-par(plt=c(0, 1, 0, 1), xaxs="i", yaxs="i") # ƒvƒƒbƒg—Ìˆæ‚Ìİ’è
+par(plt=c(0, 1, 0, 1), xaxs="i", yaxs="i") # ãƒ—ãƒ­ãƒƒãƒˆé ˜åŸŸã®è¨­å®š
 plot(mm[,3], mm[,4], axes=F, xlim=c(0, 400), ylim=c(0, 400))
-lines(mm[,3], mm[,4])                      # ƒf[ƒ^‚ğü‚Å‚Â‚È‚®
-dev.off()                                  # ƒtƒ@ƒCƒ‹‚Éo—ÍŠ®—¹
-                                           # o—Í‚µ‚½‰æ‘œ‚ğ“Ç‚İ‚Ş
+lines(mm[,3], mm[,4])                      # ãƒ‡ãƒ¼ã‚¿ã‚’ç·šã§ã¤ãªã
+dev.off()                                  # ãƒ•ã‚¡ã‚¤ãƒ«ã«å‡ºåŠ›å®Œäº†
+                                           # å‡ºåŠ›ã—ãŸç”»åƒã‚’èª­ã¿è¾¼ã‚€
 resultimg <- readImage("pendulumResult.png")
-resultimg <- flip(resultimg)               # Œü‚«‚ğ‡‚í‚¹‚é‚½‚ß‚Éã‰º”½“]
-# Œ³ƒf[ƒ^‚Ì1ƒtƒŒ[ƒ€–Ú‚Æ‰ğÍŒ‹‰Ê‚ğd‚Ë‡‚í‚¹‚Ä•\¦
+resultimg <- flip(resultimg)               # å‘ãã‚’åˆã‚ã›ã‚‹ãŸã‚ã«ä¸Šä¸‹åè»¢
+# å…ƒãƒ‡ãƒ¼ã‚¿ã®1ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ã¨è§£æçµæœã‚’é‡ã­åˆã‚ã›ã¦è¡¨ç¤º
 display(xor(resultimg, pen@.Data[,,1]))

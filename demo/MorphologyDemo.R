@@ -1,13 +1,13 @@
 shapes <- readImage(system.file("images/shapes.png", package="EBImage"))
-logo <- shapes[110:512,1:130]                # ƒƒS•”•ª‚ÌØ‚èo‚µ
+logo <- shapes[110:512,1:130]                # ãƒ­ã‚´éƒ¨åˆ†ã®åˆ‡ã‚Šå‡ºã—
 display(logo)
-logob <- EBI2biOps(logo)                     # biOpsŒ`®‚É•ÏŠ·
-logobn <- imgSaltPepperNoise(logob, 5)       # ‰æ‘œ‚ÉƒmƒCƒY‚ğ’Ç‰Á
-logon <- biOps2EBI(logobn)                   # EBImageŒ`®‚É•ÏŠ·
-kern <- makeBrush(3, shape='diamond')        # \‘¢—v‘f‚Ìì¬
-display(erode(logon, kern))                  # –c’£
-display(dilate(logon, kern))                 # ûk
-display(opening(logon, kern))                # ƒI[ƒvƒjƒ“ƒO
-display(closing(logon, kern))                # ƒNƒ[ƒWƒ“ƒO
-display(closing(opening(logon, kern), kern)) # ƒI[ƒvƒjƒ“ƒOŒãƒNƒ[ƒWƒ“ƒO
-display(opening(closing(logon, kern), kern)) # ƒNƒ[ƒWƒ“ƒOŒãƒI[ƒvƒjƒ“ƒO
+logob <- EBI2biOps(logo)                     # biOpså½¢å¼ã«å¤‰æ›
+logobn <- imgSaltPepperNoise(logob, 5)       # ç”»åƒã«ãƒã‚¤ã‚ºã‚’è¿½åŠ 
+logon <- biOps2EBI(logobn)                   # EBImageå½¢å¼ã«å¤‰æ›
+kern <- makeBrush(3, shape='diamond')        # æ§‹é€ è¦ç´ ã®ä½œæˆ
+display(erode(logon, kern))                  # è†¨å¼µ
+display(dilate(logon, kern))                 # åç¸®
+display(opening(logon, kern))                # ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°
+display(closing(logon, kern))                # ã‚¯ãƒ­ãƒ¼ã‚¸ãƒ³ã‚°
+display(closing(opening(logon, kern), kern)) # ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°å¾Œã‚¯ãƒ­ãƒ¼ã‚¸ãƒ³ã‚°
+display(opening(closing(logon, kern), kern)) # ã‚¯ãƒ­ãƒ¼ã‚¸ãƒ³ã‚°å¾Œã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°

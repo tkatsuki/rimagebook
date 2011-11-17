@@ -1,20 +1,20 @@
 library(PET)
 shapes <- readImage(system.file("images/shapes.png", package="EBImage"))
-shapesr <- flip(shapes[151:500,1:350]) # ³•ûŒ`‚ğØ‚è”²‚­
-ThetaSamples <- 721 # theta‚ÌƒTƒ“ƒvƒŠƒ“ƒO” 
-rhosamples <- 2*round(sqrt(sum((dim(shapesr))^2))/2)+1 # rho‚ÌƒTƒ“ƒvƒŠƒ“ƒO”
+shapesr <- flip(shapes[151:500,1:350]) # æ­£æ–¹å½¢ã‚’åˆ‡ã‚ŠæŠœã
+ThetaSamples <- 721 # thetaã®ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°æ•° 
+rhosamples <- 2*round(sqrt(sum((dim(shapesr))^2))/2)+1 # rhoã®ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°æ•°
 rhomin <- -0.5*((2*round(sqrt(sum((dim(shapesr))^2))/2)+1)-1)
-drho <- (2*abs(rhomin)+1)/rhosamples # rho‚ÌƒTƒ“ƒvƒŠƒ“ƒOŠÔŠu
-hb <- hough(shapesr,@ThetaSamples=ThetaSamples) # ƒnƒt•ÏŠ·‚ÌÀs
-# •ÏŠ·Œã‚ÌŒ‹‰Ê•\¦
+drho <- (2*abs(rhomin)+1)/rhosamples # rhoã®ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°é–“éš”
+hb <- hough(shapesr,ã€€ThetaSamples=ThetaSamples) # ãƒãƒ•å¤‰æ›ã®å®Ÿè¡Œ
+# å¤‰æ›å¾Œã®çµæœè¡¨ç¤º
 image(hb$hData, col=gray((0:32)/32), axes = FALSE, xlab="", ylab="")
-# ãˆÊ10%‚Ìƒs[ƒN‚ğE‚¤
+# ä¸Šä½10%ã®ãƒ”ãƒ¼ã‚¯ã‚’æ‹¾ã†
 peak <- which(hb$hData[]>(max(hb$hData[])*0.9), arr.ind=TRUE) 
-# Œ³‚Ì‰æ‘œ‚ğ•\¦
+# å…ƒã®ç”»åƒã‚’è¡¨ç¤º
 windows()
 image(1:nrow(shapesr), 1:ncol(shapesr), shapesr, 
       col = terrain.colors(100), axes = FALSE, xlab="", ylab="")
-# Œ³‚Ì‰æ‘œ‚ÉŒŸo‚³‚ê‚½’¼ü‚ğã‘‚«
+# å…ƒã®ç”»åƒã«æ¤œå‡ºã•ã‚ŒãŸç›´ç·šã‚’ä¸Šæ›¸ã
 for (i in 1:nrow(peak)){
   the <- peak[i,1]*pi/ThetaSamples
   rho <- (peak[i,2]+rhomin)/drho

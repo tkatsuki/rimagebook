@@ -1,63 +1,63 @@
 img <- readLsm(system.file("images/R3EmRFP.lsm",
                            package="RImageBook"))
-display(img)                            # ‰æ‘œƒf[ƒ^‚ğ•\¦
-ch3b <- E2b(img[,,3])                   # 3ƒ`ƒƒƒlƒ‹–Ú‚ğbiOpsŒ`®‚É•ÏŠ·
-ch3bm <- imgBlockMedianFilter(ch3b, 5)  # ’†‰›’lƒtƒBƒ‹ƒ^‚ÅƒmƒCƒY‚ğœ‹
-ch3m <- b2E(ch3bm)                      # EBImageŒ`®‚É•ÏŠ·
-ch3th <- thresh(ch3m, 50, 50, 0.06)     # 2’l‰»
+display(img)                            # ç”»åƒãƒ‡ãƒ¼ã‚¿ã‚’è¡¨ç¤º
+ch3b <- E2b(img[,,3])                   # 3ãƒãƒ£ãƒãƒ«ç›®ã‚’biOpså½¢å¼ã«å¤‰æ›
+ch3bm <- imgBlockMedianFilter(ch3b, 5)  # ä¸­å¤®å€¤ãƒ•ã‚£ãƒ«ã‚¿ã§ãƒã‚¤ã‚ºã‚’é™¤å»
+ch3m <- b2E(ch3bm)                      # EBImageå½¢å¼ã«å¤‰æ›
+ch3th <- thresh(ch3m, 50, 50, 0.06)     # 2å€¤åŒ–
 display(ch3th)
-ch3bw <- bwlabel(ch3th)                 # ƒ‰ƒxƒ‹‰»
-mm <- cmoments(ch3bw, ch3bw)            # ’†Sƒ‚[ƒƒ“ƒg‚ÌŒvZ
-                                        # Å‘å‚ÌƒIƒuƒWƒFƒNƒgˆÈŠO‚ğÁ‹
+ch3bw <- bwlabel(ch3th)                 # ãƒ©ãƒ™ãƒ«åŒ–
+mm <- cmoments(ch3bw, ch3bw)            # ä¸­å¿ƒãƒ¢ãƒ¼ãƒ¡ãƒ³ãƒˆã®è¨ˆç®—
+                                        # æœ€å¤§ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä»¥å¤–ã‚’æ¶ˆå»
 ch3bw <- rmObjects(ch3bw, which(mm[,'m.pxs']!=max(mm[,'m.pxs'])))
-ch3bw <- ch3bw > 0                      # Ä“x2’l‰»
-ske <- thinning(ch3bw)                  # ×ü‰»
-display(normalize(ske + ch3bw))         # ×ü‚ÆŒ³‰æ‘œ‚Ìd‚Ë‡‚í‚¹‚ğ•\¦
-ends <- ending(ske)         # ’[“_‚ÌŒŸo
-branches <- branch(ske)     # •ªŠò“_‚ÌŒŸo
-length(which(ends==1))      # ’[“_”
+ch3bw <- ch3bw > 0                      # å†åº¦2å€¤åŒ–
+ske <- thinning(ch3bw)                  # ç´°ç·šåŒ–
+display(normalize(ske + ch3bw))         # ç´°ç·šã¨å…ƒç”»åƒã®é‡ã­åˆã‚ã›ã‚’è¡¨ç¤º
+ends <- ending(ske)         # ç«¯ç‚¹ã®æ¤œå‡º
+branches <- branch(ske)     # åˆ†å²ç‚¹ã®æ¤œå‡º
+length(which(ends==1))      # ç«¯ç‚¹æ•°
 
-length(which(branches==1))  # •ªŠò“_‚Ì”
+length(which(branches==1))  # åˆ†å²ç‚¹ã®æ•°
 
-distimg <- distmap(ch3bw)   # ‹——£’n}‚Ìì¬
-                            # ‹——£’n}’†‚ÌÅ‘å’l‚ÌÀ•W‚ğ’Šo
+distimg <- distmap(ch3bw)   # è·é›¢åœ°å›³ã®ä½œæˆ
+                            # è·é›¢åœ°å›³ä¸­ã®æœ€å¤§å€¤ã®åº§æ¨™ã‚’æŠ½å‡º
 peakpos <- which(distimg == max(distimg), arr.ind=TRUE)
 peakpos
 
 
-x <- ske                           # ×ü‚ğ•Ï”x‚ÉƒRƒs[‚·‚é
-px <- which(x==1, arr.ind=TRUE)    # ×üã‚Ì‚·‚×‚Ä‚ÌÀ•W‚ğ“¾‚é
-pxnm <- which(x==1)                # ×ü‚Ì•”•ª‚Ì—v‘f”Ô†‚à“¾‚Ä‚¨‚­
-pxpeak <- rbind(px, peakpos)       # ×ü‚ÌÀ•W‚Éƒs[ƒN‚ÌÀ•W‚ğ’Ç‰Á 
-peakmat <- as.matrix(dist(pxpeak)) # ‹——£s—ñ‚ğŒvZ‚·‚é
-                                   # ƒs[ƒN‚©‚çÅ’[‹——£‚É‚ ‚é‰æ‘f‚ğ’T‚·
+x <- ske                           # ç´°ç·šã‚’å¤‰æ•°xã«ã‚³ãƒ”ãƒ¼ã™ã‚‹
+px <- which(x==1, arr.ind=TRUE)    # ç´°ç·šä¸Šã®ã™ã¹ã¦ã®åº§æ¨™ã‚’å¾—ã‚‹
+pxnm <- which(x==1)                # ç´°ç·šã®éƒ¨åˆ†ã®è¦ç´ ç•ªå·ã‚‚å¾—ã¦ãŠã
+pxpeak <- rbind(px, peakpos)       # ç´°ç·šã®åº§æ¨™ã«ãƒ”ãƒ¼ã‚¯ã®åº§æ¨™ã‚’è¿½åŠ  
+peakmat <- as.matrix(dist(pxpeak)) # è·é›¢è¡Œåˆ—ã‚’è¨ˆç®—ã™ã‚‹
+                                   # ãƒ”ãƒ¼ã‚¯ã‹ã‚‰æœ€ç«¯è·é›¢ã«ã‚ã‚‹ç”»ç´ ã‚’æ¢ã™
 peakcoord <- which(peakmat[nrow(pxpeak),(1:(nrow(pxpeak)-1))] == 
                    sort(peakmat[nrow(pxpeak),(1:(nrow(pxpeak)-1))])[1])
 peakcoord
 
 
 library(igraph)
-pxdist <- as.matrix(dist(px[,]))          # ‚·‚×‚Ä‚Ì”’‰æ‘fŠÔ‚Ì‹——£s—ñ‚ğì¬
-pxdist[which(pxdist[,] >= 2)] <- 0        # 8‹ß–TˆÈŠO‚ÍÚ‘±‚µ‚Ä‚¢‚È‚¢‚à‚Ì‚Æ‚·‚é
-pxdist[which(pxdist[,] == 1)] <- 0.5      # 4‹ß–T‚Ì‹——£‚ğ0.5‚Æ‚·‚é
-g <- graph.adjacency(pxdist, weight=TRUE) # ƒOƒ‰ƒtEƒIƒuƒWƒFƒNƒg‚ğ¶¬
-endcoord <- which(ends == 1)       # ’[“_‚Ì—v‘f”Ô†‚ğ“¾‚é
-endpx <- which(pxnm %in% endcoord) # ×ü’†‚Ì—v‘f”Ô†‚É•ÏŠ·
-                                 # Å’ZŒo˜H‚Ì’Tõ
+pxdist <- as.matrix(dist(px[,]))          # ã™ã¹ã¦ã®ç™½ç”»ç´ é–“ã®è·é›¢è¡Œåˆ—ã‚’ä½œæˆ
+pxdist[which(pxdist[,] >= 2)] <- 0        # 8è¿‘å‚ä»¥å¤–ã¯æ¥ç¶šã—ã¦ã„ãªã„ã‚‚ã®ã¨ã™ã‚‹
+pxdist[which(pxdist[,] == 1)] <- 0.5      # 4è¿‘å‚ã®è·é›¢ã‚’0.5ã¨ã™ã‚‹
+g <- graph.adjacency(pxdist, weight=TRUE) # ã‚°ãƒ©ãƒ•ãƒ»ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
+endcoord <- which(ends == 1)       # ç«¯ç‚¹ã®è¦ç´ ç•ªå·ã‚’å¾—ã‚‹
+endpx <- which(pxnm %in% endcoord) # ç´°ç·šä¸­ã®è¦ç´ ç•ªå·ã«å¤‰æ›
+                                 # æœ€çŸ­çµŒè·¯ã®æ¢ç´¢
 paths <- get.shortest.paths(g, peakcoord-1, endpx-1) 
-                                 # Å’·‚ÌÅ’ZŒo˜H‚ğ‘I‚Ô
+                                 # æœ€é•·ã®æœ€çŸ­çµŒè·¯ã‚’é¸ã¶
 maxpath <- paths[[which.max(sapply(paths, length))]]
-maxpath <- unlist(maxpath)       # ƒŠƒXƒg‚ğƒxƒNƒgƒ‹‚É’¼‚·
-                                 # ƒOƒ‰ƒt‚ÌƒCƒ“ƒfƒbƒNƒX‚ğ‰æ‘f‚ÌÀ•W‚É•ÏŠ·
+maxpath <- unlist(maxpath)       # ãƒªã‚¹ãƒˆã‚’ãƒ™ã‚¯ãƒˆãƒ«ã«ç›´ã™
+                                 # ã‚°ãƒ©ãƒ•ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’ç”»ç´ ã®åº§æ¨™ã«å¤‰æ›
 pathcoord <- px[c(maxpath+1),] 
-                                 # À•W‚ğ—v‘f”Ô†‚É’¼‚·
+                                 # åº§æ¨™ã‚’è¦ç´ ç•ªå·ã«ç›´ã™
 num <- pathcoord[,1] + (pathcoord[,2]-1)*nrow(x) 
-x[num] <- 3                      # ×ü’†‚ÌŠY“–‚·‚é‰æ‘f‚Ì’l‚ğ•ÏX
-display(normalize(x))            # Œ‹‰Ê‚Ì×ü‚ğ•\¦
-display(img[,,1])            # Œ³ƒf[ƒ^‚Ì1ƒ`ƒƒƒlƒ‹–Ú‚ğ•\¦
-ch1b <- E2b(img[,,1])  # biOpsŒ`®‚É•ÏŠ· 
-ch1bm <- imgBlockMedianFilter(ch1b, 5) # ’†‰›’lƒtƒBƒ‹ƒ^‚ÅƒmƒCƒYœ‹
-ch1m <- b2E(ch1bm)     # EBImageŒ`®‚É•ÏŠ·
+x[num] <- 3                      # ç´°ç·šä¸­ã®è©²å½“ã™ã‚‹ç”»ç´ ã®å€¤ã‚’å¤‰æ›´
+display(normalize(x))            # çµæœã®ç´°ç·šã‚’è¡¨ç¤º
+display(img[,,1])            # å…ƒãƒ‡ãƒ¼ã‚¿ã®1ãƒãƒ£ãƒãƒ«ç›®ã‚’è¡¨ç¤º
+ch1b <- E2b(img[,,1])  # biOpså½¢å¼ã«å¤‰æ› 
+ch1bm <- imgBlockMedianFilter(ch1b, 5) # ä¸­å¤®å€¤ãƒ•ã‚£ãƒ«ã‚¿ã§ãƒã‚¤ã‚ºé™¤å»
+ch1m <- b2E(ch1bm)     # EBImageå½¢å¼ã«å¤‰æ›
 display(ch1m)
-                             # ƒ`ƒƒƒlƒ‹3‚É‘Î‚·‚é‘Š‘Î’l‚Æ‚µ‚Äƒvƒƒbƒg
+                             # ãƒãƒ£ãƒãƒ«3ã«å¯¾ã™ã‚‹ç›¸å¯¾å€¤ã¨ã—ã¦ãƒ—ãƒ­ãƒƒãƒˆ
 plot(ch1m[num]/ch3m[num], ylab="Relative Intensity", type="l")

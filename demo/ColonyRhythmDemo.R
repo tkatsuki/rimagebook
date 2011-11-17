@@ -1,77 +1,77 @@
 dir <- system.file("images/p2", package="RImageBook")
 filelist <- list.files(dir, pattern=".tiff")
-# ƒtƒ@ƒCƒ‹ƒŠƒXƒg’†‚Ì‚·‚×‚Ä‚Ìƒtƒ@ƒCƒ‹‚ÉreadImage‚ğ“K—p‚µCƒŠƒXƒgŒ`®‚Å•Û
+# ãƒ•ã‚¡ã‚¤ãƒ«ãƒªã‚¹ãƒˆä¸­ã®ã™ã¹ã¦ã®ãƒ•ã‚¡ã‚¤ãƒ«ã«readImageã‚’é©ç”¨ã—ï¼Œãƒªã‚¹ãƒˆå½¢å¼ã§ä¿æŒ
 images <- lapply(filelist, function(x) readImage(paste(dir, "/", x, sep="")))
 w <- nrow(images[[1]])
 h <- ncol(images[[1]])
-                            # ‰æ‘œ‚ÌƒŠƒXƒg‚ğƒXƒ^ƒbƒN‰æ‘œ‚É•ÏŠ·‚·‚é
+                            # ç”»åƒã®ãƒªã‚¹ãƒˆã‚’ã‚¹ã‚¿ãƒƒã‚¯ç”»åƒã«å¤‰æ›ã™ã‚‹
 images <- array(unlist(images), c(w, h, length(filelist)))
-imagea <- medianPrj(images) # ’†‰›’l‚ÅŠÔ²•ûŒü‚É“ŠË‚·‚é
-display(normalize(imagea))  # ƒ}ƒXƒ^[ƒ}ƒXƒN‚ğ•\¦
-                       # è‡’lˆ—‚ÅƒRƒƒj[‚Ìƒ}ƒXƒN‚ğì‚é
+imagea <- medianPrj(images) # ä¸­å¤®å€¤ã§æ™‚é–“è»¸æ–¹å‘ã«æŠ•å°„ã™ã‚‹
+display(normalize(imagea))  # ãƒã‚¹ã‚¿ãƒ¼ãƒã‚¹ã‚¯ã‚’è¡¨ç¤º
+                       # é–¾å€¤å‡¦ç†ã§ã‚³ãƒ­ãƒ‹ãƒ¼ã®ãƒã‚¹ã‚¯ã‚’ä½œã‚‹
 mask1 <- thresh(imagea, 10, 10, 0.00003)
 display(mask1)
-                       # ƒRƒƒj[‚Ì‚ ‚é•”•ª‚¾‚¯‚ğØ‚èo‚·‚½‚ß‚É‰~Œ`‚Ìƒ}ƒXƒN‚ğì‚é
+                       # ã‚³ãƒ­ãƒ‹ãƒ¼ã®ã‚ã‚‹éƒ¨åˆ†ã ã‘ã‚’åˆ‡ã‚Šå‡ºã™ãŸã‚ã«å††å½¢ã®ãƒã‚¹ã‚¯ã‚’ä½œã‚‹
 mask2 <- matrix(0, 512, 512)
 mask2 <- drawCircle(mask2, 250, 260, 190, col=1, fill=TRUE)
 display(mask2)
-mask3 <- mask1 * mask2 # ‰~Œ`‚Ìƒ}ƒXƒN‚ğg‚Á‚ÄØ‚èo‚µ
+mask3 <- mask1 * mask2 # å††å½¢ã®ãƒã‚¹ã‚¯ã‚’ä½¿ã£ã¦åˆ‡ã‚Šå‡ºã—
 display(mask3)
-mask3 <- bwlabel(mask3)       # Œ`ó“Á’¥ƒpƒ‰ƒ[ƒ^‚ğ“¾‚é‚½‚ß‚Éƒ‰ƒxƒ‹‰»‚·‚é
-hf <- hullFeatures(mask3)     # Œ`ó“Á’¥ƒpƒ‰ƒ[ƒ^‚Ìæ“¾
-                              # ƒIƒuƒWƒFƒNƒg‚ÌƒTƒCƒY‚Æ‰~Œ`—¦‚ÅƒtƒBƒ‹ƒ^‚ğ‚©‚¯‚é
+mask3 <- bwlabel(mask3)       # å½¢çŠ¶ç‰¹å¾´ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’å¾—ã‚‹ãŸã‚ã«ãƒ©ãƒ™ãƒ«åŒ–ã™ã‚‹
+hf <- hullFeatures(mask3)     # å½¢çŠ¶ç‰¹å¾´ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®å–å¾—
+                              # ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚µã‚¤ã‚ºã¨å††å½¢ç‡ã§ãƒ•ã‚£ãƒ«ã‚¿ã‚’ã‹ã‘ã‚‹
 id <- which(hf[,'g.s'] < 10 | hf[,'g.s'] > 100 | hf[,'g.acirc'] > 0.1)
-mask3 <- rmObjects(mask3, id) # ã‹LğŒ‚Éˆê’v‚·‚éƒIƒuƒWƒFƒNƒg‚ğíœ‚·‚é
-mask3 <- mask3 > 0            # Äƒ‰ƒxƒ‹‰»‚Ì‚½‚ß‚É‚¢‚Á‚½‚ñƒ‰ƒxƒ‹‚ğƒNƒŠƒA
-mask3 <- bwlabel(mask3)       # Äƒ‰ƒxƒ‹‰»
-hf <- hullFeatures(mask3)                # Ä“xŒ`ó“Á’¥ƒpƒ‰ƒ[ƒ^‚ğæ“¾
-labels  <- as.character(c(1:max(mask3))) # ƒRƒƒj[‚Ì”Ô†‚ğì‚é
-xy <- hf[,c('g.x','g.y')]                # ƒRƒƒj[‚ÌÀ•W‚ğ“¾‚é
-xy <- xy +5                              # ‹”F«Œüã‚Ì‚½‚ßÀ•W‚ğ5ƒsƒNƒZƒ‹ˆÚ“®
-                                         # ƒRƒƒj[‚Ì”Ô†‚ğ‰æ‘œ‚É•\¦
+mask3 <- rmObjects(mask3, id) # ä¸Šè¨˜æ¡ä»¶ã«ä¸€è‡´ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‰Šé™¤ã™ã‚‹
+mask3 <- mask3 > 0            # å†ãƒ©ãƒ™ãƒ«åŒ–ã®ãŸã‚ã«ã„ã£ãŸã‚“ãƒ©ãƒ™ãƒ«ã‚’ã‚¯ãƒªã‚¢
+mask3 <- bwlabel(mask3)       # å†ãƒ©ãƒ™ãƒ«åŒ–
+hf <- hullFeatures(mask3)                # å†åº¦å½¢çŠ¶ç‰¹å¾´ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’å–å¾—
+labels  <- as.character(c(1:max(mask3))) # ã‚³ãƒ­ãƒ‹ãƒ¼ã®ç•ªå·ã‚’ä½œã‚‹
+xy <- hf[,c('g.x','g.y')]                # ã‚³ãƒ­ãƒ‹ãƒ¼ã®åº§æ¨™ã‚’å¾—ã‚‹
+xy <- xy +5                              # è¦–èªæ€§å‘ä¸Šã®ãŸã‚åº§æ¨™ã‚’5ãƒ”ã‚¯ã‚»ãƒ«ç§»å‹•
+                                         # ã‚³ãƒ­ãƒ‹ãƒ¼ã®ç•ªå·ã‚’ç”»åƒã«è¡¨ç¤º
 display(drawtext(mask3, xy, labels=labels, col="white"))
-# cmoment()ŠÖ”‚ğƒXƒ^ƒbƒN‚É“K—p‚·‚é‚½‚ß‚Éƒ}ƒXƒN‚àƒXƒ^ƒbƒN‰»‚·‚é
+# cmoment()é–¢æ•°ã‚’ã‚¹ã‚¿ãƒƒã‚¯ã«é©ç”¨ã™ã‚‹ãŸã‚ã«ãƒã‚¹ã‚¯ã‚‚ã‚¹ã‚¿ãƒƒã‚¯åŒ–ã™ã‚‹
 mask4 <- array(mask3, dim=c(w, h, dim(images)[3]))
-m <- cmoments(mask4, images) # ’†‰›ƒ‚[ƒƒ“ƒg‚ğŒvZ
-                             # ŠeƒRƒƒj[‚Ì’PˆÊ–ÊÏ‚ ‚½‚è‚Ì‹P“x‚ğŒvZ
+m <- cmoments(mask4, images) # ä¸­å¤®ãƒ¢ãƒ¼ãƒ¡ãƒ³ãƒˆã‚’è¨ˆç®—
+                             # å„ã‚³ãƒ­ãƒ‹ãƒ¼ã®å˜ä½é¢ç©ã‚ãŸã‚Šã®è¼åº¦ã‚’è¨ˆç®—
 result <- sapply(m, function(x) x[,"m.int"]/x[,"m.pxs"])
-result <- t(result) # ƒf[ƒ^‚ğ“]’u‚µ‚ÄŠes‚ªƒRƒƒj[‚Ì”Ô†‚Æ‚È‚é‚æ‚¤‚É‚·‚é
-nresult <- apply(result, 2, function(x) x/min(x)) # ƒf[ƒ^‚ğ³‹K‰»‚·‚é
-                    # matplot()ŠÖ”‚Åƒvƒƒbƒg‚·‚éÛ‚Ìx²ƒf[ƒ^‚ğ€”õ
+result <- t(result) # ãƒ‡ãƒ¼ã‚¿ã‚’è»¢ç½®ã—ã¦å„è¡ŒãŒã‚³ãƒ­ãƒ‹ãƒ¼ã®ç•ªå·ã¨ãªã‚‹ã‚ˆã†ã«ã™ã‚‹
+nresult <- apply(result, 2, function(x) x/min(x)) # ãƒ‡ãƒ¼ã‚¿ã‚’æ­£è¦åŒ–ã™ã‚‹
+                    # matplot()é–¢æ•°ã§ãƒ—ãƒ­ãƒƒãƒˆã™ã‚‹éš›ã®xè»¸ãƒ‡ãƒ¼ã‚¿ã‚’æº–å‚™
 x <- matrix(c(1:nrow(result))*2, nrow(result), ncol(result))
-                    # ‘SƒRƒƒj[‚Ìƒf[ƒ^‚ğ•\¦
+                    # å…¨ã‚³ãƒ­ãƒ‹ãƒ¼ã®ãƒ‡ãƒ¼ã‚¿ã‚’è¡¨ç¤º
 matplot(x, result, xlab="hours", ylab="A.U.", type="l") 
-                    # ³‹K‰»‚µ‚½ƒf[ƒ^‚ğ•\¦
+                    # æ­£è¦åŒ–ã—ãŸãƒ‡ãƒ¼ã‚¿ã‚’è¡¨ç¤º
 matplot(x, nresult, xlab="hours", ylab="A.U.", type="l")
-                    # ‘Sƒf[ƒ^‚Ì•½‹Ï‚ğ•\¦
+                    # å…¨ãƒ‡ãƒ¼ã‚¿ã®å¹³å‡ã‚’è¡¨ç¤º
 matplot(rowMeans(x), rowMeans(result), xlab="hours", ylab="A.U.", type="l") 
-set.seed(10)                    # —”¶¬—p‚Ìí‚ğİ’èiÄŒ»«‚Ì‚½‚ßj
-res <- wc((result*2^16)^2, 0.5) # waveclockƒpƒbƒP[ƒW‚ğ—p‚¢‚ÄüŠú«‚ğ’Šo‚·‚é
-dev.off()                                  # ì}—Ìˆæ‚ğƒŠƒZƒbƒg
+set.seed(10)                    # ä¹±æ•°ç”Ÿæˆç”¨ã®ç¨®ã‚’è¨­å®šï¼ˆå†ç¾æ€§ã®ãŸã‚ï¼‰
+res <- wc((result*2^16)^2, 0.5) # waveclockãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã‚’ç”¨ã„ã¦å‘¨æœŸæ€§ã‚’æŠ½å‡ºã™ã‚‹
+dev.off()                                  # ä½œå›³é ˜åŸŸã‚’ãƒªã‚»ãƒƒãƒˆ
 hist(res[,1], xlim=c(20, 30), xlab="period (hr)", 
-     ylab="frequency", breaks=30, main="") # Œ‹‰Ê‚ğƒvƒƒbƒg
-# üŠú‚ª27ŠÔ‚æ‚è‘å‚«‚¢ƒRƒƒj[‚ğƒ‰ƒxƒ‹
+     ylab="frequency", breaks=30, main="") # çµæœã‚’ãƒ—ãƒ­ãƒƒãƒˆ
+# å‘¨æœŸãŒ27æ™‚é–“ã‚ˆã‚Šå¤§ãã„ã‚³ãƒ­ãƒ‹ãƒ¼ã‚’ãƒ©ãƒ™ãƒ«
 matplot(x[,which(res[,1] > 27)], result[,which(res[,1] > 27)], 
         xlab="hours", ylab="A.U.", type="l")
-res0 <- replace(res, which(is.na(res)), 0) # ƒf[ƒ^’†‚ÌNA‚ğ0‚Å’u‚«Š·‚¦‚é
-# ƒIƒuƒWƒFƒNƒg‚Ì‹P“x’l‚ğüŠú‚Ì’l‚Å’u‚«Š·‚¦‚é
+res0 <- replace(res, which(is.na(res)), 0) # ãƒ‡ãƒ¼ã‚¿ä¸­ã®NAã‚’0ã§ç½®ãæ›ãˆã‚‹
+# ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¼åº¦å€¤ã‚’å‘¨æœŸã®å€¤ã§ç½®ãæ›ãˆã‚‹
 for (i in 1:length(res[,1])){
   mask3[which(mask3==i)] <- res0[i,1]
 } 
-# ‹^—ƒJƒ‰[•\¦‚Ì”ÍˆÍ‚ğŒˆ‚ß‚é‚½‚ßCüŠú‚ÌÅ¬’l‚ğ’²‚×‚é
+# ç–‘ä¼¼ã‚«ãƒ©ãƒ¼è¡¨ç¤ºã®ç¯„å›²ã‚’æ±ºã‚ã‚‹ãŸã‚ï¼Œå‘¨æœŸã®æœ€å°å€¤ã‚’èª¿ã¹ã‚‹
 min <- floor(255*sort(unique(as.vector(normalize(mask3))))[2])
-mask4 <- pseudoColor2(normalize(mask3), min-1, 255) # ‹^—ƒJƒ‰[‰»
+mask4 <- pseudoColor2(normalize(mask3), min-1, 255) # ç–‘ä¼¼ã‚«ãƒ©ãƒ¼åŒ–
 display(mask4)
-rainbowbar <- rainbowBar(100, 20) # ƒJƒ‰[ƒXƒP[ƒ‹‚Ìì¬
+rainbowbar <- rainbowBar(100, 20) # ã‚«ãƒ©ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«ã®ä½œæˆ
 bns <- rotate(rainbowbar, -90) 
-                                  # •\¦—p‚Ì•¶š‚ğì¬
+                                  # è¡¨ç¤ºç”¨ã®æ–‡å­—ã‚’ä½œæˆ
 minchr <- as.character(round(sort(unique(as.vector(mask3)))[2]))
 maxchr <- as.character(round(max(as.vector(mask3)))) 
-                                  # ‰æ‘œ‚ÉƒJƒ‰[ƒXƒP[ƒ‹‚ğ–„‚ß‚Ş
+                                  # ç”»åƒã«ã‚«ãƒ©ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«ã‚’åŸ‹ã‚è¾¼ã‚€
 mask4[(w-30):(w-30+nrow(bns)-1), 20:(20+ncol(bns)-1), 1:3] <- bns
-                                  # ƒJƒ‰[ƒXƒP[ƒ‹‚Ìƒƒ‚ƒŠ‚ğ•`‚­
+                                  # ã‚«ãƒ©ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«ã®ãƒ¡ãƒ¢ãƒªã‚’æã
 arial <- drawfont(family="arial", size=10)
 mask4 <- drawtext(mask4, c(w-45, (25+ncol(bns))), minchr, col="white", 
                   font=arial)
 mask4 <- drawtext(mask4, c(w-45, 20), maxchr, col="white", font=arial)
-display(mask4)                    # Œ‹‰Ê‚ğ•\¦
+display(mask4)                    # çµæœã‚’è¡¨ç¤º

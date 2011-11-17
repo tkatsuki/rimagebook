@@ -3,19 +3,19 @@
 #define IN_DEF_ANISOTROPIC_FILTER
 #include "CImgWrapper.h"
 
-// ”ñ“™•ûŠgUƒtƒBƒ‹ƒ^‚ğ—p‚¢‚½‰~ŠŠ‰» (CImgƒTƒ“ƒvƒ‹ƒvƒƒOƒ‰ƒ€‚ğC³)
+// éç­‰æ–¹æ‹¡æ•£ãƒ•ã‚£ãƒ«ã‚¿ã‚’ç”¨ã„ãŸå††æ»‘åŒ– (CImgã‚µãƒ³ãƒ—ãƒ«ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’ä¿®æ­£)
 template<typename T>
 void AnisotropicFilter(T *Img, const int Dims[3], int Iter, double coef) {
   using namespace cimg_library;
   CImg<float> src(Img,Dims[0],Dims[1],1,Dims[2]);
 
   for(int i = 0 ; i < Iter ; ++i){
-    // ‘¬“xê‚ÌŒvZ
+    // é€Ÿåº¦å ´ã®è¨ˆç®—
     CImg_3x3(I,float);
-    CImg<float> veloc(Dims[0],Dims[1]); // ‘¬“xê‰æ‘œ
+    CImg<float> veloc(Dims[0],Dims[1]); // é€Ÿåº¦å ´ç”»åƒ
     float *ptrd = veloc.data(), betamax = 0;
-    cimg_forC(src,k) // ‰æ‘œ‚Ì‘SƒsƒNƒZƒ‹‚É‘Î‚µ‚Äƒ‹[ƒv(CImgƒ}ƒNƒ)
-      cimg_for3x3(src,x,y,0,k,I,float) { // 8‹ß–T‚É‘Î‚·‚éˆ—(CImgƒ}ƒNƒ)
+    cimg_forC(src,k) // ç”»åƒã®å…¨ãƒ”ã‚¯ã‚»ãƒ«ã«å¯¾ã—ã¦ãƒ«ãƒ¼ãƒ—(CImgãƒã‚¯ãƒ­)
+      cimg_for3x3(src,x,y,0,k,I,float) { // 8è¿‘å‚ã«å¯¾ã™ã‚‹å‡¦ç†(CImgãƒã‚¯ãƒ­)
         const float
           ix = (Inc - Ipc)/2,
           iy = (Icn - Icp)/2,
@@ -29,12 +29,12 @@ void AnisotropicFilter(T *Img, const int Dims[3], int Iter, double coef) {
         *(ptrd++) = beta;
       }
     veloc*=coef/betamax;
-    src+=veloc; // Œ³‰æ‘œ‚Ö‚ÌƒtƒBƒ‹ƒ^“K—p
+    src+=veloc; // å…ƒç”»åƒã¸ã®ãƒ•ã‚£ãƒ«ã‚¿é©ç”¨
   }
   CImg<T> dst(Img,Dims[0],Dims[1],1,Dims[2],true);
   T *ptrd = dst._data;
   const float *ptrs = src._data + src.size();
-  cimg_for(dst,ptrd,T) *ptrd = (T)*(--ptrs); // double/integer‚Ö‚Ì‘‚«–ß‚µ
+  cimg_for(dst,ptrd,T) *ptrd = (T)*(--ptrs); // double/integerã¸ã®æ›¸ãæˆ»ã—
 }
 
 void AnisotropicFilterF64(double *Img, const int Dims[3],

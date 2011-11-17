@@ -5,7 +5,7 @@ for (i in 1:5){
   img <- readImage(system.file("images/wildwg.png", package="RImageBook"))
   img <- EBI2biOps(img)
   plot(img)
-  xy[[i]] <- locator(8, type="p")@# }12.12(a)‚Ì‚æ‚¤‚É8ƒJŠ‚ÌŒð·“_‚ð‘I‘ð
+  xy[[i]] <- locator(8, type="p")ã€€# å›³12.12(a)ã®ã‚ˆã†ã«8ã‚«æ‰€ã®äº¤å·®ç‚¹ã‚’é¸æŠž
   xy[[i]] <- do.call("cbind", xy[[i]])
   print(paste("Image", i, "finished.", sep=" "))
 }

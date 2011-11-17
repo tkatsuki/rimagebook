@@ -2,23 +2,23 @@ chest <- readImage(system.file("images/chest.png", package="RImageBook"))
 require(RNiftyReg)
 require(bitops)
 require(oro.nifti)
-chesttr <- translate(chest, c(20,30)) # •½sˆÚ“®
-chestrt <- rotate(chest, 20) # ‰ñ“]
-chestzo <- resize(chest, nrow(chest)*1.1) # Šg‘å
+chesttr <- translate(chest, c(20,30)) # å¹³è¡Œç§»å‹•
+chestrt <- rotate(chest, 20) # å›è»¢
+chestzo <- resize(chest, nrow(chest)*1.1) # æ‹¡å¤§
 display(chest)
 display(chesttr)
 display(chestrt)
 display(chestzo)
-chestn <- as.nifti(imageData(chest)) # niftiŒ`®‚É•ÏŠ·
+chestn <- as.nifti(imageData(chest)) # niftiå½¢å¼ã«å¤‰æ›
 chesttrn <- as.nifti(imageData(chesttr))
 chestrtn <- as.nifti(imageData(chestrt))
 chestzon <- as.nifti(imageData(chestzo))
-trnreg <- niftyreg(chesttrn, chestn) # ƒŒƒWƒXƒgƒŒ[ƒVƒ‡ƒ“ˆ—
+trnreg <- niftyreg(chesttrn, chestn) # ãƒ¬ã‚¸ã‚¹ãƒˆãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†
 rtreg <- niftyreg(chestrtn, chestn, nLevels=5)
 zoreg <- niftyreg(chestzon, chestn)
-display(trnreg$image) # ƒŒƒWƒXƒgƒŒ[ƒVƒ‡ƒ“‚ÌŒ‹‰Ê‚ğ•\¦
+display(trnreg$image) # ãƒ¬ã‚¸ã‚¹ãƒˆãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ã®çµæœã‚’è¡¨ç¤º
 display(rtreg$image)
 display(zoreg$image)
-decomposeAffine(trnreg$affine[[1]], chesttrn, chestn) # ƒAƒtƒBƒ“•ÏŠ·‚Ì‰ğÍ
+decomposeAffine(trnreg$affine[[1]], chesttrn, chestn) # ã‚¢ãƒ•ã‚£ãƒ³å¤‰æ›ã®è§£æ
 decomposeAffine(rtreg$affine[[1]], chestrtn, chestn)
 decomposeAffine(zoreg$affine[[1]], chestzon, chestn)

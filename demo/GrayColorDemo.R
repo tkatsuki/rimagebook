@@ -17,8 +17,8 @@ display(iriseg)
 display(biOps2EBI(irisbg))
 
 nuc <- readImage(system.file("images/nuclei.tif", package="EBImage"))
-nuc <- nuc[,,1]                       # ƒXƒ^ƒbƒN‰æ‘œ‚©‚ç1–‡–Ú‚Ì‰æ‘œ‚ð”²‚«o‚·
-nucps <- pseudoColor(nuc)             # ‹^Ž—ƒJƒ‰[‰»
+nuc <- nuc[,,1]                       # ã‚¹ã‚¿ãƒƒã‚¯ç”»åƒã‹ã‚‰1æžšç›®ã®ç”»åƒã‚’æŠœãå‡ºã™
+nucps <- pseudoColor(nuc)             # ç–‘ä¼¼ã‚«ãƒ©ãƒ¼åŒ–
 display(nucps)
-nucps2 <- pseudoColor2(nuc, 100, 255) # ƒOƒŒ[ƒXƒP[ƒ‹‚Ìˆê•”‚ð‹^Ž—ƒJƒ‰[‰»
+nucps2 <- pseudoColor2(nuc, 100, 255) # ã‚°ãƒ¬ãƒ¼ã‚¹ã‚±ãƒ¼ãƒ«ã®ä¸€éƒ¨ã‚’ç–‘ä¼¼ã‚«ãƒ©ãƒ¼åŒ–
 display(nucps2)

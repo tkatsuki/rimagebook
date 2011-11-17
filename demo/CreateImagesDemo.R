@@ -7,30 +7,30 @@ wave <- matrix(sin(x*pi/63.7), 256, 256)
 display(wave)
 w <- 256
 h <- 256
-s <- 40                                           # \(\sigma\)‚ðŽw’è
-fn <- function(x, y, s) exp(-(x^2+y^2)/(2*s^2))   # ŠÖ”‚ð’è‹`
-x <- seq(-floor(w/2), floor(w/2), len=w)          # xÀ•W‚Ì”ÍˆÍ
-y <- seq(-floor(h/2), floor(h/2),len=h)           # yÀ•W‚Ì”ÍˆÍ
-w <- outer(x, y, fn, s)                           # ˆê”Ê‰»ŠOÏŠÖ”
+s <- 40                                           # \(\sigma\)ã‚’æŒ‡å®š
+fn <- function(x, y, s) exp(-(x^2+y^2)/(2*s^2))   # é–¢æ•°ã‚’å®šç¾©
+x <- seq(-floor(w/2), floor(w/2), len=w)          # xåº§æ¨™ã®ç¯„å›²
+y <- seq(-floor(h/2), floor(h/2),len=h)           # yåº§æ¨™ã®ç¯„å›²
+w <- outer(x, y, fn, s)                           # ä¸€èˆ¬åŒ–å¤–ç©é–¢æ•°
 display(normalize(w))
-bg <- matrix(0, 256, 256)                        # ”wŒi‚Ìì¬
-cr <- drawCircle(bg, 100, 100, 50, 1)            # ‰~Žü‚ð•`‚­
-cr <- drawCircle(cr, 160, 160, 20, 1, fill=TRUE) # “h‚è‚Â‚Ô‚µ‚½‰~‚ð•`‚­
+bg <- matrix(0, 256, 256)                        # èƒŒæ™¯ã®ä½œæˆ
+cr <- drawCircle(bg, 100, 100, 50, 1)            # å††å‘¨ã‚’æã
+cr <- drawCircle(cr, 160, 160, 20, 1, fill=TRUE) # å¡—ã‚Šã¤ã¶ã—ãŸå††ã‚’æã
 display(cr)
 theta <- seq(0, 2 * pi, length=(100))
 x <- 200 + 100 * cos(theta)
 y <- 200 + 30 * sin(theta)
 plot(x, y, type = "l")
-par(plt=c(0, 1, 0, 1), xaxs="i", yaxs="i") # ì}Ý’è‚ð•ÏX
+par(plt=c(0, 1, 0, 1), xaxs="i", yaxs="i") # ä½œå›³è¨­å®šã‚’å¤‰æ›´
 theta <- seq(0, 2 * pi, length=(100))
 x <- 200 + 100 * cos(theta)
 y <- 200 + 30 * sin(theta)
-                                           # o—Íæ‚ðpngƒtƒ@ƒCƒ‹‚ÉÝ’è
+                                           # å‡ºåŠ›å…ˆã‚’pngãƒ•ã‚¡ã‚¤ãƒ«ã«è¨­å®š
 png(filename = "temp.png", width = 400, height = 400, bg = "black")
-                                           # ì}‚·‚é
+                                           # ä½œå›³ã™ã‚‹
 plot(x, y, type = "l", axes=F, col="white", xlim=c(0, 400), ylim=c(0, 400))
-dev.off()                                  # ƒtƒ@ƒCƒ‹‚Ö‚Ìo—Í‚ðŠ®—¹
-img <- readImage("temp.png")               # o—Í‚µ‚½ƒtƒ@ƒCƒ‹‚ð“Ç‚Ýž‚ñ‚ÅŠm”F
+dev.off()                                  # ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®å‡ºåŠ›ã‚’å®Œäº†
+img <- readImage("temp.png")               # å‡ºåŠ›ã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚“ã§ç¢ºèª
 display(img)
 library("shape")
 par(plt=c(0, 1, 0, 1), xaxs="i", yaxs="i")

@@ -1,6 +1,6 @@
-FNCC <- function(a,b){            # 2ŽŸŒ³ƒf[ƒ^‚Ì‘ŠŒÝ‘ŠŠÖ
-  w <- ncol(a) + ncol(b) - 1      # ŽüŠú«‚ð‘Å‚¿Á‚·‚½‚ß
-  h <- nrow(a) + nrow(b) - 1      # —Ìˆæ‚ðŠg‘å
+FNCC <- function(a,b){            # 2æ¬¡å…ƒãƒ‡ãƒ¼ã‚¿ã®ç›¸äº’ç›¸é–¢
+  w <- ncol(a) + ncol(b) - 1      # å‘¨æœŸæ€§ã‚’æ‰“ã¡æ¶ˆã™ãŸã‚
+  h <- nrow(a) + nrow(b) - 1      # é ˜åŸŸã‚’æ‹¡å¤§
   amat <- matrix(0,nrow=h,ncol=w)
   bmat <- matrix(0,nrow=h,ncol=w)
   amat[1:nrow(a),1:ncol(a)] <- a

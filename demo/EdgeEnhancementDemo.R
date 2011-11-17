@@ -1,8 +1,8 @@
 cassini <- readImage(system.file("images/cassini.jpg", package="RImageBook"))
-                                  # 4‹ß–T‚Ìƒ‰ƒvƒ‰ƒVƒAƒ“ƒtƒBƒ‹ƒ^‚ðì¬‚·‚é
+                                  # 4è¿‘å‚ã®ãƒ©ãƒ—ãƒ©ã‚·ã‚¢ãƒ³ãƒ•ã‚£ãƒ«ã‚¿ã‚’ä½œæˆã™ã‚‹
 lap4 <- matrix(c(0, 1, 0, 1, -4, 1, 0, 1, 0), 3, 3, byrow=TRUE)
-caslap4 <- filter2(cassini, lap4) # ƒ‰ƒvƒ‰ƒVƒAƒ“ƒtƒBƒ‹ƒ^‚ð“K—p
-display(cassini)                  #@‘N‰s‰»‘O‚Ì‰æ‘œ
-display(cassini - 0.5*caslap4)    #@‘N‰s‰»
-display(cassini - 0.8*caslap4)    # ‚æ‚è‹­‚¢‘N‰s‰»
-display(cassini - caslap4)@       # ‚³‚ç‚É‹­‚¢‘N‰s‰»
+caslap4 <- filter2(cassini, lap4) # ãƒ©ãƒ—ãƒ©ã‚·ã‚¢ãƒ³ãƒ•ã‚£ãƒ«ã‚¿ã‚’é©ç”¨
+display(cassini)                  #ã€€é®®é‹­åŒ–å‰ã®ç”»åƒ
+display(cassini - 0.5*caslap4)    #ã€€é®®é‹­åŒ–
+display(cassini - 0.8*caslap4)    # ã‚ˆã‚Šå¼·ã„é®®é‹­åŒ–
+display(cassini - caslap4)ã€€       # ã•ã‚‰ã«å¼·ã„é®®é‹­åŒ–

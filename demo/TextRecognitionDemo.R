@@ -1,11 +1,11 @@
 library(e1071)
 library(rpart)
-con <- file("ETL1C_01", open="rb") # ƒtƒ@ƒCƒ‹‚ðŠJ‚­
-# ƒtƒ@ƒCƒ‹‚©‚çrawŒ`Ž®‚ÅƒoƒCƒiƒŠƒf[ƒ^‚ð“Ç‚Ýž‚Þ
-# “Ç‚Ýž‚Þƒf[ƒ^‚ÌƒTƒCƒY‚Íƒtƒ@ƒCƒ‹‘S‘Ì‚Æ‚·‚é
+con <- file("ETL1C_01", open="rb") # ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
+# ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰rawå½¢å¼ã§ãƒã‚¤ãƒŠãƒªãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€
+# èª­ã¿è¾¼ã‚€ãƒ‡ãƒ¼ã‚¿ã®ã‚µã‚¤ã‚ºã¯ãƒ•ã‚¡ã‚¤ãƒ«å…¨ä½“ã¨ã™ã‚‹
 rawdata <- readBin(con, "raw", 
                    file.info("ETL1C_01")$size)
-close(con) # ƒtƒ@ƒCƒ‹‚ð•Â‚¶‚é
+close(con) # ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
 fn <- length(rawdata)/2052
 w <- 64
 h <- 63
@@ -22,7 +22,7 @@ for(i in 1:fn){
   a <- matrix(a, w, h)
   imgs[,,i] <- a
 }
-rm(rawdata) # ƒƒ‚ƒŠ‚Ìß–ñ‚Ì‚½‚ß•s—v‚ÈƒIƒuƒWƒFƒNƒg‚Ííœ
+rm(rawdata) # ãƒ¡ãƒ¢ãƒªã®ç¯€ç´„ã®ãŸã‚ä¸è¦ãªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯å‰Šé™¤
 gdat <- matrix(resize(imgs, 16, 16), fn, 16*16)
 mask <- thresh(imgs, 10, 10, 2)
 mask <- bwlabel(mask)

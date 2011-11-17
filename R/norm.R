@@ -1,4 +1,4 @@
-.norm <- function(x) {  			# ƒf[ƒ^‚Ì³‹K‰»
+.norm <- function(x) {  			# ãƒ‡ãƒ¼ã‚¿ã®æ­£è¦åŒ–
  nx <- x - sum(x)/length(x)
  nx <- nx/sqrt(sum(nx*nx))
  nx
