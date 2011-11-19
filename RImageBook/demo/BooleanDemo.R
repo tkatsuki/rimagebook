@@ -1,3 +1,4 @@
+## Demo for p.72 Fig.4.25
 w <- matrix(1, 256, 256)
 v <- c(rep(c(rep(0, 14), 1, 1), 16)) 
 a <- w * v

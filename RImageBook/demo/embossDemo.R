@@ -1,3 +1,4 @@
+## Demo for p.71 Fig.4.24
 engine <- readImage(system.file("images/engine.jpg", package="RImageBook"))
 display(engine)
 engineem <- emboss(engine)

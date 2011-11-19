@@ -1,10 +1,14 @@
+## Demo for p.20 Fig.2.9
 bg <- matrix(0, 256, 256)
 display(bg)
+
 grad <- matrix(c(0:255)/255, 256, 256)
 display(grad)
+
 x <- 0:65535
 wave <- matrix(sin(x*pi/63.7), 256, 256)
 display(wave)
+
 w <- 256
 h <- 256
 s <- 40
@@ -18,20 +22,25 @@ bg <- matrix(0, 256, 256)
 cr <- drawCircle(bg, 100, 100, 50, 1)
 cr <- drawCircle(cr, 160, 160, 20, 1, fill=TRUE)
 display(cr)
+
+## Demo for p.22 Fig.2.10
+## shape package required
+## install.packages("shape")
 theta <- seq(0, 2 * pi, length=(100))
 x <- 200 + 100 * cos(theta)
 y <- 200 + 30 * sin(theta)
 plot(x, y, type = "l")
-par(plt=c(0, 1, 0, 1), xaxs="i", yaxs="i")
+
 theta <- seq(0, 2 * pi, length=(100))
 x <- 200 + 100 * cos(theta)
 y <- 200 + 30 * sin(theta)
-
+par(plt=c(0, 1, 0, 1), xaxs="i", yaxs="i")
 png(filename = "temp.png", width = 400, height = 400, bg = "black")
 plot(x, y, type = "l", axes=F, col="white", xlim=c(0, 400), ylim=c(0, 400))
 dev.off()
 img <- readImage("temp.png")
 display(img)
+
 library("shape")
 par(plt=c(0, 1, 0, 1), xaxs="i", yaxs="i")
 png(filename = "temp.png", width = 400, height = 400, bg = "black")

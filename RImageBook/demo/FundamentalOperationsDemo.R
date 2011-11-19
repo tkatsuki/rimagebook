@@ -1,3 +1,4 @@
+## Demo codes for p.13 Fig.2.5
 f <- system.file("images/lena.tif", package="RImageBook")
 lenab <- readTiff(f)
 plot(lenab)

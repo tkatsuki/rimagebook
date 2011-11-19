@@ -1,3 +1,4 @@
+## Demo for p.68 Fig.4.21
 girl <- readImage(system.file("images/girl.bmp",package="RImageBook"))
 woman <- readImage(system.file("images/WOMAN.bmp",package="RImageBook"))
 x <- matrix(0, nrow=256, ncol=256)

@@ -1,3 +1,4 @@
+## Demo for p.36 Fig.3.12
 a <- readImage(system.file("images/woman.png", package="RImageBook"))
 display(a)
 eye <- a[200:249, 310:359]

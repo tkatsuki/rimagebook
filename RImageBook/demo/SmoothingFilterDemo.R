@@ -1,3 +1,4 @@
+## Demo for p.76 Fig.5.3
 cup <- readImage(system.file("images/cupgirl.png", package="RImageBook"))
 cupb <- E2b(cup)
 cupbgn <- imgGaussianNoise(cupb, 0, 120)

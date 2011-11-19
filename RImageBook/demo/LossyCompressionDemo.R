@@ -1,3 +1,4 @@
+## Demo codes for p.15 Fig.2.6
 f <- system.file("images/lena.tif", package="RImageBook")
 lena <- readImage(f)
 writeImage(lena, "lena.png")
@@ -12,3 +13,8 @@ display(readImage("lena10.jpg"))
 display(readImage("lena50.jpg"))
 display(readImage("lena100.jpg"))
 display(readImage("lena.tiff"))
+# Check file size
+file.info("lena.tiff")$size
+file.info("lena.png")$size
+file.info("lena100.jpg")$size
+identical(readImage("lena.png"), readImage("lena.tiff"))
