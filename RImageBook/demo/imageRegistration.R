@@ -1,9 +1,11 @@
-chest <- readImage(system.file("images/chest.png", package="RImageBook"))
+## Demo for p.126 Fig.7.27
+## Requires RNiftyReg, bitops, oro.nifti packages
 require(RNiftyReg)
 require(bitops)
 require(oro.nifti)
+chest <- readImage(system.file("images/chest.png", package="RImageBook"))
 chesttr <- translate(chest, c(20,30))
-chestrt <- rotate(chest, 20)
+chestrt <- EBImage::rotate(chest, 20)
 chestzo <- resize(chest, nrow(chest)*1.1)
 display(chest)
 display(chesttr)

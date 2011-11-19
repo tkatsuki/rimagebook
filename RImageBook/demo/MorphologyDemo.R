@@ -1,3 +1,4 @@
+## Demo for p.104 Fig.7.4
 shapes <- readImage(system.file("images/shapes.png", package="EBImage"))
 logo <- shapes[110:512,1:130]
 display(logo)

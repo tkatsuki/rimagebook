@@ -1,3 +1,4 @@
+## Demo for p.92 Fig.6.3
 x <- 0:65535
 mat <- matrix(0.3*sin(x*pi/50)+0.7, 256, 256)
 display(mat)
@@ -7,10 +8,8 @@ d <- img * mat
 db <- E2b(d)
 df <- imgFFT(db)
 dfs <- imgFFTSpectrum(df)
-plot(dfs)
 dfse <- b2E(dfs)
 display(dfse)
-display(thresh(dfse, 40, 40, 0.05))
 dfseth <- thresh(dfse, 40, 40, 0.05)
 kern <- makeBrush(7, "disc")
 mask <- opening(dfseth, kern)
@@ -20,7 +19,6 @@ display(mask)
 c <- E2b(1-mask)
 dfc <- df * c
 spec <- imgFFTSpectrum(dfc)
-plot(spec)
 display(b2E(spec))
 nonhalftone <- imgFFTInv(dfc)
 display(normalize(b2E(nonhalftone)))

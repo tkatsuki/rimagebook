@@ -1,3 +1,6 @@
+## Demo for p.121 Fig.7.25
+## Requires PET package
+## install.packages("PET")
 library(PET)
 shapes <- readImage(system.file("images/shapes.png", package="EBImage"))
 shapesr <- flip(shapes[151:500,1:350])
@@ -5,7 +8,7 @@ ThetaSamples <- 721
 rhosamples <- 2*round(sqrt(sum((dim(shapesr))^2))/2)+1
 rhomin <- -0.5*((2*round(sqrt(sum((dim(shapesr))^2))/2)+1)-1)
 drho <- (2*abs(rhomin)+1)/rhosamples
-hb <- hough(shapesr,@ThetaSamples=ThetaSamples
+hb <- hough(shapesr,@ThetaSamples=ThetaSamples)
 image(hb$hData, col=gray((0:32)/32), axes = FALSE, xlab="", ylab="")
 peak <- which(hb$hData[]>(max(hb$hData[])*0.9), arr.ind=TRUE) 
 windows()

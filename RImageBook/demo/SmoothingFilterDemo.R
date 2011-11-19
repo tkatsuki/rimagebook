@@ -9,13 +9,7 @@ display(cup)
 display(cupgn)
 display(cupsp)
 
-cupgauss <- gblur(cup, 3, 1)
-display(cupgauss)
-
-gauss9 <- GaussianKernel(9, 9, 5)
-cupgauss9 <- filter2(cup, gauss9)
-display(cupgauss9)
-
+## Demo for p.77 Fig.5.4
 meanFilter <- matrix(1/9, 3, 3)
 cupmean <- filter2(cup, meanFilter)
 cupspmean <- filter2(cupsp, meanFilter)
@@ -38,3 +32,12 @@ cupbspmed <- imgBlockMedianFilter(cupbsp)
 display(b2E(cupbmed))
 display(b2E(cupbgnmed))
 display(b2E(cupbspmed))
+
+## Demo for p.78
+cupgauss <- gblur(cup, 3, 1)
+display(cupgauss)
+
+## Demo for p.79
+gauss9 <- GaussianKernel(9, 9, 5)
+cupgauss9 <- filter2(cup, gauss9)
+display(cupgauss9)

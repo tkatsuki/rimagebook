@@ -1,9 +1,10 @@
+## Demo for p.86 Fig.5.10
 cup <- readImage(system.file("images/cupgirl.png", package="RImageBook"))
-cupb <- EBI2biOps(cup)
+cupb <- E2b(cup)
 cupbgn <- imgGaussianNoise(cupb, 0, 120)
 cupbsp <- imgSaltPepperNoise(cupb, 5)
-cupsp <- biOps2EBI(cupbsp)
-cupgn <- biOps2EBI(cupbgn)
+cupsp <- b2E(cupbsp)
+cupgn <- b2E(cupbgn)
 cupan50 <- AnisotropicFilter(cup, 50)
 cupgnan <- AnisotropicFilter(cupgn, 10)
 cupspan <- AnisotropicFilter(cupsp, 50)

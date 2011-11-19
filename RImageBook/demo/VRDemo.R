@@ -1,3 +1,4 @@
+## Demo for p.138 Fig.8.14
 require("rgl")
 require("misc3d")
 require("AnalyzeFMRI")

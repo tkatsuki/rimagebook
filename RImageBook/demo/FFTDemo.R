@@ -1,3 +1,4 @@
+## Demo for p.90 Fig.6.1
 w <- matrix(c(0, 0, 0, 0.8), 128, 128)
 h <- matrix(c(0, 0, 0, 0, 0, 0, 0, 0.8), 128, 128)
 h <- t(h)
@@ -10,17 +11,15 @@ hbspec <- imgFFTSpectrum(hbfft)
 display(b2E(wbspec))
 display(b2E(hbspec))
 
-
+## Demo for p.91 Fig.6.2
 houses <- readImage(system.file("images/houses.png", package="RImageBook"))
 housesb <- E2b(houses)
 housesbfft <- imgFFT(housesb)
 str(housesbfft)
 housesbffti <- imgFFTInv(housesbfft)
 display(b2E(housesbffti))
-
 housesbspec <- imgFFTSpectrum(housesbfft)
 display(b2E(housesbspec))
-
 meanFilter <- matrix(1/25, 5, 5)
 housesm <- filter2(houses, meanFilter)
 gaussFilter <- GaussianKernel(11, 11, 1.8)
@@ -32,22 +31,26 @@ housesgbfspec <- imgFFTSpectrum(housesgbf)
 display(b2E(housesmbfspec))
 display(b2E(housesgbfspec))
 
+## Demo for p.94 Fig.6.6
 houseslpf <- imgFFTLowPass(housesbfft, 50)
 houseslps <- imgFFTSpectrum(houseslpf)
 houseslp <- imgFFTInv(houseslpf)
 display(b2E(houseslps))
 display(b2E(houseslp))
 
+## Demo for p.94 Fig.6.7
 houseshpf <- imgFFTHighPass(housesbfft, 20)
 houseshps <- imgFFTSpectrum(houseshpf)
 houseshp <- imgFFTInv(houseshpf) 
 display(b2E(houseshp))
 
+## Demo for p.95 Fig.6.8
 housesbpf <- imgFFTBandPass(housesbfft, 20, 100)
 housesbps <- imgFFTSpectrum(housesbpf)
 housesbp <- imgFFTInv(housesbpf) 
 display(b2E(housesbp))
 
+## Demo for p.96 Fig.6.9
 w <- nrow(housesb)
 h <- ncol(housesb)
 gk <- GaussianKernel(w, h, 50)
@@ -57,6 +60,7 @@ housesgls <- imgFFTSpectrum(housesglf)
 housesghs <- imgFFTSpectrum(housesghf)
 housesgl <- imgFFTInv(housesglf)
 housesgh <- imgFFTInv(housesghf)
-display(b2E(housesgl)); display(b2E(housesgh))
+display(b2E(housesgl))
+display(b2E(housesgh))
 display(normalize(t(gk)))
 display(normalize(t(1-gk)))

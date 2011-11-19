@@ -1,3 +1,4 @@
+## Demo for p.100 Fig.7.1
 cam <- readImage(system.file("images/Cameraman.bmp", package="RImageBook"))
 cam <- E2b(cam)
 histogram(cam)
@@ -7,6 +8,7 @@ camkm <- imgKMeans(cam, 2)
 plot(camkm)
 unique(as.vector(camkm))
 
+## Demo for p.101 Fig.7.2
 doc <- readImage(system.file("images/scan.JPG", package="RImageBook"))
 docbw <- doc > 0.7 
 docbw2 <- thresh(doc, 7, 7, -0.1)
