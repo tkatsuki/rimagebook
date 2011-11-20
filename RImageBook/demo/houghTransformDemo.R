@@ -19,4 +19,4 @@ for (i in 1:nrow(peak)){
   rho <- (peak[i,2]+rhomin)/drho
   curve(-(x-(nrow(shapesr)-1)*0.5)/tan(the)+rho/sin(the)+0.5*(ncol(shapesr)-1), 
          0, 350, xlab="", ylab="", xlim=c(0, 350), ylim=c(0, 350), add=TRUE)
-} 
+}
