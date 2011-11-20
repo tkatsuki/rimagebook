@@ -1,3 +1,6 @@
+## Demo for p.181 Fig.12.8 and p.182 Fig.12.9
+## Requires spatstat package
+## install.packages("spatstat")
 para <- readAVI(system.file("images/paramecium.avi", package="RImageBook"))/255
 display(para)
 paramed <- medianPrj(para)

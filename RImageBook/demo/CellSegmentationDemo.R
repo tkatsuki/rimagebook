@@ -1,3 +1,4 @@
+## Demo for p.170 Fig.12.1
 ## Create a cell mask
 cell <- readImage(system.file("images/cells.tif", package="EBImage"))
 cell <- cell[,,1]

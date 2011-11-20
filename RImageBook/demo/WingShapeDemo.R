@@ -1,3 +1,6 @@
+## Demo for p.188 Fig.12.12
+## It requires shapes package.
+## Run install.packages("shapes") if you don't have the package.
 library("shapes")
 xy <- c()
 for (i in 1:5){

@@ -1,5 +1,7 @@
+## Demo for p.144 Fig.9.5
+## Requires adehabitatLT library
+## install.packages("adehabitatLT")
 library(adehabitatLT)
-
 msdres1 <- c()
 par(pty = "s")
 par(mar = c(4, 0, 1, 0))

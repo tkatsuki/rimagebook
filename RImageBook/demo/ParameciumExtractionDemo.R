@@ -1,3 +1,4 @@
+## Demo for p.144 Fig.9.5
 para <- readAVI(system.file("images/paramecium.avi", package="RImageBook"))/255
 paramed <- medianPrj(para)
 w <- nrow(para[,,1])

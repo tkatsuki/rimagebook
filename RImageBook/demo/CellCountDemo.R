@@ -1,4 +1,6 @@
+## Demo for p.173 Fig.12.4 and p.175 Fig.12.5
 ## The data DAPI.tif is included only in the full version of RImageBook
+
 ## Load image and get dimensions
 img <- readImage(system.file("images/DAPI.tif", package="RImageBook"))
 img <- img@.Data

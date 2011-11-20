@@ -1,3 +1,8 @@
+## Demo for p.184 Fig.12.10
+## It requires igraph package.
+## Run install.packages("igraph") before running this demo if you don't have the package.
+
+## Segmentation
 img <- readLsm(system.file("images/R3EmRFP.lsm", package="RImageBook"))
 display(img)
 ch3b <- E2b(img[,,3])
@@ -9,17 +14,19 @@ ch3bw <- bwlabel(ch3th)
 mm <- cmoments(ch3bw, ch3bw)
 ch3bw <- rmObjects(ch3bw, which(mm[,'m.pxs']!=max(mm[,'m.pxs'])))
 ch3bw <- ch3bw > 0
+
+## Thinning
 ske <- thinning(ch3bw)
 display(normalize(ske + ch3bw))
 ends <- ending(ske)
 branches <- branch(ske)
 length(which(ends==1))
-
 length(which(branches==1))
+
+## Find the start point
 distimg <- distmap(ch3bw)
 peakpos <- which(distimg == max(distimg), arr.ind=TRUE)
 peakpos
-
 x <- ske
 px <- which(x==1, arr.ind=TRUE)
 pxnm <- which(x==1)
@@ -29,6 +36,7 @@ peakcoord <- which(peakmat[nrow(pxpeak),(1:(nrow(pxpeak)-1))] ==
                    sort(peakmat[nrow(pxpeak),(1:(nrow(pxpeak)-1))])[1])
 peakcoord
 
+## Search the longest path
 library(igraph)
 pxdist <- as.matrix(dist(px[,]))
 pxdist[which(pxdist[,] >= 2)] <- 0
@@ -43,10 +51,11 @@ pathcoord <- px[c(maxpath+1),]
 num <- pathcoord[,1] + (pathcoord[,2]-1)*nrow(x) 
 x[num] <- 3
 display(normalize(x))
+
+## Get intensity profiles along the path
 display(img[,,1])
 ch1b <- E2b(img[,,1])
 ch1bm <- imgBlockMedianFilter(ch1b, 5)
 ch1m <- b2E(ch1bm)
 display(ch1m)
-
 plot(ch1m[num]/ch3m[num], ylab="Relative Intensity", type="l")

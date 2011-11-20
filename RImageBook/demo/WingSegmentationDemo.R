@@ -1,3 +1,4 @@
+## Demo for p.189 Fig.12.13
 x <- readImage(system.file("images/wildwg.png", package="RImageBook"))
 x <- 1-x
 mask <- thresh(x, 5, 5, 0.03)

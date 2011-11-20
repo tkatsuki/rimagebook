@@ -1,7 +1,6 @@
+## Demo for p.168 Fig.11.8
 img <-readImage(system.file("images/lena.gif",package="EBImage"))
-
 faces <- faceDetection(img, system.file("data/haarcascade_frontalface_alt.xml",package="RImageBook"))
-
 face <- img
 face[1:(faces[1,1]),] <- 0.2 * img[1:(faces[1,1]),]
 face[(faces[1,1]+faces[3,1]):ncol(img),] <- 0.2 * img[(faces[1,1]+faces[3,1]):ncol(img),]

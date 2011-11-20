@@ -1,3 +1,4 @@
+## Demo for p.148 Fig.9.10
 pen <- readImage(system.file("images/pendulum.gif", package="RImageBook"))
 img0 <- pen[,,1]
 img1 <- pen[,,4]

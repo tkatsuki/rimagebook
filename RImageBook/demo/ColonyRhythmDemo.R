@@ -1,3 +1,4 @@
+## Demo for p.176 Fig.12.6 and p.179 Fig.12.7
 ## The image data p2 is included only in the full version of RImageBook
 ## Load images and get dimensions
 dir <- system.file("images/p2", package="RImageBook")

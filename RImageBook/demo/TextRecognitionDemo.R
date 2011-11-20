@@ -1,3 +1,9 @@
+## Demo for p.143
+## Requres e1071 and rpart packages.
+## Windows binary for rpart is available only for R-2.13.
+## install.packages("e1071"); install.packages("rpart")
+## ETL data needs to be placed in the current directory.
+## Obtain ETL data from https://projects.itri.aist.go.jp/etlcdb/wordpress
 library(e1071)
 library(rpart)
 con <- file("ETL1C_01", open="rb")
