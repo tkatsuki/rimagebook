@@ -3,7 +3,7 @@
 #include <R.h>
 #include <Rinternals.h>
 
-// R����ĂԂ��߂�C����֐����b�p�[
+// Rから呼ぶためのC言語関数ラッパー
 extern "C" {
   SEXP FaceDetect(SEXP img, SEXP width, SEXP height, SEXP classifier, SEXP 
   maxdetect){
@@ -20,7 +20,7 @@ extern "C" {
     if(n>0){
      PROTECT(r = allocMatrix(INTSXP,4,n));
 
-      /* R�ւ̃f�[�^���n�� (�z��ւ̕ϊ�) */
+      /* Rへのデータ引渡し (配列への変換) */
       for(size_t i=0;i<n;++i){
         INTEGER(r)[4*i+0] = faces[4*i+0];
         INTEGER(r)[4*i+1] = faces[4*i+1];

@@ -15,7 +15,7 @@ namespace ImageFilter {
         for(int k=sy;k<=ey;k++){
           for(int l=sx;l<=ex;l++){
             T2 w = weight[(k-sy)*(2*radius+1)+(l-sx)];
-            v += src[k*width+l] * w; // �d�݂̐Ϙa
+            v += src[k*width+l] * w; // 重みの積和
             s += w;
           }
         }
@@ -24,7 +24,7 @@ namespace ImageFilter {
     }
   }
 
-  // ���̉�
+  // 実体化
   template void SpatialFilter(double*,double*,double*,int,int,int);
   template void SpatialFilter(int*,int*,double*,int,int,int);
 };

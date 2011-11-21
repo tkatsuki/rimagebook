@@ -1,4 +1,4 @@
-// RVolumeRendering.cpp : R‚©‚çƒf[ƒ^‚ğó‚¯æ‚èCVTK‚ğg‚Á‚ÄƒŒƒ“ƒ_ƒŠƒ“ƒO‚·‚éD
+// RVolumeRendering.cpp : Rã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’å—ã‘å–ã‚Šï¼ŒVTKã‚’ä½¿ã£ã¦ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã™ã‚‹ï¼
 
 #define IN_R_VR
 #include "RVolumeRendering.h"
@@ -21,15 +21,15 @@ void VolumeRendering(
     )
 {
   try {
-    // ƒ{ƒŠƒ…[ƒ€ƒf[ƒ^‚Ìİ’è
+    // ãƒœãƒªãƒ¥ãƒ¼ãƒ ãƒ‡ãƒ¼ã‚¿ã®è¨­å®š
     vtkSmartPointer<vtkImageData> VolumeData = CreateVolume(Data,Dims,Spacing);
 
-    // ƒ{ƒŠƒ…[ƒ€ƒ}ƒbƒp‚Ìİ’è
+    // ãƒœãƒªãƒ¥ãƒ¼ãƒ ãƒãƒƒãƒ‘ã®è¨­å®š
     vtkSmartPointer<vtkVolumeMapper> VolumeMapper =
       CreateVolumeMapper(*RendererType,*SamplingDistance,*ImageSamplingDistance);
     VolumeMapper->SetInput(VolumeData);
 
-    // “§–¾“xEF‚Ìİ’è
+    // é€æ˜åº¦ãƒ»è‰²ã®è¨­å®š
     vtkSmartPointer<vtkColorTransferFunction> VolumeColor =
       vtkSmartPointer<vtkColorTransferFunction>::New();
     vtkSmartPointer<vtkPiecewiseFunction> VolumeOpacity =
@@ -39,13 +39,13 @@ void VolumeRendering(
       VolumeColor->AddRGBPoint(Points[i],ARGB[i][1],ARGB[i][2],ARGB[i][3]);
     }
 
-    // ‹P“xŒù”z‚É‚æ‚é“§–¾“x‚Ìİ’è
+    // è¼åº¦å‹¾é…ã«ã‚ˆã‚‹é€æ˜åº¦ã®è¨­å®š
     vtkSmartPointer<vtkPiecewiseFunction> VolumeGradientOpacity =
       vtkSmartPointer<vtkPiecewiseFunction>::New();
     VolumeGradientOpacity->AddPoint(0,   0.0);
     VolumeGradientOpacity->AddPoint(*GradientOpacityThreshold,  1.0);
 
-    // ƒ{ƒŠƒ…[ƒ€ƒf[ƒ^‚Ì‘®«İ’è
+    // ãƒœãƒªãƒ¥ãƒ¼ãƒ ãƒ‡ãƒ¼ã‚¿ã®å±æ€§è¨­å®š
     vtkSmartPointer<vtkVolumeProperty> VolumeProperty =
       vtkSmartPointer<vtkVolumeProperty>::New();
     VolumeProperty->SetColor(VolumeColor);
@@ -57,13 +57,13 @@ void VolumeRendering(
     VolumeProperty->SetDiffuse(*Diffuse);
     VolumeProperty->SetSpecular(*Specular);
 
-    // ƒAƒNƒ^‚Æ‚µ‚Äƒ{ƒŠƒ…[ƒ€‚ğì¬
+    // ã‚¢ã‚¯ã‚¿ã¨ã—ã¦ãƒœãƒªãƒ¥ãƒ¼ãƒ ã‚’ä½œæˆ
     vtkSmartPointer<vtkVolume> Volume =
       vtkSmartPointer<vtkVolume>::New();
     Volume->SetMapper(VolumeMapper);
     Volume->SetProperty(VolumeProperty);
 
-    // ƒŒƒ“ƒ_ƒ‰EƒEƒBƒ“ƒhƒEEƒCƒ“ƒ^ƒ‰ƒNƒ^‚Ìİ’è
+    // ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ»ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ»ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ã‚¿ã®è¨­å®š
     vtkSmartPointer<vtkRenderer> Renderer =
       vtkSmartPointer<vtkRenderer>::New();
     vtkSmartPointer<vtkRenderWindow> Window =
@@ -73,20 +73,20 @@ void VolumeRendering(
       vtkSmartPointer<vtkRenderWindowInteractor>::New();
     Interactor->SetRenderWindow(Window);
 
-    // ƒŒƒ“ƒ_ƒ‰‚Éƒ{ƒŠƒ…[ƒ€‚Ì’Ç‰Á
+    // ãƒ¬ãƒ³ãƒ€ãƒ©ã«ãƒœãƒªãƒ¥ãƒ¼ãƒ ã®è¿½åŠ 
     Renderer->AddViewProp(Volume);
 
-    // ‰ŠúƒJƒƒ‰ˆÊ’uE•ûŒü‚Ìİ’è
+    // åˆæœŸã‚«ãƒ¡ãƒ©ä½ç½®ãƒ»æ–¹å‘ã®è¨­å®š
     vtkCamera *Camera = Renderer->GetActiveCamera();
     double *Center = Volume->GetCenter();
     Camera->SetFocalPoint(Center[0], Center[1], Center[2]);
     Camera->SetPosition(Center[0] + Dims[0]*Spacing[0], Center[1], Center[2]);
     Camera->SetViewUp(0, 0, -1);
     Camera->SetParallelProjection(*ParallelProjection);
-    // ‰ŠúƒEƒBƒ“ƒhƒEƒTƒCƒY‚Ìİ’è
+    // åˆæœŸã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã®è¨­å®š
     Window->SetSize(640, 480);
 
-    // ƒCƒ“ƒ^ƒ‰ƒNƒ^ŠJn
+    // ã‚¤ãƒ³ã‚¿ãƒ©ã‚¯ã‚¿é–‹å§‹
     Interactor->Initialize();
     Interactor->Start();
   } catch(...) {

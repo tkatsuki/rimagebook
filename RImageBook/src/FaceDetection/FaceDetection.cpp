@@ -11,24 +11,24 @@ int FaceDetect(const T *img, int width, int height, const char *classifier,
   cv::Mat cvimg(width,height,CV_8UC1);
   double maxval = *std::max_element(img,img+width*height);
   double scale = (maxval==0)?1:255/maxval;
-  /* 8bitƒf[ƒ^‚Ö‚Ì•ÏŠ· */
+  /* 8bitãƒ‡ãƒ¼ã‚¿ã¸ã®å¤‰æ› */
   for(int i=0;i<height;++i){
     for(int j=0;j<width;++j){
       *cvimg.ptr(i,j) = static_cast<unsigned char>(img[i*width+j] * scale);
     }}
 
   std::vector<cv::Rect> faces;
-  // ŠçŒŸoŠí‚Ìƒ[ƒh
+  // é¡”æ¤œå‡ºå™¨ã®ãƒ­ãƒ¼ãƒ‰
   {
   cv::CascadeClassifier cascade;
   if(cascade.load( classifier )){ 
-    // ŠçŒŸo‚ÌÀs
+    // é¡”æ¤œå‡ºã®å®Ÿè¡Œ
     cascade.detectMultiScale( cvimg, faces, 1.1, 2,
       CV_HAAR_SCALE_IMAGE, cv::Size(30, 30) );
   }
   }
   int n = std::min<int>(maxdetect,faces.size());
-  /* ŠçˆÊ’uƒf[ƒ^‚Ìˆø“n‚µ (”z—ñ‚Ö‚Ì•ÏŠ·) */
+  /* é¡”ä½ç½®ãƒ‡ãƒ¼ã‚¿ã®å¼•æ¸¡ã— (é…åˆ—ã¸ã®å¤‰æ›) */
   for(int i=0;i<n;++i){
     out[4*i+0] = faces[i].x;
     out[4*i+1] = faces[i].y;

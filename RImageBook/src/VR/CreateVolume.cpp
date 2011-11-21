@@ -9,7 +9,7 @@ vtkSmartPointer<vtkImageData> CreateVolume(
   vtkSmartPointer<vtkImageData> VolumeImageData = vtkSmartPointer<vtkImageData>::New();
   VolumeImageData->SetDimensions(Dims);
   VolumeImageData->SetSpacing(const_cast<double*>(Spacing));
-  VolumeImageData->SetScalarTypeToInt(); // ƒ{ƒNƒZƒ‹‚Ìƒf[ƒ^Œ^‚ðintŒ^‚ÉÝ’è
+  VolumeImageData->SetScalarTypeToInt(); // ãƒœã‚¯ã‚»ãƒ«ã®ãƒ‡ãƒ¼ã‚¿åž‹ã‚’intåž‹ã«è¨­å®š
   VolumeImageData->AllocateScalars();
   int *VolumeScalarPointer = reinterpret_cast<int*>(VolumeImageData->GetScalarPointer());
   memcpy(VolumeScalarPointer,Volume,sizeof(int)*VolumeImageData->GetNumberOfPoints());

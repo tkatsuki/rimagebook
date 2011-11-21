@@ -12,7 +12,7 @@ void OpticalFlow(const T *src0, const T *src1, int width, int height,
   double maxval = std::max(*std::max_element(src0,src0+width*height),
                            *std::max_element(src1,src1+width*height));
   double scale = (maxval==0)?1:255/maxval;
-  /* 8bit�f�[�^�ւ̕ϊ� */
+  /* 8bitデータへの変換 */
   for(int i=0;i<height;++i){
     for(int j=0;j<width;++j){
       *cvimg0.ptr(i,j) = static_cast<unsigned char>(src0[i*width+j] * scale);

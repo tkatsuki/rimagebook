@@ -10,7 +10,7 @@ int GoodFeaturesToTrack(const T *img, int width, int height, int maxpos,
   cv::Mat cvimg(width,height,CV_8UC1);
   double maxval = *std::max_element(img,img+width*height);
   double scale = (maxval==0)?1:255/maxval;
-  /* 8bit�f�[�^�ւ̕ϊ� */
+  /* 8bitデータへの変換 */
   for(int i=0;i<height;++i){
     for(int j=0;j<width;++j){
       *cvimg.ptr(i,j) = static_cast<unsigned char>(img[i*width+j] * scale);
