@@ -10,7 +10,7 @@ Windows*)
   if [ ! -e RImageBook_1.0.tar.gz ]; then
     R CMD build RImageBook || exit 1
   fi
-  R CMD install RImageBook_1.0.tar.gz
+  R CMD INSTALL RImageBook_1.0.tar.gz
   popd 
   mv NAMESPACE.bak NAMESPACE
 esac
