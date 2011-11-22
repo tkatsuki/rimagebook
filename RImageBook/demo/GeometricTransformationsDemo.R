@@ -19,15 +19,6 @@ display(flop(monalisa))
 display(flip(rotate(monalisa, 90)))
 
 ## Demo for p.31 Fig.3.6
-## Requires RNiftyReg and oro.nifti packages
-if(!require(RNiftyReg)){
-  install.packages("RNiftyReg")
-  library("RNiftyReg")
-}
-if(!require(oro.nifti)){
-  install.packages("oro.nifti")
-  library("oro.nifti")
-}
 display(skew(monalisa, 0, 10))
 display(skew(monalisa, 0, -10))
 display(skew(monalisa, 10))
@@ -41,6 +32,14 @@ plot(imgTranslate(monalisab, 100, 100, 200, 200, 100, 100))
 if(!require(bitops)){
   install.packages("bitops")
   library("bitops")
+}
+if(!require(RNiftyReg)){
+  install.packages("RNiftyReg")
+  library("RNiftyReg")
+}
+if(!require(oro.nifti)){
+  install.packages("oro.nifti")
+  library("oro.nifti")
 }
 x <- channel(monalisa, "gray")
 ytheta <- 10
