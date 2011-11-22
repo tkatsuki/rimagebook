@@ -1,7 +1,16 @@
 skew <- function(x, theta_x=0, theta_y=0){
-  require(RNiftyReg)
-  require(bitops)
-  require(oro.nifti)
+  if(!require(bitops)){
+    install.packages("bitops")
+    library("bitops")
+  }
+  if(!require(RNiftyReg)){
+    install.packages("RNiftyReg")
+    library("RNiftyReg")
+  }
+  if(!require(oro.nifti)){
+    install.packages("oro.nifti")
+    library("oro.nifti")
+  }
   if(length(dim(x)) == 2) {
   padx <- tan(theta_y*pi/180)*ncol(x)
   pady <- tan(theta_x*pi/180)*nrow(x)

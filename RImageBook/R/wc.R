@@ -1,5 +1,8 @@
 wc <- function(signal, freq){
-  require("waveclock")
+  if(!require(waveclock)){
+    install.packages("waveclock")
+    library("waveclock")
+  }
   lt <- ts(signal, start = 0, freq = freq)
   pertab <- matrix(NA, ncol(lt), 2)
 

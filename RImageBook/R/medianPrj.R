@@ -1,5 +1,8 @@
 medianPrj <- function(img){
-  require(matrixStats)
+  if(!require(matrixStats)){
+  install.packages("matrixStats")
+  library("matrixStats")
+  }
   row <- nrow(img[,,1])
   col <- ncol(img[,,1])
   img <- apply(img, 3, as.vector)

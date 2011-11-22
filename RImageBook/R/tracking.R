@@ -1,5 +1,8 @@
 tracking <- function(mask, maxdist=20, bin=3, interval=0.1, unit=1, size=NULL){
-  require(spatstat)
+  if(!require(spatstat)){
+  install.packages("spatstat")
+  library("spatstat")
+  }
   ftrs <- cmoments(mask, mask)
   nf <- dim(mask)[3]
   

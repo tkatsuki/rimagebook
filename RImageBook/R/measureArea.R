@@ -1,5 +1,4 @@
 measureArea <- function(img, n=512) {
-  img  <-  readTiff(system.file("samples",  "violet.tif",  package="biOps"))
   img <- imgRGB2Grey(img)
   w <- ncol(img)
   h <- nrow(img)

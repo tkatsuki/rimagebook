@@ -1,5 +1,8 @@
 profileLine <- function(img, n=2){
-  require(igraph)
+  if(!require(igraph)){
+    install.packages("igraph")
+    library("igraph")
+  }
   ifelse(imageType(img)=="grey", img <- img, img <- imgRGB2Grey(img))
   plot(img)
   xy <- locator(n, type="l")
