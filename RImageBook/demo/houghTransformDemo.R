@@ -1,7 +1,8 @@
 ## Demo for p.121 Fig.7.25
-## Requires PET package
-## install.packages("PET")
-library(PET)
+if(!require(PET)){
+  install.packages("PET")
+  library("PET")
+}
 shapes <- readImage(system.file("images/shapes.png", package="EBImage"))
 shapesr <- flip(shapes[151:500,1:350])
 ThetaSamples <- 721 

@@ -1,6 +1,4 @@
 ## Demo for p.184 Fig.12.10
-## It requires igraph package.
-## Run install.packages("igraph") before running this demo if you don't have the package.
 
 ## Segmentation
 img <- readLsm(system.file("images/R3EmRFP.lsm", package="RImageBook"))
@@ -37,7 +35,10 @@ peakcoord <- which(peakmat[nrow(pxpeak),(1:(nrow(pxpeak)-1))] ==
 peakcoord
 
 ## Search the longest path
-library(igraph)
+if(!require(igraph)){
+  install.packages("igraph")
+  library("igraph")
+}
 pxdist <- as.matrix(dist(px[,]))
 pxdist[which(pxdist[,] >= 2)] <- 0
 pxdist[which(pxdist[,] == 1)] <- 0.5

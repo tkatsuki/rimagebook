@@ -1,5 +1,5 @@
 ## Demo for p.176 Fig.12.6 and p.179 Fig.12.7
-## The image data p2 is included only in the full version of RImageBook
+
 ## Load images and get dimensions
 dir <- system.file("images/p2", package="RImageBook")
 filelist <- list.files(dir, pattern=".tiff")
@@ -46,6 +46,10 @@ matplot(x, nresult, xlab="hours", ylab="A.U.", type="l")
 matplot(rowMeans(x), rowMeans(result), xlab="hours", ylab="A.U.", type="l") 
 
 ## Frequency analysis using wavelet transformation
+if(!require(waveclock)){
+  install.packages("waveclock")
+  library("waveclock")
+}
 set.seed(10)
 res <- wc((result*2^16)^2, 0.5)            # wavelet transformation
 

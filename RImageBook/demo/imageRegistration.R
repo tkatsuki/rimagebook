@@ -1,8 +1,16 @@
 ## Demo for p.126 Fig.7.27
-## Requires RNiftyReg, bitops, oro.nifti packages
-require(RNiftyReg)
-require(bitops)
-require(oro.nifti)
+if(!require(RNiftyReg)){
+  install.packages("RNiftyReg")
+  library("RNiftyReg")
+}
+if(!require(bitops)){
+  install.packages("bitops")
+  library("bitops")
+}
+if(!require(oro.nifti)){
+  install.packages("oro.nifti")
+  library("oro.nifti")
+}
 chest <- readImage(system.file("images/chest.png", package="RImageBook"))
 chesttr <- translate(chest, c(20,30))
 chestrt <- EBImage::rotate(chest, 20)

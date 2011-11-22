@@ -1,7 +1,16 @@
 ## Demo for p.138 Fig.8.14
-require("rgl")
-require("misc3d")
-require("AnalyzeFMRI")
+if(!require(rgl)){
+  install.packages("rgl")
+  library("rgl")
+}
+if(!require(misc3d)){
+  install.packages("misc3d")
+  library("misc3d")
+}
+if(!require(AnalyzeFMRI)){
+  install.packages("AnalyzeFMRI")
+  library("AnalyzeFMRI")
+}
 brain <- f.read.analyze.volume(system.file("example.img",  
                                            package="AnalyzeFMRI"))
 brain <- brain[,,,1]

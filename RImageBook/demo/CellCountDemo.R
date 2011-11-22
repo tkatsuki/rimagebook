@@ -1,5 +1,4 @@
 ## Demo for p.173 Fig.12.4 and p.175 Fig.12.5
-## The data DAPI.tif is included only in the full version of RImageBook
 
 ## Load image and get dimensions
 img <- readImage(system.file("images/DAPI.tif", package="RImageBook"))
@@ -40,7 +39,10 @@ plot(averes, type="l", ylab="Intensity") # Plot averaged data
 plot(result[9,2,], type="l", ylab="Intensity") # Plot only object 9
 
 ## Count the number of peaks
-library(msProcess)
+if(!require(msProcess)){
+  install.packages("msProcess")
+  library("msProcess")
+}
                                          # Normalize data
 nresult <- apply(result[,2,], 1, function(x) x/max(x))
                                          # Smooth data

@@ -20,8 +20,14 @@ display(flip(rotate(monalisa, 90)))
 
 ## Demo for p.31 Fig.3.6
 ## Requires RNiftyReg and oro.nifti packages
-## install.packages("RNiftyReg")
-## install.packages("oro.nifti")
+if(!require(RNiftyReg)){
+  install.packages("RNiftyReg")
+  library("RNiftyReg")
+}
+if(!require(oro.nifti)){
+  install.packages("oro.nifti")
+  library("oro.nifti")
+}
 display(skew(monalisa, 0, 10))
 display(skew(monalisa, 0, -10))
 display(skew(monalisa, 10))
@@ -32,9 +38,10 @@ monalisab <- EBI2biOps(monalisa)
 plot(imgTranslate(monalisab, 100, 100, 200, 200, 100, 100))
 
 ## Demo for p.33
-require(RNiftyReg)
-require(bitops)
-require(oro.nifti)
+if(!require(bitops)){
+  install.packages("bitops")
+  library("bitops")
+}
 x <- channel(monalisa, "gray")
 ytheta <- 10
 xpad <- tan(ytheta*pi/180)*ncol(x)

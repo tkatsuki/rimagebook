@@ -1,7 +1,9 @@
 ## Demo for p.97 Fig.6.10
 ## Requires waveslim package
-## install.packages("waveslim")
-library(waveslim)
+if(!require(waveslim)){
+  install.packages("waveslim")
+  library("waveslim")
+}
 cup <- readImage(system.file("images/cupgirl.png", package="RImageBook"))
 cupb <- E2b(cup)
 cupbgn <- imgGaussianNoise(cupb, 0, 120)

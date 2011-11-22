@@ -24,8 +24,6 @@ cr <- drawCircle(cr, 160, 160, 20, 1, fill=TRUE)
 display(cr)
 
 ## Demo for p.22 Fig.2.10
-## shape package required
-## install.packages("shape")
 theta <- seq(0, 2 * pi, length=(100))
 x <- 200 + 100 * cos(theta)
 y <- 200 + 30 * sin(theta)
@@ -41,7 +39,10 @@ dev.off()
 img <- readImage("temp.png")
 display(img)
 
-library("shape")
+if(!require(shape)){
+  install.packages("shape")
+  library("shape")
+}
 par(plt=c(0, 1, 0, 1), xaxs="i", yaxs="i")
 png(filename = "temp.png", width = 400, height = 400, bg = "black")
 emptyplot(xlim = c(0, 400), ylim = c(0, 400))
