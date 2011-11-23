@@ -8,13 +8,13 @@ Windows*)
 *)
   if [ ! -e ../${BUILD_TARGET} ]; then
     echo "src/thirdparty/.*" > .Rbuildignore
-    mv NAMESPACE NAMESPACE.bak || exit 1
-    cp NAMESPACE.linux NAMESPACE || exit 1
+    echo "inst/libs" >> .Rbuildignore
+    cp NAMESPACE.linux NAMESPACE
     pushd ..
     echo Building ${BUILD_TARGET}
     R CMD build RImageBook
     popd
-    mv NAMESPACE.bak NAMESPACE
+    cp NAMESPACE.win NAMESPACE
     rm -f .Rbuildignore
   else
     echo ${BUILD_TARGET} already exists. Skipping build
