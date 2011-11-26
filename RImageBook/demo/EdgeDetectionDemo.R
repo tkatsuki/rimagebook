@@ -12,4 +12,3 @@ plot(textedgem)
  
 textedgec <- imgCanny(textb, 2)
 plot(textedgec)
- 
