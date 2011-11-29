@@ -12,8 +12,12 @@ unique(as.vector(camkm))
 doc <- readImage(system.file("images/scan.JPG", package="RImageBook"))
 docbw <- doc > 0.7 
 docbw2 <- thresh(doc, 7, 7, -0.1)
-display(doc); display(docbw); display(docbw2)
+display(doc, "Original image")
+display(docbw, "Simple thresholding")
+display(docbw2, "Local thresholding")
 docbg <- gblur(doc, 20, 10) 
 docfl <- doc -docbg
 docflbw <- docfl > 0.001
-display(docbg); display(docfl); display(docflbw)
+display(docbg, "Blurred image")
+display(docfl, "Flat fielding")
+display(docflbw, "Simple thresholding after flat fielding")

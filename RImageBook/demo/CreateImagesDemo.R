@@ -1,13 +1,13 @@
 ## Demo for p.20 Fig.2.9
 bg <- matrix(0, 256, 256)
-display(bg)
+display(bg, "Background image")
 
 grad <- matrix(c(0:255)/255, 256, 256)
-display(grad)
+display(grad, "Gradient")
 
 x <- 0:65535
 wave <- matrix(sin(x*pi/63.7), 256, 256)
-display(wave)
+display(wave, "Wave pattern")
 
 w <- 256
 h <- 256
@@ -16,12 +16,12 @@ fn <- function(x, y, s) exp(-(x^2+y^2)/(2*s^2))
 x <- seq(-floor(w/2), floor(w/2), len=w)
 y <- seq(-floor(h/2), floor(h/2),len=h)
 w <- outer(x, y, fn, s)
-display(normalize(w))
+display(normalize(w), "Gaussian distribution")
 
 bg <- matrix(0, 256, 256)
 cr <- drawCircle(bg, 100, 100, 50, 1)
 cr <- drawCircle(cr, 160, 160, 20, 1, fill=TRUE)
-display(cr)
+display(cr, "Circles")
 
 ## Demo for p.22 Fig.2.10
 theta <- seq(0, 2 * pi, length=(100))
@@ -37,7 +37,7 @@ png(filename = "temp.png", width = 400, height = 400, bg = "black")
 plot(x, y, type = "l", axes=F, col="white", xlim=c(0, 400), ylim=c(0, 400))
 dev.off()
 img <- readImage("temp.png")
-display(img)
+display(img, "Ellipses")
 
 if(!require(shape)){
   install.packages("shape")
@@ -52,4 +52,4 @@ filledellipse(rx1 = 100, ry1 = 100, rx2 = 50, ry = 50,
               mid = c(200, 200), col = "gray")
 dev.off()
 img <- readImage("temp.png")
-display(img)
+display(img, "Ellipses using shape package")

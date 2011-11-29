@@ -6,22 +6,21 @@ img <- img@.Data
 h <- dim(img)[1]
 w <- dim(img)[2]
 nf <- dim(img)[3]
-display(imgRowMaxs(img))                 # Display a MIP image
+display(imgRowMaxs(img), "MIP image")    # Display a MIP image
 
 ## Make a 2D mask
 nmask <- thresh(img, 20, 20, 0.01)
-display(nmask)
+display(nmask, "Binary image")
 kern <- makeBrush(3, shape="disc")
 nmask <- opening(nmask, kern)
 nmask <- rowSums(nmask, dims=2)
 nmask <- distmap(nmask)
-display(normalize(nmask))
+display(normalize(nmask), "Distance map")
 nmask <- watershed(nmask, tolerance=0.1) # Watershed based object detection 
-display(normalize(nmask))
 mm <- cmoments(nmask, nmask)             # Caculate central moments
 id <- which(mm[, 'm.pxs'] < 40)          # Select objects smaller than 40 px
 nmask <- rmObjects(nmask, id)            # Remove the selected objects
-display(normalize(nmask))
+display(normalize(nmask), "Segmentation by Watershed")
 nmask <- reenumerate(nmask)              # Re-label objects
 max(nmask)                               # Get the number of object
 
@@ -62,4 +61,16 @@ xy <- result[which(cellnum==4),c(3,4),]
 bgimg <- matrix(0, nrow(img[,,1]), ncol(img[,,1]))
 numimg <- drawtext(bgimg, xy, labels=labels, col="white")
 conimg <- img+array(rep(numimg, dim(img)[3]), c(h, w, nf))
-display(conimg)
+display(conimg, "Objects with 4 peaks")
+detach(package:msProcess)
+detach(package:wmtsa)
+detach(package:ifultools)
+detach(package:splus2R)
+detach(package:robust)
+detach(package:MASS)
+detach(package:lattice)
+detach(package:rrcov)
+detach(package:robustbase)
+detach(package:pcaPP)
+detach(package:mvtnorm)
+detach(package:XML)

@@ -1,6 +1,6 @@
 ## Demo codes for p.22
 rlogo <- readImage("http://www.r-project.org/Rlogo.jpg") 
-display(rlogo)
+display(rlogo, "Downloaded image")
 writeImage(rlogo, "Rlogo.jpg")
 
 ## Demo codes for p.23 Fig.2.11
@@ -11,7 +11,7 @@ if(!require(RgoogleMaps)){
 mapurl <- GetMap(c(37,138), 5, maptype="satellite", RETURNIMAGE=FALSE)
 map <- readImage(mapurl)
 mapgr <- channel(map, "gray")
-display(mapgr)
+display(mapgr, "Google map")
 
 ## Demo codes for p.24
 ## Requires RCurl and Rcompression packages
@@ -30,4 +30,4 @@ unzip("misc.zip")
 fz <- zipArchive("misc.zip")
 names(fz)
 img5 <- readImage(names(fz)[[5]])
-display(img5)
+display(img5, "Image from zip file")
