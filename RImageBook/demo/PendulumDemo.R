@@ -1,6 +1,8 @@
 ## Demo for p.142 Fig.9.3
 pen <- readImage(system.file("images/pendulum.gif", package="RImageBook"))
+display(pen, "Original movie")
 pen <- 1-pen
+display(pen, "Inverted movie")
 pen <- thresh(pen, 50, 50, 0.5)
 kern1 <- makeBrush(3, shape="disc")
 pen2 <- opening(pen, kern1)
@@ -10,7 +12,7 @@ ll <- sapply(mm, function(x) which(x[,'m.pxs']<=300 | x[,'m.y']<=50))
 pens <- rmObjects(pend, ll)
 pens <- pens > 0
 pens <- bwlabel(pens)
-display(pens)
+display(pens, "Extracted pendulum")
 
 ## Demo for p.145 Fig.9.6
 a <- pen[,,6]
@@ -54,4 +56,4 @@ lines(mm[,3], mm[,4])
 dev.off()
 resultimg <- readImage("pendulumResult.png")
 resultimg <- flip(resultimg)
-display(xor(resultimg, pen@.Data[,,1]))
+display(xor(resultimg, pen@.Data[,,1]), "Pendulum trajectories")

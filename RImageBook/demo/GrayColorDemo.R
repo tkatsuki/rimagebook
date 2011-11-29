@@ -9,25 +9,26 @@ iris
 irisr <- channel(iris, "red")
 irisg <- channel(iris, "green")
 irisb <- channel(iris, "blue")
-display(irisr)
-display(irisg)
-display(irisb)
+display(irisr, "Red channel")
+display(irisg, "Green channel")
+display(irisb, "Blue channel")
 
 ## Demo for p.50 Fig.4.3
 irisgbr <- rgbImage(irisg, irisb, irisr)
-display(irisgbr)
+display(irisgbr, "RGB to GBR conversion")
 
 ## Demo for p.51 Fig.4.4
 iriseg <- channel(iris, "grey")
-irisb <- EBI2biOps(iris)
+irisb <- E2b(iris)
 irisbg <- imgRGB2Grey(irisb)
-display(iriseg)
-display(biOps2EBI(irisbg))
+display(iriseg, "Grayscaling using channel()")
+display(b2E(irisbg), "Grayscaling using imgRGB2Grey()")
 
 ## Demo for p.52 Fig.4.7
 nuc <- readImage(system.file("images/nuclei.tif", package="EBImage"))
 nuc <- nuc[,,1]
+display(nuc, "Original image")
 nucps <- pseudoColor(nuc)
-display(nucps)
+display(nucps, "Pseudocoloring")
 nucps2 <- pseudoColor2(nuc, 100, 255)
-display(nucps2)
+display(nucps2, "Partial pseudocoloring")

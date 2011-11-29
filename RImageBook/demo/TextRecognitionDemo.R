@@ -30,6 +30,7 @@ for(i in 1:fn){
   imgs[,,i] <- a
 }
 rm(rawdata)
+display(normalize(imgs), "Hand writing")
 gdat <- matrix(resize(imgs, 16, 16), fn, 16*16)
 mask <- thresh(imgs, 10, 10, 2)
 mask <- bwlabel(mask)

@@ -2,12 +2,13 @@
 
 ## Segmentation
 img <- readLsm(system.file("images/R3EmRFP.lsm", package="RImageBook"))
-display(img)
+display(img, "Original data")
 ch3b <- E2b(img[,,3])
 ch3bm <- imgBlockMedianFilter(ch3b, 5)
 ch3m <- b2E(ch3bm)
+display(ch3m, "Denoised image")
 ch3th <- thresh(ch3m, 50, 50, 0.06)
-display(ch3th)
+display(ch3th, "Binary image")
 ch3bw <- bwlabel(ch3th)
 mm <- cmoments(ch3bw, ch3bw)
 ch3bw <- rmObjects(ch3bw, which(mm[,'m.pxs']!=max(mm[,'m.pxs'])))
@@ -15,7 +16,7 @@ ch3bw <- ch3bw > 0
 
 ## Thinning
 ske <- thinning(ch3bw)
-display(normalize(ske + ch3bw))
+display(normalize(ske + ch3bw), "Skeleton")
 ends <- ending(ske)
 branches <- branch(ske)
 length(which(ends==1))
@@ -51,12 +52,12 @@ maxpath <- unlist(maxpath)
 pathcoord <- px[c(maxpath+1),] 
 num <- pathcoord[,1] + (pathcoord[,2]-1)*nrow(x) 
 x[num] <- 3
-display(normalize(x))
+display(normalize(x), "Primary neurite")
 
 ## Get intensity profiles along the path
-display(img[,,1])
+display(img[,,1], "Localized molecule")
 ch1b <- E2b(img[,,1])
 ch1bm <- imgBlockMedianFilter(ch1b, 5)
 ch1m <- b2E(ch1bm)
-display(ch1m)
+display(ch1m, "Denoised image")
 plot(ch1m[num]/ch3m[num], ylab="Relative Intensity", type="l")

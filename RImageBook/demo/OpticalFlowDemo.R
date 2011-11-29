@@ -2,6 +2,8 @@
 pen <- readImage(system.file("images/pendulum.gif", package="RImageBook"))
 img0 <- pen[,,1]
 img1 <- pen[,,4]
+imgcom <- EBImage::combine(img0, img1)
+display(imgcom, "Movie data")
 ftr <- GoodFeaturesToTrack(img0, 200)
 res <- OpticalFlow(img0, img1, ftr, 40)
 ftr <- ftr[1:2, res[3,]>0]
@@ -18,5 +20,5 @@ dev.off()
 img <- readImage("temp.png")
 display(img)
 img0[img0 == 0] <- 0.5
-display((1-img) * img0)
+display((1-img) * img0, "Optical flow")
 unlink("temp.png")
