@@ -8,6 +8,8 @@
   KYORITSU SHUPPAN CO., LTD., Japan. The primary purpose of this package is to
   demonstrate various uses of image processing and analysis functions available 
   on R.
+  
+  \code{RImageBook} relies on \code{EBImage} and \code{biOps} packages.
 }
 \details{
 \tabular{ll}{
@@ -80,6 +82,7 @@ LazyLoad: \tab yes\cr
 }
 \author{
 Yuichiro Hourai \email{yhourai@gmail.com}
+
 Takeo Katsuki \email{takeo.katsuki@gmail.com}
 }
 \references{
