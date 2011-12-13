@@ -1,5 +1,5 @@
 measureArea <- function(img, n=512) {
-  img <- imgRGB2Grey(img)
+  ifelse(imageType(img) == "grey", img <- img, img <- imgRGB2Grey(img))
   w <- ncol(img)
   h <- nrow(img)
   plot(img)
