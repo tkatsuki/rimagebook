@@ -24,6 +24,14 @@ AnisotropicFilter(Img, Iter, Coef = 0.1)
   Returns an image of \code{Image} class.
 }
 
+\details{
+  This function uses CImg library.
+}
+
+\references{
+  CImg: \url{http://cimg.sourceforge.net}
+}
+
 \examples{
   cup <- readImage(system.file("images/cupgirl.png", package="RImageBook"))
   cupgn <- b2E(imgGaussianNoise(E2b(cup), 0, 120))
@@ -33,6 +41,7 @@ AnisotropicFilter(Img, Iter, Coef = 0.1)
   display(cupgnaf)
 }
 
+\
 \author{
   Yuichiro Hourai, \email{yhourai@gmail.com}
   
