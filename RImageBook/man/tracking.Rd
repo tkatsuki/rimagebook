@@ -41,14 +41,14 @@ msd(xy)
 \value{
   \code{tracking} returns a list consisting of an image object and a dataframe.
   The image object shows trajectories of all objects. The dataframe contains the following values:
-  \item{obj}: Object ID.
-  \item{x, y}: Coordinate of objects.
-  \item{distance}: Traveled distance.
-  \item{d.x, d.y}: Displacement.
-  \item{speed}: Speed.
-  \item{v.x, v.y}: Velocity.
-  \imte{acc.x, acc.y}: Acceleration.
-  \item{v.ang}: Angular velocity.
+  \item{obj}{Object ID.}
+  \item{x, y}{Coordinate of objects.}
+  \item{distance}{Traveled distance.}
+  \item{d.x, d.y}{Displacement.}
+  \item{speed}{Speed.}
+  \item{v.x, v.y}{Velocity.}
+  \imte{acc.x, acc.y}{Acceleration.}
+  \item{v.ang}{Angular velocity.}
   
 }
 
