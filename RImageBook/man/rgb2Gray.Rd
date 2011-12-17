@@ -7,7 +7,7 @@
 \title{RGB to Grayscale conversion}
 
 \description{
-  This function converts an \code{Image} class color image to grayscale at specified coefficients.
+  This function converts an \code{Image} class color image to grayscale at desired coefficients.
 }
 
 \usage{

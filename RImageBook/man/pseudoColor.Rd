@@ -10,7 +10,8 @@
 \description{
   These functions convert a grayscale image to a rainbow color image.
   \code{pseudoColor} converts the entire grayscale to pseudocolor, while
-  \code{pseudoColor2} converts only specified portion of grayscale.
+  \code{pseudoColor2} converts only specified range of grayscale and leaves
+  other range in grayscale.
 }
 
 \usage{

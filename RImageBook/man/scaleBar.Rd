@@ -11,7 +11,7 @@
 }
 
 \usage{
-rainbowBar(img, col = "white", px = 60)
+scaleBar(img, col = "white", px = 60)
 }
 
 \arguments{

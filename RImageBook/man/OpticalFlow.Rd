@@ -21,7 +21,7 @@ OpticalFlow(grayimg0, grayimg1, pos, winSize = 10)
 \arguments{
   \item{img}{A grayscale \code{Image} class object.}
   \item{maxnum}{Maximum number of features.}
-  \item{quality}{Bin size or window size.}
+  \item{quality}{Specifies the minimal accepted quality of image corners.}
   \item{mindist}{Minimum distance between features.}
   \item{useHarris}{If not 0, Harris's corner detection algorithm will be used.}
   \item{subPix}{If not 0, the function iterates to find the sub-pixel accurate location of corners.}

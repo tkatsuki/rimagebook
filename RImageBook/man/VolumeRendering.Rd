@@ -1,7 +1,7 @@
 \name{VolumeRendering}
 \alias{VolumeRendering}
 \title{Volume Rendering}
-\description{Volume rendering with VTK}
+\description{Volume rendering with VTK. This function currently works on Windows only.}
 \usage{
  VolumeRendering(Data, Points, ARGB, GradientOpacityThreshold = 0, Spacing = c(1, 
     1, 1), RendererType = 0, SamplingDistance = 1, ImageSamplingDistance = 1, 
@@ -22,6 +22,10 @@
  \item{ParallelProjection}{Parallel projection/Perspective projection}
 }
 
+\references{
+  VTK: \url{http://www.vtk.org/}
+}
 \examples{
+  demo(VRDemo)
 }
 

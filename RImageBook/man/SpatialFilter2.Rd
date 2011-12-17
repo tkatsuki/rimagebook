@@ -16,7 +16,7 @@ SpatialFilter2(img, weight, r = 1)
 
 \arguments{
   \item{img}{Grayscale image of \code{Image} class or a matrix.} 
-  \item{weight}{Weight matrix.}
+  \item{weight}{Weight matrix or kernel.}
   \item{r}{Size of weight matrix. Currently 1 is supported.}
 }
 

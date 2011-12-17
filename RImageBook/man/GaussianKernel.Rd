@@ -7,7 +7,7 @@
 \title{Gaussian Kernel}
 
 \description{
-  This function generates a Gaussian kernel, which might be useful for spatial and frequency filtering.
+  This function generates a Gaussian kernel of desired sizes, which might be useful for spatial and frequency filtering.
 }
 
 \usage{
@@ -16,7 +16,7 @@ GaussianKernel(x, y, s = 20)
 
 \arguments{
   \item{x, y}{Size of the kernel in x-axis and y-axis.} 
-  \item{s}{Standard deviation sigma.}
+  \item{s}{Standard deviation, sigma.}
 }
 
 \value{

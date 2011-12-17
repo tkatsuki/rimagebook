@@ -41,6 +41,10 @@ pruning(x, n = 20)
   Return a matrix or an \code{Image} class object.
 }
 
+\references{
+  Gonzales, Rafael C.; Woods, Richard E. (2001), Digital Image Processing
+}
+
 \examples{
   demo(ThinningDemo)
 }
