@@ -27,12 +27,13 @@
   of \code{x}.
 }
 
+\examples{
+  monalisa <- readImage(system.file("images/MonaLisa.jpg", package="RImageBook"))
+  display(skew(monalisa, 0, -10))
+}
+
 \author{
   Yuichiro Hourai, \email{yhourai@gmail.com}
   
   Takeo Katsuki, \email{takeo.katsuki@gmail.com}
-}
-\examples{
-  monalisa <- readImage(system.file("images/MonaLisa.jpg", package="RImageBook"))
-  display(skew(monalisa, 0, -10))
 }

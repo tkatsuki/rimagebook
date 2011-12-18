@@ -47,7 +47,7 @@ msd(xy)
   \item{d.x, d.y}{Displacement.}
   \item{speed}{Speed.}
   \item{v.x, v.y}{Velocity.}
-  \imte{acc.x, acc.y}{Acceleration.}
+  \item{acc.x, acc.y}{Acceleration.}
   \item{v.ang}{Angular velocity.}
   
 }

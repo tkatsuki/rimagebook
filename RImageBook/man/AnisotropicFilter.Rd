@@ -41,7 +41,6 @@ AnisotropicFilter(Img, Iter, Coef = 0.1)
   display(cupgnaf)
 }
 
-\
 \author{
   Yuichiro Hourai, \email{yhourai@gmail.com}
   

@@ -29,3 +29,9 @@
   demo(VRDemo)
 }
 
+\author{
+  Yuichiro Hourai, \email{yhourai@gmail.com}
+  
+  Takeo Katsuki, \email{takeo.katsuki@gmail.com}
+}
+
