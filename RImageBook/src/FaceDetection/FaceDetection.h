@@ -1,9 +1,13 @@
 #pragma once
 
+#if _WIN32
 #ifndef IN_FACEDETECTION
 #define DLL_EXPORT __declspec(dllimport)
 #else
 #define DLL_EXPORT __declspec(dllexport)
+#endif
+#else
+#define DLL_EXPORT
 #endif
 
 extern "C" {

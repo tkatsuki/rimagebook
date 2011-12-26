@@ -1,0 +1,12 @@
+PKG_CXXFLAGS = -I$(HOME)/usr/include -I$(HOME)/usr/include/vtk-5.8
+LIBPATH = -L$(HOME)/usr/lib -L$(HOME)/usr/lib/vtk-5.8
+
+PKG_LIBS = $(LIBPATH) -lopencv_objdetect -lz -ljpeg -lpng -ltiff -lopencv_highgui -lopencv_features2d -lopencv_flann -lopencv_calib3d -lopencv_video -lopencv_imgproc -lopencv_core \
+-lvtkVolumeRendering -lvtkRendering -lvtkIO -lvtkGraphics -lvtkImaging -lvtkFiltering -lvtkCommon -lvtksys -lvtktiff -lvtkjpeg -lvtkzlib -lvtklibxml2 -lvtkpng -lvtkexpat\
+ -lX11 -lXt -lGL -lstdc++
+
+OBJECTS = CImgWrapper/AnisotropicFilter.o CInterfaceForR/CInterfaceForR.o \
+ CInterfaceForR/CInterfaceForR2.o ImageFilter/MedianFilter.o \
+ FaceDetection/CallFaceDetection.o FaceDetection/FaceDetection.o \
+ OpticalFlow/CallOpticalFlow.o OpticalFlow/GoodFeaturesToTrack.o OpticalFlow/OpticalFlow.o \
+ VR/RVolumeRendering.o VR/CreateVolume.o VR/CreateVolumeMapper.o VR/RVolumeRendering2Buf.o

@@ -1,7 +1,10 @@
 #include <opencv2/objdetect/objdetect.hpp>
 #define IN_FACEDETECTION
 #include "FaceDetection.h"
+#if _WIN32
 #include <Windows.h>
+#endif
+
 
 // C++ interface
 template <typename T>
