@@ -34,4 +34,5 @@ profileLine <- function(img, n=2){
   skenum <- ske.path.coord[,1] + (ske.path.coord[,2]-1)*nrow(x)    
 
   plot(imge[skenum]*255, type="l", ylab="Intensity", ylim=c(0, 255))
+  imge[skenum]@.Data*255
 }

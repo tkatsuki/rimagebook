@@ -1,46 +1,48 @@
 tracking <- function(mask, maxdist=20, bin=3, interval=0.1, unit=1, size=NULL){
-  if(!require(spatstat)){
-  install.packages("spatstat")
-  library("spatstat")
-  }
   ftrs <- cmoments(mask, mask)
   nf <- dim(mask)[3]
   
-  ftrs[[1]] <- cbind(ftrs[[1]], Index=1:nrow(ftrs[[1]]))
+  ftrs[[1]] <- cbind(ftrs[[1]], Index=1:nrow(ftrs[[1]]), Frame=1)
   if (is.null(size)==T){                 
     for (i in 1:(nf-1)){
-      distmat <- crossdist(ftrs[[i]][,"m.x"], ftrs[[i]][,"m.y"], 
-                                 ftrs[[i+1]][,"m.x"], ftrs[[i+1]][,"m.y"])
-      sizediff <- .crossDiff(ftrs[[i]][,"m.pxs"], ftrs[[i+1]][,"m.pxs"])
+      distance <- distmat(ftrs[[i]][,"m.x"], ftrs[[i]][,"m.y"],
+                          ftrs[[i+1]][,"m.x"], ftrs[[i+1]][,"m.y"])
       maxid <- max(ftrs[[i]][,"Index"])
       ftrs[[i+1]] <- cbind(ftrs[[i+1]], Index=(maxid+1):(maxid+nrow(ftrs[[i+1]])))
-      nindex <- which(distmat == apply(distmat, 1, min) & 
-        distmat < maxdist, arr.ind=TRUE)
+      nindex <- which(distance == apply(distance, 1, min) & 
+        distance < maxdist, arr.ind=TRUE)
       ftrs[[i+1]][nindex[,"col"],"Index"] <- ftrs[[i]][nindex[,"row"],"Index"]
-      }
-    }else {
-      for (i in 1:(nf-1)){
-        distmat <- crossdist(ftrs[[i]][,"m.x"], ftrs[[i]][,"m.y"], 
-                                   ftrs[[i+1]][,"m.x"], ftrs[[i+1]][,"m.y"])
-        sizediff <- .crossDiff(ftrs[[i]][,"m.pxs"], ftrs[[i+1]][,"m.pxs"])
-        maxid <- max(ftrs[[i]][,"Index"])
-        ftrs[[i+1]] <- cbind(ftrs[[i+1]], Index=(maxid+1):(maxid+nrow(ftrs[[i+1]])))
-        nindex <- which(distmat == apply(distmat, 1, min) & 
-          distmat < maxdist & abs(sizediff) < size, arr.ind=TRUE)
-        ftrs[[i+1]][nindex[,"col"],"Index"] <- ftrs[[i]][nindex[,"row"],"Index"]
-        }
-      }
-  detach("package:spatstat")
-
-  xy <- c()
-  for (i in unique(unlist(sapply(ftrs, function(x) x[,'Index'])))) for(j in 1:nf) {
-    xy <- rbind(xy, c(i, as.numeric(sapply(ftrs[j], function(x) x[which(x[,'Index']==i),'m.x'])),
-                      as.numeric(sapply(ftrs[j], function(x) x[which(x[,'Index']==i),'m.y']))))
+      ftrs[[i+1]] <- cbind(ftrs[[i+1]], Frame = i+1)
     }
-
-  xmat <- matrix(xy[,2], nf)
-  ymat <- matrix(xy[,3], nf)
-
+  }else {
+    for (i in 1:(nf-1)){
+      distance <- distmat(ftrs[[i]][,"m.x"], ftrs[[i]][,"m.y"],
+                          ftrs[[i+1]][,"m.x"], ftrs[[i+1]][,"m.y"])
+      sizediff <- outer(ftrs[[i]][,"m.pxs"], ftrs[[i+1]][,"m.pxs"], "-")
+      maxid <- max(ftrs[[i]][,"Index"])
+      ftrs[[i+1]] <- cbind(ftrs[[i+1]], Index=(maxid+1):(maxid+nrow(ftrs[[i+1]])))
+      nindex <- which(distance == apply(distance, 1, min) & 
+        distance < maxdist & abs(sizediff) < size, arr.ind=TRUE)
+      ftrs[[i+1]][nindex[,"col"],"Index"] <- ftrs[[i]][nindex[,"row"],"Index"]
+      ftrs[[i+1]] <- cbind(ftrs[[i+1]], Frame = i+1)
+    }
+  }
+  
+  ftrsm <- do.call(rbind, ftrs)
+  xy <- ftrsm[sort.list(ftrsm[,'Index']),]
+  xy <- cbind(xy[,'Frame'], xy[,'Index'], xy[,'m.x'], xy[,'m.y'])
+  idb <- xy[,2]
+  from <- unique(idb)
+  to <- seq_along(from)
+  ida <- to[match(idb, from)]
+  xy[,2] <- ida
+  ids <- nf * (xy[,2]-1) + xy[,1]
+  xmat <- matrix(NA, nf, max(ida))
+  xmat[ids] <- xy[,3]
+  ymat <- matrix(NA, nf, max(ida))
+  ymat[ids] <- xy[,4] 
+  xy <- cbind(rep(unique(ida), each=nf), as.vector(xmat), as.vector(ymat))
+  
   png(filename = "trackResult.png", width = dim(mask)[1], height = dim(mask)[2], bg = "black")
   par(plt=c(0,  1,  0,  1),  xaxs="i",  yaxs="i")
   matplot(xmat, ymat, type="l", lty=1, col=rainbow(16), axes = F, xlim = c(0, dim(mask)[1]), ylim = c(0, dim(mask)[2]))
@@ -48,8 +50,8 @@ tracking <- function(mask, maxdist=20, bin=3, interval=0.1, unit=1, size=NULL){
   resultplot <- readImage("trackResult.png")
   resultplot <- flip(resultplot)
   unlink("trackResult.png")
-  objid <- unique(as.vector(xy[,1]))
-
+  
+  objid <- unique(xy[,1]) 
   # distance
   dist <- sapply(objid, function(x) c(trackDistance(xy[which(xy[,1]==x), c(2,3)]), NA))
   # x-coordinate of displacement
@@ -68,10 +70,10 @@ tracking <- function(mask, maxdist=20, bin=3, interval=0.1, unit=1, size=NULL){
   ay <- sapply(objid, function(x) c(diff(temp[which(temp[,1]==x),][,9], lag=bin), rep(NA, bin)))
   # angular velocity
   as <- sapply(objid, function(x) c(angularVelocity(xy[which(xy[,1]==x), c(2,3)], bin=bin, int=interval), rep(NA, 2*bin)))
-
+  
   # concatenate coordinates, distance, displacement, speed, velocity, acceleration, angular velocity
   res <- cbind(temp, as.vector(ax/interval), as.vector(ay/interval), as.vector(as)) 
-
+  
   res <- data.frame("obj"=res[,1], "x"=res[,2], "y"=res[,3],
                     "distance"=res[,4], "d.x"=res[,5], "d.y"=res[,6],
                     "speed"=res[,7], "v.x"=res[,8], "v.y"=res[,9],
