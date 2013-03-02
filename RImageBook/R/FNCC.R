@@ -1,4 +1,6 @@
 FNCC <- function(a,b){
+  a <- a - sum(a)/length(a)
+  b <- b - sum(b)/length(b)
   w <- ncol(a) + ncol(b) - 1
   h <- nrow(a) + nrow(b) - 1
   amat <- matrix(0, nrow=h, ncol=w)
