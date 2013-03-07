@@ -1,8 +1,8 @@
 Package: RImageBook
 Type: Package
 Title: Code samples with R
-Version: 1.0
-Date: 2011-11-01
+Version: 0.7
+Date: 2013-03-06
 Author: Takeo Katsuki, Yuichiro Hourai
 Maintainer: Takeo Katsuki, Yuichiro Hourai <RImageBook@gmail.com>
 Depends: EBImage, biOps
