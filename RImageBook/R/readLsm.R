@@ -50,18 +50,26 @@ readLsm <- function(filename) {
   h <- value("01", "01", imagetags[[1]])
   
   # Bits per pixel
-  bpsoffset <- value("02", "01", imagetags[[1]])
-  bitspersample <- raw[(bpsoffset+1):(bpsoffset+2)]
-  if(raw2int(rev(bitspersample)) != 8) stop("Only 8 bit images are supported.") 
+  if(nch==1) {
+    bitspersample <- value("02", "01", imagetags[[1]])
+  }else{
+    bpsoffset <- value("02", "01", imagetags[[1]])
+    bitspersample <- raw2int(rev(raw[(bpsoffset+1):(bpsoffset+2)]))
+  }
+  if(bitspersample != 8) stop("Only 8 bit images are supported.") 
   
   # Generate byte data
   outputimg <- array(0, dim=c(w, h, nch, nf))
   ByteGenerator <- function(i, j){
     
     # pixel data start point
-    px.start <- raw2int(rev(raw[(value("11", "01", imagetags[[j]])+1+(i-1)*4):
-      (value("11", "01", imagetags[[j]])+4+(i-1)*4)]))+1
-    
+    if(nch==1){
+      px.start <- value("11", "01", imagetags[[j]]) + 1
+    }else{
+      px.start <- raw2int(rev(raw[(value("11", "01", imagetags[[j]])+1+(i-1)*4):
+                                    (value("11", "01", imagetags[[j]])+4+(i-1)*4)]))+1
+    }
+
     # Collect image data
     imagesize <- w*h
     imagedata <- raw[px.start:(px.start-1+imagesize)]
