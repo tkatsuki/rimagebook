@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BUILD_TARGET=RImageBook_1.0.tar.gz
+BUILD_TARGET=RImageBook_0.7.1.tar.gz
 case $OS in
 Windows*)
   echo This script is for linux OS.
