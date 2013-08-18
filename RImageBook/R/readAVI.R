@@ -1,6 +1,6 @@
 readAVI <- function(filepath, start=1, end=0){
   require(RImageBook)
-  
+
   # Read header reagion only. Don't know how long JUNK chuncks can be. Use 0x3000 for now.
   con <- file(filepath, open="rb")
   header <- readBin(con, "raw", 0x3000)
@@ -10,7 +10,7 @@ readAVI <- function(filepath, start=1, end=0){
   img.h <- raw2int(rev(header[69:72]))
   img.size <- img.w * img.h
   total.frame <- raw2int(rev(header[49:52]))
-    
+  
   readBlock <- function(data, start){
     if(identical(data[start:(start+3)], charToRaw("LIST"))){
       listSize <- raw2int(rev(data[(start+4):(start+7)]))
@@ -53,9 +53,9 @@ readAVI <- function(filepath, start=1, end=0){
   idxmat <- matrix(idx1, ncol=16, byrow=T)
   
   # Select valid video index
-  vididxmat <- idxmat[idxmat[,3]==0x64 & idxmat[,4]==0x63 
+  vididxmat <- idxmat[idxmat[,3]==0x64 & (idxmat[,4]==0x63 | idxmat[,4]==0x62)
                       & (idxmat[,13] != 0x00 | idxmat[,14] != 0x00 | idxmat[,15] != 0x00 | idxmat[,16] != 0x00),]
-
+  
   # Check the last frame
   if(total.frame > nrow(vididxmat)) total.frame <- nrow(vididxmat)
   if(end==0 | end > nrow(vididxmat)) end <- total.frame
@@ -76,7 +76,7 @@ readAVI <- function(filepath, start=1, end=0){
   # Convert index into position information only
   vididx <- apply(vididxmat[start:end,9:12], 1, function(x) raw2int(rev(x))) - 
     raw2int(rev(vididxmat[start,9:12])) + 1
-
+  
   # Extract image 
   for(i in 1:nframes){
     img.data[(frame.size*(i-1)+1):(frame.size*i)] <- imgrawdata[vididx[i]:(vididx[i]+frame.size-1)]
