@@ -123,8 +123,12 @@ readAVI <- function(filepath, start=1, end=0){
       close(con)
       
       # Convert index into position information only
-      idx <- apply(idxmat[startpos:endpos,1:4], 1, function(x) raw2num(rev(x))) - 
+      if(startpos==endpos) {
+        idx <- raw2num(rev(idxmat[startpos,1:4])) - raw2num(rev(idxmat[startpos,1:4])) + 1
+      }else{
+        idx <- apply(idxmat[startpos:endpos,1:4], 1, function(x) raw2num(rev(x))) - 
         raw2num(rev(idxmat[startpos,1:4])) + 1
+      }
       
       # Extract image 
       for(i in 1:nframes){
@@ -158,7 +162,7 @@ readAVI <- function(filepath, start=1, end=0){
           endframe <- endpos
         } else {
           frame.last <- baseoffset + raw2num(rev(idxmat[nrow(idxmat),1:4])) + frame.size
-          endframe <- blockpos[i]-blockpos[i-1]
+          endframe <- nindex[i]
         }
     
         # Prepare a raw vector for storing image data
@@ -204,7 +208,8 @@ readAVI <- function(filepath, start=1, end=0){
     offset <- movi[[3]][1]
     
     total.frame <- raw2num(rev(header[49:52])) # For old format only
-    
+    print(paste("Read ", start, "-", end, " of ", total.frame, " frames", sep=""))
+   
     # Load the index region
     idx.start <- movi[[4]][1]-1 # Start of the index
     seek(con, where = idx.start+8)
@@ -242,7 +247,7 @@ readAVI <- function(filepath, start=1, end=0){
     for(i in 1:nframes){
       img.data[(frame.size*(i-1)+1):(frame.size*i)] <- imgrawdata[vididx[i]:(vididx[i]+frame.size-1)]
     }
+    rm(imgrawdata)
+    array(as.integer(img.data), dim=c(img.w, img.h, nframes))
   }
-  rm(imgrawdata)
-  array(as.integer(img.data), dim=c(img.w, img.h, nframes))
 }
