@@ -12,14 +12,15 @@ readFMF <- function(filepath, start=1, end=0){
   nframes <- end - start + 1
   startpos <- 28 + 1 + (start-1)*bytes_per_chunk
   endpos <- 28 + 1 + end*bytes_per_chunk - 1
-  index <- list()
-  for(i in 1:nframes){
-    index[[i]] <- ((i-1)*bytes_per_chunk + 9):(i*bytes_per_chunk)
-  }
-  index <- unlist(index)  
   seek(con, where = startpos - 1)
   imgrawdata <- readBin(con, "raw", endpos-startpos+1)
   close(con)
+  imgdata <- raw(f_width*f_height*nframes)
+  framesize <- f_width*f_height
+  for(i in 1:nframes){
+    imgdata[(framesize*(i-1)+1):(framesize*i)]<- imgrawdata[((i-1)*bytes_per_chunk + 9):(i*bytes_per_chunk)]
+  } 
   print(paste("Read ", start, "-", end, " of ", max_n_frames, " frames", sep=""))
-  array(as.integer(imgrawdata[index]), dim=c(f_width, f_height, nframes))
+  rm(imgrawdata)
+  array(as.integer(imgdata), dim=c(f_width, f_height, nframes))
 }
