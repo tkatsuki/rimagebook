@@ -4,8 +4,8 @@ readFMF <- function(filepath, start=1, end=0){
   fmf_header <- readBin(con, "raw", 28)
   version <- raw2int(rev(fmf_header[1:4]))
   if(version != 1) stop("Only version 1 is supported")
-  f_height <- raw2int(rev(fmf_header[5:8]))
-  f_width <- raw2int(rev(fmf_header[9:12]))
+  f_height <- raw2num(rev(fmf_header[5:8]))
+  f_width <- raw2num(rev(fmf_header[9:12]))
   bytes_per_chunk <- raw2num(rev(fmf_header[13:20]))
   max_n_frames <- raw2num(rev(fmf_header[21:28]))
   if(end==0 | end > max_n_frames) end <- max_n_frames
