@@ -206,10 +206,7 @@ readAVI <- function(filepath, start=1, end=0){
       offset <- movi[[4]][1]
     }
     offset <- movi[[3]][1]
-    
-    total.frame <- raw2num(rev(header[49:52])) # For old format only
-    print(paste("Read ", start, "-", end, " of ", total.frame, " frames", sep=""))
-   
+       
     # Load the index region
     idx.start <- movi[[4]][1]-1 # Start of the index
     seek(con, where = idx.start+8)
@@ -219,12 +216,14 @@ readAVI <- function(filepath, start=1, end=0){
     idxmat <- matrix(idx1, ncol=16, byrow=T)
     
     # Select valid video index
-    vididxmat <- idxmat[idxmat[,3]==0x64 & idxmat[,4]==0x63 
+    vididxmat <- idxmat[idxmat[,3]==0x64 & (idxmat[,4]==0x62 | idxmat[,4]==0x63) 
                         & (idxmat[,13] != 0x00 | idxmat[,14] != 0x00 | idxmat[,15] != 0x00 | idxmat[,16] != 0x00),]
     
     # Check the last frame
+    total.frame <- raw2num(rev(header[49:52])) # For old format only
     if(total.frame > nrow(vididxmat)) total.frame <- nrow(vididxmat)
     if(end==0 | end > nrow(vididxmat)) end <- total.frame
+    print(paste("Read ", start, "-", end, " of ", total.frame, " frames", sep="")) 
     
     # Prepare a vector for storing image data
     nframes <- end - start + 1
