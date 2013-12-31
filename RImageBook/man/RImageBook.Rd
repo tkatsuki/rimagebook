@@ -15,7 +15,7 @@
 \tabular{ll}{
 Package: \tab RImageBook\cr
 Type: \tab Package\cr
-Version: \tab 0.7.7\cr
+Version: \tab 0.7.8\cr
 Date: \tab 2013-12-31\cr
 License: \tab New BSD\cr
 LazyLoad: \tab yes\cr
