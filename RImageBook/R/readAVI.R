@@ -1,4 +1,4 @@
-readAVI <- function(filepath, start=1, end=0){
+readAVI <- function(filepath, start=1, end=0, skip=0, getFrames=F, crop=c(0,0,0,0), silent=F){
   require(RImageBook)
   offsetindex <- c()
   nindex <- c()
@@ -67,15 +67,18 @@ readAVI <- function(filepath, start=1, end=0){
   if(odml[[1]][1]=="odml") { # If true, this file is avi2, openDML format 
     
     # Get the real total number of frames
-    total.frame <- raw2num(rev(header[(odml[[3]][1]+8):(odml[[3]][1]+11)]))  
-
+    total.frame <- raw2num(rev(header[(odml[[3]][1]+8):(odml[[3]][1]+11)])) 
+    if(getFrames==T) {
+      close(con)
+      return(total.frame)
+    }
+    # Check if start is correct
+    if(start < 1) start <- 1
     # Set the last frame if not specified by user
     if(end==0) end <- total.frame
-    print(paste("Read ", start, "-", end, " of ", total.frame, " frames", sep=""))
-    
+    if(end > total.frame) end <- total.frame
     # How many super-index are there?
-    nsindex <- raw2num(rev(header[(sindex[[3]][1]+4):(sindex[[3]][1]+7)])) 
-    
+    nsindex <- raw2num(rev(header[(sindex[[3]][1]+4):(sindex[[3]][1]+7)]))    
     # Get the offset and size of standard indexes
     for(i in 1:nsindex){
       offsetindex[i] <- raw2num(rev(header[(sindex[[3]][1]+24+(i-1)*16):(sindex[[3]][1]+31+(i-1)*16)])) # Can be larger than max integer value, so use double
@@ -90,109 +93,113 @@ readAVI <- function(filepath, start=1, end=0){
     # Calculate the relative position within each block
     if(startblock==1) {
       startpos <- start 
-      } else {
-        startpos <- start - blockpos[startblock-1]
-      }
+    } else {
+      startpos <- start - blockpos[startblock-1]
+    }
     if(endblock==1) {
       endpos <- end
     } else {
-    endpos <- end - blockpos[endblock - 1]
+      endpos <- end - blockpos[endblock - 1]
     }
     
-    # If start and end is in the same block
-    if(startblock == endblock){
-      # Get index from the start position
-      seek(con, where = offsetindex[startblock]) # Move to the starting index chunk
-      index <- readBin(con, "raw", indexsize[startblock]) # Load the entire index chunk
-      indextype <- index[17:20]
+    # Building images
+    imglist <- list()      
+    for(i in startblock:endblock){
+      # Move to each index chunk
+      seek(con, where = offsetindex[i]) 
+      # Load the entire index chunk
+      index <- readBin(con, "raw", indexsize[i]) 
+      # index is written relative to the baseoffset
       baseoffset <- raw2num(rev(index[21:28]))
-      idxmat <- index[33:(33 + 8*nindex[startblock]-1)]
-      idxmat <- matrix(idxmat, ncol=8, byrow=T)
-      
-      # Prepare a raw vector for storing image data
-      nframes <- end - start + 1
-      img.data <- raw(img.w*img.h*nframes)
-      
-      frame.start <- baseoffset + raw2num(rev(idxmat[startpos,1:4]))
-      frame.size <- raw2num(rev(idxmat[1,5:8]))
-      frame.last <- baseoffset + raw2num(rev(idxmat[endpos,1:4])) + frame.size
-      
-      # Load a desired video region
-      seek(con, where = frame.start - 1)
-      imgrawdata <- readBin(con, "raw", frame.last-frame.start)
-      close(con)
-      
-      # Convert index into position information only
-      if(startpos==endpos) {
-        idx <- raw2num(rev(idxmat[startpos,1:4])) - raw2num(rev(idxmat[startpos,1:4])) + 1
-      }else{
-        idx <- apply(idxmat[startpos:endpos,1:4], 1, function(x) raw2num(rev(x))) - 
-        raw2num(rev(idxmat[startpos,1:4])) + 1
+      # Reshape index list into a matrix
+      idxmat <- index[33:(33 + 8*nindex[i]-1)]
+      idxmat <- matrix(idxmat, ncol=8, byrow=T)        
+      # Get the frame size, should be equal to img.w*img.h
+      frame.size <- raw2num(rev(idxmat[1,5:8])) 
+      if(img.size!=frame.size) stop("Only grayscale videos are supported")
+      # Position within the block
+      if(i == startblock) {
+        frame.start <- baseoffset + raw2num(rev(idxmat[startpos,1:4]))
+        startframe <- startpos
+      } else {
+        frame.start <- baseoffset + raw2num(rev(idxmat[1,1:4]))
+        startframe <- 1
       }
-      
-      # Extract image 
-      for(i in 1:nframes){
-        img.data[(frame.size*(i-1)+1):(frame.size*i)] <- imgrawdata[idx[i]:(idx[i]+frame.size-1)]
-      }
-      rm(imgrawdata)
-      array(as.integer(img.data), dim=c(img.w, img.h, nframes))
-      
-    } else {
-      imglist <- list()
-      
-      for(i in startblock:endblock){
-        seek(con, where = offsetindex[i]) # Move to the starting index chunk
-        index <- readBin(con, "raw", indexsize[i]) # Load the entire index chunk
-        indextype <- index[17:20]
-        baseoffset <- raw2num(rev(index[21:28]))
-        idxmat <- index[33:(33 + 8*nindex[i]-1)]
-        idxmat <- matrix(idxmat, ncol=8, byrow=T)        
-        frame.size <- raw2num(rev(idxmat[1,5:8]))
-        
-        # Position within the block
-        if(i == startblock) {
-          frame.start <- baseoffset + raw2num(rev(idxmat[startpos,1:4]))
-          startframe <- startpos
+      if(i == endblock) {
+        frame.last <- baseoffset + raw2num(rev(idxmat[endpos,1:4])) + frame.size
+        endframe <- endpos
+      } else {
+        frame.last <- baseoffset + raw2num(rev(idxmat[nrow(idxmat),1:4])) + frame.size
+        endframe <- nindex[i]
+      }        
+      # Convert index matrix into position information only (relative to the file start point)
+      idx <- apply(idxmat[startframe:endframe, 1:4, drop = FALSE], 1, function(x) raw2num(rev(x)) + baseoffset)
+      nframes <- endframe - startframe + 1
+      if(skip==0){   
+        if(all.equal(crop, c(0,0,0,0))!=T){
+          x1 <- crop[1]
+          x2 <- crop[2]
+          y1 <- crop[3]
+          y2 <- crop[4]
+          w <- x2-x1+1
+          h <- y2-y1+1
+          crop.size <- c(x2-x1+1)*c(y2-y1+1)
+          img.data <- raw(crop.size*nframes)
+          for(j in 1:nframes){
+            seek(con, where = idx[j])
+            tmpmat <- matrix(readBin(con, "raw", frame.size), ncol=img.w)
+            img.data[(crop.size*(j-1)+1):(crop.size*j)] <-  as.vector(tmpmat[x1:x2,y1:y2])
+          } 
+          frame.size <- crop.size
         } else {
-          frame.start <- baseoffset + raw2num(rev(idxmat[1,1:4]))
-          startframe <- 1
+          # Prepare a raw vector for storing image data
+          w <- img.w
+          h <- img.h
+          img.data <- raw(frame.size*nframes)    
+          
+          # Extract image 
+          for(j in 1:nframes){
+            seek(con, where = idx[j]) 
+            img.data[(frame.size*(j-1)+1):(frame.size*j)] <-  readBin(con, "raw", frame.size)
+          }
         }
-        if(i == endblock) {
-          frame.last <- baseoffset + raw2num(rev(idxmat[endpos,1:4])) + frame.size
-          endframe <- endpos
-        } else {
-          frame.last <- baseoffset + raw2num(rev(idxmat[nrow(idxmat),1:4])) + frame.size
-          endframe <- nindex[i]
+        imglist[[i]] <- array(as.integer(img.data), dim=c(w, h, nframes))
+      } else {
+        nframes <- length(seq(1, nframes, skip+1))
+        if(all.equal(crop, c(0,0,0,0))!=T){
+          x1 <- crop[1]
+          x2 <- crop[2]
+          y1 <- crop[3]
+          y2 <- crop[4]
+          w <- x2-x1+1
+          h <- y2-y1+1
+          crop.size <- c(x2-x1+1)*c(y2-y1+1)
+          img.data <- raw(crop.size*nframes)
+          for(j in 1:nframes){
+            seek(con, where = idx[1+(j-1)*skip])
+            tmpmat <- matrix(readBin(con, "raw", frame.size), ncol=img.w)
+            img.data[(crop.size*(j-1)+1):(crop.size*j)] <-  as.vector(tmpmat[x1:x2,y1:y2])
+          }
+          frame.size <- crop.size
+        } else{
+          w <- img.w
+          h <- img.h
+          img.data <- raw(frame.size*nframes)    
+          
+          # Extract image 
+          for(j in 1:nframes){
+            seek(con, where = idx[1+(j-1)*skip]) 
+            img.data[(frame.size*(j-1)+1):(frame.size*j)] <-  readBin(con, "raw", frame.size)
+          }
         }
-    
-        # Prepare a raw vector for storing image data
-        nframes <- endframe - startframe + 1
-        img.data <- raw(img.w*img.h*nframes)
-      
-        # Load the desired video region
-        seek(con, where = frame.start - 1)
-        imgrawdata <- readBin(con, "raw", frame.last-frame.start)
-
-        # Convert idxmat into a vector of position information
-        if(startframe==endframe) {
-          idx <- raw2num(rev(idxmat[startframe,1:4])) - raw2num(rev(idxmat[startframe,1:4])) + 1
-        }else{
-        idx <- apply(idxmat[startframe:endframe,1:4], 1, function(x) raw2num(rev(x))) - 
-          raw2num(rev(idxmat[startframe,1:4])) + 1
-        }
-        # Extract image 
-        for(n in 1:nframes){
-          img.data[(frame.size*(n-1)+1):(frame.size*n)] <- imgrawdata[idx[n]:(idx[n]+frame.size-1)]
-        }
-        
-        imglist[[i]] <- array(as.integer(img.data), dim=c(img.w, img.h, nframes))      
-      }
-      close(con)
-      rm(imgrawdata)
-      rm(img.data)
-      array(unlist(imglist), dim=c(img.w, img.h, end-start+1))
+        imglist[[i]] <- array(as.integer(img.data), dim=c(w, h, nframes)) 
+      }      
     }
-    
+    if(silent==F) print(paste("Read every ", skip + 1, " frames from ", start, " to ", end, " of ", total.frame, " frames", sep=""))
+    close(con)
+    rm(img.data)
+    tmpimg <- unlist(imglist)
+    array(tmpimg, dim=c(w, h, length(tmpimg)/frame.size))
   } else {
     # Old avi format
     # Get position of movi list
@@ -206,7 +213,7 @@ readAVI <- function(filepath, start=1, end=0){
       offset <- movi[[4]][1]
     }
     offset <- movi[[3]][1]
-       
+    
     # Load the index region
     idx.start <- movi[[4]][1]-1 # Start of the index
     seek(con, where = idx.start+8)
@@ -221,32 +228,77 @@ readAVI <- function(filepath, start=1, end=0){
     
     # Check the last frame
     total.frame <- raw2num(rev(header[49:52])) # For old format only
+    if(getFrames==T) {
+      close(con)
+      return(total.frame)
+    }
     if(total.frame > nrow(vididxmat)) total.frame <- nrow(vididxmat)
     if(end==0 | end > nrow(vididxmat)) end <- total.frame
-    print(paste("Read ", start, "-", end, " of ", total.frame, " frames", sep="")) 
     
     # Prepare a vector for storing image data
-    nframes <- end - start + 1
-    img.data <- raw(img.w*img.h*nframes)
-    
-    frame.start <- movi[[3]][1] + raw2num(rev(vididxmat[start,9:12])) + 4
+    nframes <- end - start + 1   
     frame.size <- raw2num(rev(vididxmat[1,13:16]))
-    frame.last <- movi[[3]][1] + raw2num(rev(vididxmat[end,9:12])) + 4 + frame.size
-    
-    # Load a desired video region
-    seek(con, where = frame.start - 1)
-    imgrawdata <- readBin(con, "raw", frame.last-frame.start)
-    close(con)
+    if(img.size!=frame.size) stop("Only grayscale videos are supported")
     
     # Convert index into position information only
-    vididx <- apply(vididxmat[start:end,9:12], 1, function(x) raw2num(rev(x))) - 
-      raw2num(rev(vididxmat[start,9:12])) + 1
+    idx <- apply(vididxmat[start:end, 9:12, drop = FALSE], 1, function(x) raw2num(rev(x))) + movi[[3]][1] + 4
     
-    # Extract image 
-    for(i in 1:nframes){
-      img.data[(frame.size*(i-1)+1):(frame.size*i)] <- imgrawdata[vididx[i]:(vididx[i]+frame.size-1)]
+    # Extract image
+    if(skip==0){     
+      if(all.equal(crop, c(0,0,0,0))!=T){
+        x1 <- crop[1]
+        x2 <- crop[2]
+        y1 <- crop[3]
+        y2 <- crop[4]
+        w <- x2-x1+1
+        h <- y2-y1+1
+        crop.size <- c(x2-x1+1)*c(y2-y1+1)
+        img.data <- raw(crop.size*nframes)
+        for(i in 1:nframes){
+          seek(con, where = idx[i]) 
+          tmpmat <- matrix(readBin(con, "raw", frame.size), ncol=img.w)
+          img.data[(crop.size*(i-1)+1):(crop.size*i)] <-  as.vector(tmpmat[x1:x2,y1:y2])
+        }   
+      } else {
+        w <- img.w
+        h <- img.h
+        # Prepare a raw vector for storing image data
+        img.data <- raw(frame.size*nframes)  
+        for(i in 1:nframes){
+          seek(con, where = idx[i]) 
+          img.data[(frame.size*(i-1)+1):(frame.size*i)] <-  readBin(con, "raw", frame.size)
+        } 
+      }
+    } else {
+      nframes <- length(seq(1, nframes, skip+1))
+      
+      if(all.equal(crop, c(0,0,0,0))!=T){
+        x1 <- crop[1]
+        x2 <- crop[2]
+        y1 <- crop[3]
+        y2 <- crop[4]
+        w <- x2-x1+1
+        h <- y2-y1+1
+        crop.size <- c(x2-x1+1)*c(y2-y1+1)
+        img.data <- raw(crop.size*nframes)
+        for(i in 1:nframes){
+          seek(con, where = idx[1+(i-1)*skip])
+          tmpmat <- matrix(readBin(con, "raw", frame.size), ncol=img.w)
+          img.data[(crop.size*(i-1)+1):(crop.size*i)] <-  as.vector(tmpmat[x1:x2,y1:y2])
+        } 
+      }else{
+        w <- img.w
+        h <- img.h
+        # Prepare a raw vector for storing image data
+        img.data <- raw(frame.size*nframes)    
+        for(i in 1:nframes){
+          seek(con, where = idx[1+(i-1)*skip]) 
+          img.data[(frame.size*(i-1)+1):(frame.size*i)] <-  readBin(con, "raw", frame.size)
+        }
+      }
     }
-    rm(imgrawdata)
-    array(as.integer(img.data), dim=c(img.w, img.h, nframes))
+    close(con)
+    if(silent==F) print(paste("Read ", start, "-", end, " of ", total.frame, " frames", sep="")) 
+    array(as.integer(img.data), dim=c(w, h, nframes))
   }
 }
